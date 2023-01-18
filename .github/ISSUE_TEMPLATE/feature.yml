@@ -1,0 +1,35 @@
+name: Feature
+description: A new shiny big feature
+labels: ["feature"]
+body:
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature
+      description: "Describe the feature thoroughly"
+    validations:
+      required: false
+  - type: input
+    id: subsystem
+    attributes:
+      label: Subsystem
+      description: "Which subsystem does this feature affect?"
+      placeholder: "Drivetrain"
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Useful Knowledge
+      description: "Steps, links to documentation, etc..."
+    validations:
+      required: false
+  - type: checkboxes
+    id: tagged
+    attributes:
+      label: Last Check
+      options:
+        - label: I have labelled this issue with the priority and correct subsystem.
+          required: true
+        - label: This is a feature (a big thing), rather than a smaller enhancement
+          required: true

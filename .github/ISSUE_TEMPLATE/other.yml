@@ -1,0 +1,34 @@
+name: Other
+description: A last resort option for somthing else not covered by this list of forms
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe
+      description: "What's new?"
+    validations:
+      required: false
+  - type: input
+    id: subsystem
+    attributes:
+      label: Subsystem
+      description: "Which subsystem does this feature affect?"
+      placeholder: "Drivetrain"
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Useful Knowledge
+      description: "Steps, links to documentation, etc..."
+    validations:
+      required: false
+  - type: checkboxes
+    id: tagged
+    attributes:
+      label: Last Check
+      options:
+        - label: I have labelled this issue with the priority and correct subsystem.
+          required: true
+        - label: I understand that if I should have used one of the other forms, but instead used this one, I will have to run 3 laps outside, around the track, with the whole team watching.
+          required: true

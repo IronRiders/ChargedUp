@@ -1,0 +1,61 @@
+name: Issue Report
+description: Something ain't workin' good
+labels: ["issue"]
+body:
+  - type: textarea
+    id: descibe
+    attributes:
+      label: Description
+      description: "Describe the issue; What went wrong?"
+      placeholder: "The robot went up in flames"
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: "How do you reproduce the issue?"
+      placeholder: "Tell us what you see!"
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: "What should have happened?"
+    validations:
+      required: false
+  - type: input
+    id: branch
+    attributes:
+      label: Branch
+      description: "Which branch is this on?"
+    validations:
+      required: false
+  - type: input
+    id: time
+    attributes:
+      label: Time
+      description: "When did this happen?"
+      placeholder: "Yesterday when we were testing the auto code"
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: "Other things to know?"
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Copy and paste any errors (like compilation errors) here.
+  - type: checkboxes
+    id: tagged
+    attributes:
+      label: Tagged?
+      options:
+        - label: I have labelled this issue with the priority and correct subsystem.
+          required: true

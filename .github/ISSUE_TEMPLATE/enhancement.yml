@@ -1,0 +1,33 @@
+name: Enhancement
+description: A smaller, nicer new thing
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: enhancement
+    attributes:
+      label: Descrition
+      description: "Describe the enhancement thoroughly"
+    validations:
+      required: false
+  - type: input
+    id: subsystem
+    attributes:
+      label: Subsystem
+      description: "Which subsystem does this enhancement affect?"
+      placeholder: "Drivetrain"
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Useful Knowledge
+      description: "Steps, links to documentation, etc..."
+    validations:
+      required: false
+  - type: checkboxes
+    id: tagged
+    attributes:
+      label: Last Check
+      options:
+        - label: I have labelled this issue with the priority and correct subsystem.
+          required: true
