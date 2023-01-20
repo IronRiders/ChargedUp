@@ -1,0 +1,10 @@
+name: 🦐 Build
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: FRC Build
+      uses: LinusSkucas/frc-build@v1.3
