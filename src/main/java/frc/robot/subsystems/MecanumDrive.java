@@ -13,31 +13,34 @@ import frc.robot.Constants;
 
 public class MecanumDrive extends SubsystemBase {
   private boolean inverted;
-  private CANSparkMax[] motors;
+  private CANSparkMax frontLeftMotor;
+  private CANSparkMax backLeftMotor;
+  private CANSparkMax frontRightMotor;
+  private CANSparkMax backRightMotor;
 
   private final MecanumDriveKinematics kinematics;
 
   public MecanumDrive() {
-    this.motors = new CANSparkMax[4];
-    this.motors[0] = new CANSparkMax(Constants.WHEEL_PORT_FRONT_LEFT, MotorType.kBrushless);
-    this.motors[1] = new CANSparkMax(Constants.WHEEL_PORT_FRONT_RIGHT, MotorType.kBrushless);
-    this.motors[2] = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
+    frontLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_LEFT, MotorType.kBrushless);
+    frontRightMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_RIGHT, MotorType.kBrushless);
+    backLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
+    backRightMotor = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
 
-    this.motors[0].setInverted(true);
-    this.motors[1].setInverted(false);
-    this.motors[2].setInverted(true);
-    this.motors[3].setInverted(false);
+    frontLeftMotor.setInverted(true);
+    frontRightMotor.setInverted(false);
+    backLeftMotor.setInverted(true);
+    backRightMotor.setInverted(false);
     inverted = false;
 
-    motors[0].setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
-    motors[1].setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
-    motors[2].setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
-    motors[3].setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
+    frontLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
+    frontRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
+    backLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
+    backRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
 
-    motors[0].setIdleMode(IdleMode.kBrake);
-    motors[1].setIdleMode(IdleMode.kBrake);
-    motors[2].setIdleMode(IdleMode.kBrake);
-    motors[3].setIdleMode(IdleMode.kBrake);
+    frontLeftMotor.setIdleMode(IdleMode.kBrake);
+    frontRightMotor.setIdleMode(IdleMode.kBrake);
+    backLeftMotor.setIdleMode(IdleMode.kBrake);
+    backRightMotor.setIdleMode(IdleMode.kBrake);
 
     // meter per second
     kinematics =
@@ -71,19 +74,19 @@ public class MecanumDrive extends SubsystemBase {
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turn * -Constants.TURN_SPEED);
     MecanumDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-    this.motors[0].set(
+    this.frontLeftMotor.set(
         wheelSpeeds.frontLeftMetersPerSecond
             * Constants.DRIVE_SPEED_MULT
             / Constants.MOVEMENT_SPEED);
-    this.motors[1].set(
+    this.frontRightMotor.set(
         wheelSpeeds.frontRightMetersPerSecond
             * Constants.DRIVE_SPEED_MULT
             / Constants.MOVEMENT_SPEED);
-    this.motors[2].set(
+    this.backLeftMotor.set(
         wheelSpeeds.rearLeftMetersPerSecond
             * Constants.DRIVE_SPEED_MULT
             / Constants.MOVEMENT_SPEED);
-    this.motors[3].set(
+    this.backRightMotor.set(
         wheelSpeeds.rearRightMetersPerSecond
             * Constants.DRIVE_SPEED_MULT
             / Constants.MOVEMENT_SPEED);
