@@ -4,12 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.ManipulatorSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.ManipulatorSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // Subsystems 
+  // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -31,9 +27,7 @@ public class RobotContainer {
   }
 
   // Bind triggers to Commands
-  private void configureBindings() {
-    
-  }
+  private void configureBindings() {}
 
   // public Command getAutonomousCommand() {
   // }
