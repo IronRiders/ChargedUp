@@ -4,26 +4,26 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
 public class ReleaseManipulatorCommand extends CommandBase {
-    private final ManipulatorSubsystem manipulatorSubsystem;
+  private final ManipulatorSubsystem manipulatorSubsystem;
 
-    public ReleaseManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem) {
-        this.manipulatorSubsystem = manipulatorSubsystem;
+  public ReleaseManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem) {
+    this.manipulatorSubsystem = manipulatorSubsystem;
 
-        addRequirements(manipulatorSubsystem);
-    }
+    addRequirements(manipulatorSubsystem);
+  }
 
-    @Override
-    public void initialize() {
-        manipulatorSubsystem.release();
-    }
+  @Override
+  public void initialize() {
+    manipulatorSubsystem.release();
+  }
 
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 
-    @Override
-    public void end(boolean interrupted) {
-        manipulatorSubsystem.stop();
-    }
+  @Override
+  public void end(boolean interrupted) {
+    manipulatorSubsystem.stop();
+  }
 }
