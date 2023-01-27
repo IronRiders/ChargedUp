@@ -44,9 +44,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    new JoystickButton(controllerHID, 9)
-        .onTrue(new GrabManipulatorCommand(manipulator));
-    
+    new JoystickButton(controllerHID, 9).onTrue(new GrabManipulatorCommand(manipulator));
   }
 
   // Bind triggers to Commands
