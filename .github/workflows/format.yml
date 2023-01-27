@@ -1,14 +1,16 @@
-name: Format
+name: 🗼 Format
 
 on: [pull_request]
 
 jobs:
-
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 # v2 minimum required
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - uses: axel-op/googlejavaformat-action@v3
         with:
-          commit-message: "Format"
-          args: "--skip-sorting-imports --replace"
+           commit-message: "Format"
+           args: "--skip-sorting-imports --replace"
