@@ -48,10 +48,8 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
-    new JoystickButton(controllerHID, 9)
-        .onTrue(new GrabManipulatorCommand(manipulator));
-    new JoystickButton(controllerHID, 10)
-        .onTrue(new ReleaseManipulatorCommand(manipulator));
+    new JoystickButton(controllerHID, 9).onTrue(new GrabManipulatorCommand(manipulator));
+    new JoystickButton(controllerHID, 10).onTrue(new ReleaseManipulatorCommand(manipulator));
   }
 
   // public Command getAutonomousCommand() {
