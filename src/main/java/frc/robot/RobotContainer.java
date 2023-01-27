@@ -4,9 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -19,7 +17,7 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // Subsystems 
+  // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final MecanumDrive drive = new MecanumDrive();
 
