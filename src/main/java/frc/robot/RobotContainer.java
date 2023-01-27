@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GrabManipulatorCommand;
+import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -43,14 +44,15 @@ public class RobotContainer {
 
     // Configure the trigger bindings
     configureBindings();
-
-    new JoystickButton(controllerHID, 9)
-        .onTrue(new GrabManipulatorCommand(manipulator));
-    
   }
 
   // Bind triggers to Commands
-  private void configureBindings() {}
+  private void configureBindings() {
+    new JoystickButton(controllerHID, 9)
+        .onTrue(new GrabManipulatorCommand(manipulator));
+    new JoystickButton(controllerHID, 10)
+        .onTrue(new ReleaseManipulatorCommand(manipulator));
+  }
 
   // public Command getAutonomousCommand() {
   // }
