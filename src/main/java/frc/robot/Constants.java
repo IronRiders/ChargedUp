@@ -1,6 +1,8 @@
 package frc.robot;
 
 public final class Constants {
+
+  //Manipulator
   public static final int MANIPULATOR_PORT1 = 9;
   public static final int MANIPULATOR_PORT2 = 10;
   public static final double MANIPULATOR_POWER = 1.0;
@@ -22,4 +24,5 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_LEFT = 3;
   public static final int WHEEL_PORT_FRONT_RIGHT = 2;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
+  
 }
