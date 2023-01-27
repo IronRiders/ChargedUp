@@ -1,6 +1,11 @@
 package frc.robot;
 
 public final class Constants {
+  public static final int MANIPULATOR_PORT1 = 9;
+  public static final int MANIPULATOR_PORT2 = 10;
+  public static final double MANIPULATOR_POWER = 1.0;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
+
   // Joystick
   public static final double DEADBAND = 0.06;
   public static final double EXPONENT = 0.1; // between 0 and 1
