@@ -5,11 +5,9 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
@@ -27,7 +25,6 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);
- 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -44,8 +41,6 @@ public class RobotContainer {
 
     // Configure the trigger bindings
     configureBindings();
-
-    
   }
 
   // Bind triggers to Commands
