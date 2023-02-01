@@ -5,6 +5,13 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
+
+import java.sql.Driver;
+
+import com.ctre.phoenix.sensors.Pigeon2;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -22,6 +29,7 @@ public class RobotContainer {
   // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final MecanumDrive drive = new MecanumDrive();
+  public final Pigeon2 pigeon = new Pigeon2(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);

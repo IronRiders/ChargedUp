@@ -42,7 +42,7 @@ public class MecanumDrive extends SubsystemBase {
     backLeftMotor.setIdleMode(IdleMode.kBrake);
     backRightMotor.setIdleMode(IdleMode.kBrake);
 
-    // meter per second
+    // Meter per second
     kinematics =
         new MecanumDriveKinematics(
             new Translation2d(0.28575, 0.2267),
