@@ -20,7 +20,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     boxClimberMotor = new CANSparkMax(Constants.ARM_PORT1, MotorType.kBrushless);
     boxClimberMotor.setIdleMode(IdleMode.kBrake);
-
     boxClimberMotor.setSmartCurrentLimit(currentLimit);
 
     armMotor = new CANSparkMax(Constants.ARM_PORT2, MotorType.kBrushless);
@@ -34,6 +33,9 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void setBoxClimberMotor(double speed) {
         boxClimberMotor.set(speed);
+    }
+
+    public void setArmMotor(double speed) {
         armMotor.set(speed);
     }
 

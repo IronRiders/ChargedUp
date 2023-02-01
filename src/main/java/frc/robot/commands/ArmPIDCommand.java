@@ -26,7 +26,7 @@ public class ArmPIDCommand extends CommandBase {
   @Override
   public void execute() {
     double speed = pidController.calculate(armSubsystem.getEncoderDistance(), setpoint);
-    armSubsystem.setBoxClimberMotor(speed);
+    armSubsystem.setArmMotor(speed);
   }
 
   @Override

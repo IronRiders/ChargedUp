@@ -46,8 +46,6 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
-    new JoystickButton(controller, 1)
-      .whenHeld(new ArmPIDCommand(arm, 0))
   }
 
   // public Command getAutonomousCommand() {
