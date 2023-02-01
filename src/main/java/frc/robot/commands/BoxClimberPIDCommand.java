@@ -15,13 +15,13 @@ public class BoxClimberPIDCommand extends CommandBase {
         this.setpoint = setpoint;
         pidController.setSetpoint(setpoint);
 
-        addRequirements(armSubsystem);
-    }
+    addRequirements(armSubsystem);
+  }
 
-    @Override
-    public void initialize() {
-        pidController.reset();
-    }
+  @Override
+  public void initialize() {
+    pidController.reset();
+  }
 
     @Override
     public void execute() {
@@ -29,7 +29,7 @@ public class BoxClimberPIDCommand extends CommandBase {
         armSubsystem.setBoxClimberMotor(speed);
     }
 
-    @Override
+  @Override
   public boolean isFinished() {
     return false;
   }
