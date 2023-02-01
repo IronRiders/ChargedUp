@@ -8,6 +8,8 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ArmPIDCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -20,6 +22,7 @@ public class RobotContainer {
   // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final MecanumDrive drive = new MecanumDrive();
+  public final ArmSubsystem arm = new ArmSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);
@@ -42,7 +45,10 @@ public class RobotContainer {
   }
 
   // Bind triggers to Commands
-  private void configureBindings() {}
+  private void configureBindings() {
+    new JoystickButton(controller, 1)
+      .whenHeld(new ArmPIDCommand(arm, 0))
+  }
 
   // public Command getAutonomousCommand() {
   // }
