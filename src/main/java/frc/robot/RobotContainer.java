@@ -6,10 +6,12 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ArmPIDCommand;
+import frc.robot.commands.RaiseLowerPIDCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -46,6 +48,10 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
+    controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
+    controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
+    controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
+    controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
   }
 
   // public Command getAutonomousCommand() {

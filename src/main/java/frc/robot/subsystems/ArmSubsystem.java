@@ -39,6 +39,22 @@ public class ArmSubsystem extends SubsystemBase {
         armMotor.set(speed);
     }
 
+    public void extend() {
+        boxClimberMotor.set(Constants.BOX_CLIMBER_MOTOR_POWER);
+    }
+
+    public void retract() {
+        boxClimberMotor.set(-Constants.BOX_CLIMBER_MOTOR_POWER);
+    }
+
+    public void raise() {
+        armMotor.set(Constants.ARM_MOTOR_POWER);
+    }
+
+    public void lower() {
+        armMotor.set(-Constants.ARM_MOTOR_POWER);
+    }
+
     public void stop() {
         boxClimberMotor.set(0);
         armMotor.set(0);

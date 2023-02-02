@@ -6,6 +6,10 @@ public final class Constants {
   public static final double MANIPULATOR_POWER = 1.0;
   public static final int MANIPULATOR_CURRENT_LIMIT = 10;
 
+  //Arm
+  public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
+  public static final double ARM_MOTOR_POWER = 1.0;
+
   // Joystick
   public static final double DEADBAND = 0.06;
   public static final double EXPONENT = 0.1; // between 0 and 1
