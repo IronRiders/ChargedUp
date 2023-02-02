@@ -7,6 +7,7 @@ import frc.robot.subsystems.ManipulatorSubsystem.GrabObject;
 public class ReleaseManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
   boolean grabcone;
+
   public ReleaseManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, boolean grabcone) {
     this.manipulatorSubsystem = manipulatorSubsystem;
     this.grabcone = grabcone;
@@ -15,11 +16,11 @@ public class ReleaseManipulatorCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    if(grabcone){
+    if (grabcone) {
       manipulatorSubsystem.release(GrabObject.CONE);
-    }else{
-    manipulatorSubsystem.release(GrabObject.BOX);
-    } 
+    } else {
+      manipulatorSubsystem.release(GrabObject.BOX);
+    }
   }
 
   @Override
