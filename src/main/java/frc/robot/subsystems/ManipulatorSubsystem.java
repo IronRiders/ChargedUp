@@ -20,14 +20,43 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
     manipulatorMotor2.setIdleMode(IdleMode.kBrake);
     manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
-  }
 
-  public void grab() {
+
+
+
+    
+  }
+  public enum GrabObject {
+    CONE, BOX
+    }
+
+    GrabObject grabObject;
+    
+    public void setGrabCurrentLimit(GrabObject grabObject) {
+      switch (grabObject) {
+        case CONE:
+          manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);        
+          manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);
+            break;
+                   
+        case BOX:
+          manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_BOX);
+          manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_BOX);
+            break;
+               
+        }
+      }
+
+  
+  public void grab(GrabObject object) {
+    setGrabCurrentLimit(object);
     manipulatorMotor1.set(Constants.MANIPULATOR_POWER);
     manipulatorMotor2.set(-Constants.MANIPULATOR_POWER);
   }
 
-  public void release() {
+
+  public void release(GrabObject object) {
+    setGrabCurrentLimit(object);
     manipulatorMotor1.set(-Constants.MANIPULATOR_POWER);
     manipulatorMotor2.set(Constants.MANIPULATOR_POWER);
   }

@@ -5,6 +5,8 @@ public final class Constants {
   public static final int MANIPULATOR_PORT2 = 10;
   public static final double MANIPULATOR_POWER = 1.0;
   public static final int MANIPULATOR_CURRENT_LIMIT = 10;
+  public static final int MANIPULATOR_CURRENT_LIMIT_CONE = 10;
+  public static final int MANIPULATOR_CURRENT_LIMIT_BOX = 10;
 
   // Joystick
   public static final double DEADBAND = 0.06;
