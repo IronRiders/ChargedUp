@@ -5,15 +5,15 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
-
-
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.ResetYaw;
 import frc.robot.subsystems.*;
 
 /**
@@ -26,7 +26,6 @@ public class RobotContainer {
   // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final MecanumDrive drive = new MecanumDrive();
-  public final Pigeon2 pigeon = new Pigeon2(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);
@@ -46,12 +45,18 @@ public class RobotContainer {
 
     // Configure the trigger bindings
     configureBindings();
+    setUpShuffleBoard();
   }
 
   // Bind triggers to Commands
   private void configureBindings() {
     controller.button(9).onTrue(new GrabManipulatorCommand(manipulator));
     controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
+  }
+
+  // Set Shuffleboard
+  private void setUpShuffleBoard() {
+    SmartDashboard.putData("Reset Yaw", new ResetYaw());
   }
 
   // public Command getAutonomousCommand() {

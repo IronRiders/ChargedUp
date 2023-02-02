@@ -1,7 +1,6 @@
 package frc.robot;
 
 public final class Constants {
-
   // Manipulator
   public static final int MANIPULATOR_PORT1 = 9;
   public static final int MANIPULATOR_PORT2 = 10;
@@ -24,4 +23,10 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_LEFT = 3;
   public static final int WHEEL_PORT_FRONT_RIGHT = 2;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
+
+  // Straighten Robot
+  public static final double STRAIGHTEN_ROBOT_P = 0.02;
+  public static final double STRAIGHTEN_ROBOT_I = 0;
+  public static final double STRAIGHTEN_ROBOT_D = 0;
+  public static final double STRAIGHTEN_TALORNCE_ANGLE = 5;
 }
