@@ -50,6 +50,7 @@ public class RobotContainer {
     controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, false)); //Button For Grabbing Boxes
     controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator, true)); //Button For Releasing Cones
     controller.button(34).onTrue(new ReleaseManipulatorCommand(manipulator, false)); //Button For Releasing Boxes
+
   }
 
   // public Command getAutonomousCommand() {
