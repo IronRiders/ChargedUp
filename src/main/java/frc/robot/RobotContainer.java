@@ -5,7 +5,8 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.subsystems.GrabObject;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -46,10 +47,9 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
-    controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, true)); //Button For Grabbing Cones
-    controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, false)); //Button For Grabbing Boxes
-    controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator, true)); //Button For Releasing Cones
-    controller.button(34).onTrue(new ReleaseManipulatorCommand(manipulator, false)); //Button For Releasing Boxes
+    controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE)); //Button For Grabbing Cones
+    controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX)); //Button For Grabbing Boxes
+    controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator)); //Button For Releasing  
   }
 
   // public Command getAutonomousCommand() {

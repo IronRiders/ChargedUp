@@ -26,11 +26,9 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
     
   }
-  public enum GrabObject {
-    CONE, BOX
-    }
+  GrabObject grabObject;
+    
 
-    GrabObject grabObject;
     
     public void setGrabCurrentLimit(GrabObject grabObject) {
       switch (grabObject) {
@@ -55,8 +53,8 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
 
-  public void release(GrabObject object) {
-    setGrabCurrentLimit(object);
+  public void release() {
+    
     manipulatorMotor1.set(-Constants.MANIPULATOR_POWER);
     manipulatorMotor2.set(Constants.MANIPULATOR_POWER);
   }
