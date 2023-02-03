@@ -10,6 +10,7 @@ import frc.robot.subsystems.GrabObject;
 public class GrabManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
   private final Enum coneGraber;
+  
   public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject coneGraber) {
     this.manipulatorSubsystem = manipulatorSubsystem;
     this.coneGraber = coneGraber;
