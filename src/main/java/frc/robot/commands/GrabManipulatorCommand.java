@@ -4,11 +4,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
 
-
 public class GrabManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
   private final Enum coneGraber;
-  
+
   public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject coneGraber) {
     this.manipulatorSubsystem = manipulatorSubsystem;
     this.coneGraber = coneGraber;
@@ -17,7 +16,7 @@ public class GrabManipulatorCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    if(coneGraber == GrabObject.CONE ){
+    if (coneGraber == GrabObject.CONE) {
       manipulatorSubsystem.grab(GrabObject.CONE);
     } else {
       manipulatorSubsystem.grab(GrabObject.BOX);

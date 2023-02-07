@@ -21,19 +21,18 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor2.setIdleMode(IdleMode.kBrake);
     manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
   }
-    
-  public void setGrabCurrentLimit (GrabObject grabObject) {
+
+  public void setGrabCurrentLimit(GrabObject grabObject) {
     switch (grabObject) {
       case CONE:
-        manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);        
+        manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);
         manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);
-          break;
-                  
+        break;
+
       case BOX:
         manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_BOX);
         manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_BOX);
-          break;
-              
+        break;
     }
   }
 
@@ -42,7 +41,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor1.set(Constants.MANIPULATOR_POWER);
     manipulatorMotor2.set(-Constants.MANIPULATOR_POWER);
   }
-
 
   public void release() {
     manipulatorMotor1.set(-Constants.MANIPULATOR_POWER);
