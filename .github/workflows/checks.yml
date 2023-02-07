@@ -1,4 +1,4 @@
-name: 🗼 Format
+name: 🗼 Build and Format
 
 on: [pull_request]
 
@@ -15,3 +15,9 @@ jobs:
            github-token: ${{ secrets.TOKEN }}
            commit-message: "Format"
            args: "--skip-sorting-imports --replace"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: FRC Build
+      uses: LinusSkucas/frc-build@v1.3

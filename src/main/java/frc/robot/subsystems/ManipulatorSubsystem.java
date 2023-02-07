@@ -37,7 +37,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
     }
   }
 
-  
   public void grab(GrabObject object) {
     setGrabCurrentLimit(object);
     manipulatorMotor1.set(Constants.MANIPULATOR_POWER);

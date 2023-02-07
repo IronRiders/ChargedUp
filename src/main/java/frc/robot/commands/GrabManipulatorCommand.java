@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
@@ -21,7 +19,7 @@ public class GrabManipulatorCommand extends CommandBase {
   public void initialize() {
     if(coneGraber == GrabObject.CONE ){
       manipulatorSubsystem.grab(GrabObject.CONE);
-    } else{
+    } else {
       manipulatorSubsystem.grab(GrabObject.BOX);
     }
   }
