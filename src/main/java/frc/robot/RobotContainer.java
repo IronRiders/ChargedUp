@@ -10,8 +10,6 @@ import frc.robot.subsystems.GrabObject;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import frc.robot.commands.GrabManipulatorCommand;
-import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -47,9 +45,11 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
+
     controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE)); //Button For Grabbing Cones
     controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX)); //Button For Grabbing Boxes
     controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator)); //Button For Releasing  
+
   }
 
   // public Command getAutonomousCommand() {
