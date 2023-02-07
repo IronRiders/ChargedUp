@@ -46,10 +46,17 @@ public class RobotContainer {
   // Bind triggers to Commands
   private void configureBindings() {
 
-    controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE)); //Button For Grabbing Cones
-    controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX)); //Button For Grabbing Boxes
-    controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator)); //Button For Releasing  
-
+    controller
+        .button(31)
+        .onTrue(
+            new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
+    controller
+        .button(32)
+        .onTrue(
+            new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
+    controller
+        .button(33)
+        .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
 
   // public Command getAutonomousCommand() {
