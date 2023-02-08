@@ -19,7 +19,6 @@ public final class Constants {
   public static final double MOVEMENT_SPEED = 1; // meters per second
   public static final double TURN_SPEED = 1; // radians per second
 
-
   // Ports
   public static final int WHEEL_PORT_FRONT_LEFT = 1;
   public static final int WHEEL_PORT_REAR_LEFT = 3;
