@@ -16,10 +16,8 @@ public class DifferentialDrive extends SubsystemBase {
   // creates variables & motors
   private boolean inverted;
   private CANSparkMax frontLeftMotor;
-  private CANSparkMax middleLeftMotor;
   private CANSparkMax backLeftMotor;
   private CANSparkMax frontRightMotor;
-  private CANSparkMax middleRightMotor;
   private CANSparkMax backRightMotor;
 
   private final DifferentialDriveKinematics kinematics;
@@ -28,16 +26,12 @@ public class DifferentialDrive extends SubsystemBase {
     // Assigns motors to variables
     frontLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_LEFT, MotorType.kBrushless);
     frontRightMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_RIGHT, MotorType.kBrushless);
-    middleLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_LEFT, MotorType.kBrushless);
-    middleRightMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_RIGHT, MotorType.kBrushless);
     backLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
     backRightMotor = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
 
     // sets inverted for motors
     frontLeftMotor.setInverted(true);
     frontRightMotor.setInverted(false);
-    middleLeftMotor.setInverted(true);
-    middleRightMotor.setInverted(false);
     backLeftMotor.setInverted(true);
     backRightMotor.setInverted(false);
     inverted = false;
@@ -45,16 +39,12 @@ public class DifferentialDrive extends SubsystemBase {
     // Set all motor current limit
     frontLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     frontRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
-    middleLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
-    middleRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     backLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     backRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
 
     // Set all motors to break
     frontLeftMotor.setIdleMode(IdleMode.kBrake);
     frontRightMotor.setIdleMode(IdleMode.kBrake);
-    middleLeftMotor.setIdleMode(IdleMode.kBrake);
-    middleRightMotor.setIdleMode(IdleMode.kBrake);
     backLeftMotor.setIdleMode(IdleMode.kBrake);
     backRightMotor.setIdleMode(IdleMode.kBrake);
 
@@ -92,10 +82,10 @@ public class DifferentialDrive extends SubsystemBase {
     double rightVelocity = wheelSpeeds.rightMetersPerSecond;
     // Motor control groups
     MotorControllerGroup leftMotors =
-        new MotorControllerGroup(backLeftMotor, middleLeftMotor, frontLeftMotor);
+        new MotorControllerGroup(backLeftMotor, frontLeftMotor);
 
     MotorControllerGroup rightMotors =
-        new MotorControllerGroup(backRightMotor, middleRightMotor, frontRightMotor);
+        new MotorControllerGroup(backRightMotor, frontRightMotor);
     // Set velocity
     leftMotors.set(leftVelocity);
     rightMotors.set(rightVelocity);

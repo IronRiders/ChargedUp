@@ -22,8 +22,8 @@ public class RobotContainer {
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
 
   // one of the two following lines of code must be commented out at all times
-  public final DiferentialDrive drive = new DiferentialDrive();
-  // public final MecanumDrive drive = new MecanumDrive();
+  //public final DifferentialDrive drive = new DifferentialDrive();
+  public final MecanumDrive drive = new MecanumDrive();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);
