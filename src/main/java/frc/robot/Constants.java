@@ -25,8 +25,6 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
 
   // Straighten Robot
-  public static final double STRAIGHTEN_ROBOT_P = 0.02;
-  public static final double STRAIGHTEN_ROBOT_I = 0;
-  public static final double STRAIGHTEN_ROBOT_D = 0;
+  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.5;
   public static final double STRAIGHTEN_TALORNCE_ANGLE = 5;
 }

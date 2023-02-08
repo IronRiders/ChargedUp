@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.ResetYaw;
+import frc.robot.commands.ResetYawCommand;
+import frc.robot.commands.StraightenRobotCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -55,17 +56,12 @@ public class RobotContainer {
   private void configureBindings() {
     controller.button(9).onTrue(new GrabManipulatorCommand(manipulator));
     controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
+    controller.button(4).onTrue(new StraightenRobotCommand(drive));
   }
 
-  private Sendable test() {
-    return new Sendable() {
-      drive.pigeon.setYaw(0);
-    };
-  }
-
-  // Set Shuffleboard
+  // Set up Shuffleboard
   private void setUpShuffleBoard() {
-    SmartDashboard.put
+    SmartDashboard.putData("Reset Yaw", new ResetYawCommand());
   }
 
   // public Command getAutonomousCommand() {
