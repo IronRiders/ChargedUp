@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -10,6 +11,8 @@ import frc.robot.Constants;
 public class ManipulatorSubsystem extends SubsystemBase {
   private CANSparkMax manipulatorMotor1;
   private CANSparkMax manipulatorMotor2;
+
+  RelativeEncoder manipulatorMotor1Encoder = manipulatorMotor1.getEncoder();
 
   public ManipulatorSubsystem() {
     manipulatorMotor1 = new CANSparkMax(Constants.MANIPULATOR_PORT1, MotorType.kBrushless);
@@ -30,6 +33,15 @@ public class ManipulatorSubsystem extends SubsystemBase {
   public void release() {
     manipulatorMotor1.set(-Constants.MANIPULATOR_POWER);
     manipulatorMotor2.set(Constants.MANIPULATOR_POWER);
+  }
+
+  public double getManipulatorMotor1EncoderDistance() {
+    return manipulatorMotor1Encoder.getPosition();
+  }
+
+  public void setManipulatorMotors(double speed) {
+    manipulatorMotor1.set(speed);
+    manipulatorMotor2.set(-speed);
   }
 
   // Create a method that stops the climbers from moving

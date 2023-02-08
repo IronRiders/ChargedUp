@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.RaiseLowerPIDCommand;
+import frc.robot.commands.ArmRaiseLowerPIDCommand;
 import frc.robot.subsystems.*;
 
 /**

@@ -14,6 +14,7 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armMotor;
 
   RelativeEncoder boxClimberMotorEncoder = boxClimberMotor.getEncoder();
+  RelativeEncoder armMotorEncoder = armMotor.getEncoder();
 
   public ArmSubsystem() {
     int currentLimit = 10;
@@ -27,8 +28,12 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.setSmartCurrentLimit(currentLimit);
     }
 
-    public double getEncoderDistance() {
+    public double getBoxClimberEncoderDistance() {
         return boxClimberMotorEncoder.getPosition();
+    }
+
+    public double getArmMotorEncoderDistance() {
+        return armMotorEncoder.getPosition();
     }
 
     public void setBoxClimberMotor(double speed) {
