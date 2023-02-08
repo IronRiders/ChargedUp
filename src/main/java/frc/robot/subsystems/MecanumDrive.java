@@ -52,7 +52,6 @@ public class MecanumDrive extends SubsystemBase {
             new Translation2d(0.28575, -0.2267),
             new Translation2d(-0.28575, 0.2267),
             new Translation2d(-0.28575, -0.2267));
-            
   }
 
   public void invertDrive() {

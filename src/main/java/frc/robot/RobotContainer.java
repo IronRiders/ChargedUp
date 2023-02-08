@@ -41,7 +41,7 @@ public class RobotContainer {
                     true,
                     true),
             drive));
-            
+
     // Configure the trigger bindings
     configureBindings();
   }
