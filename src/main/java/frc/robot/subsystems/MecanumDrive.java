@@ -53,12 +53,11 @@ public class MecanumDrive extends SubsystemBase {
             new Translation2d(-0.28575, 0.2267),
             new Translation2d(-0.28575, -0.2267));
 
-    ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-    2.0, 2.0, Math.PI / 2.0, pigeon.getRotation2d());
-            
-     // Now use this in our kinematics
+    ChassisSpeeds speeds =
+        ChassisSpeeds.fromFieldRelativeSpeeds(2.0, 2.0, Math.PI / 2.0, pigeon.getRotation2d());
+
+    // Now use this in our kinematics
     MecanumDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(speeds);
-            
   }
 
   public void invertDrive() {
@@ -74,19 +73,22 @@ public class MecanumDrive extends SubsystemBase {
     SmartDashboard.putData("Reset Yaw", new ResetYawCommand(this));
   }
 
-  public void updateSpeed(double strafe, double drive, double turn, boolean useInverted, boolean useFieldCentricDrive) {
+  public void updateSpeed(
+      double strafe, double drive, double turn, boolean useInverted, boolean useFieldCentricDrive) {
     double xSpeed = drive * Constants.MOVEMENT_SPEED;
     double ySpeed = strafe * Constants.MOVEMENT_SPEED;
     if (useInverted && inverted) {
       xSpeed = -xSpeed;
       ySpeed = -ySpeed;
     }
-    
+
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turn * -Constants.TURN_SPEED);
     if (useFieldCentricDrive) {
-      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turn * -Constants.TURN_SPEED, pigeon.getRotation2d());
+      chassisSpeeds =
+          ChassisSpeeds.fromFieldRelativeSpeeds(
+              xSpeed, ySpeed, turn * -Constants.TURN_SPEED, pigeon.getRotation2d());
     }
-    
+
     MecanumDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
     this.frontLeftMotor.set(
