@@ -70,7 +70,7 @@ public class MecanumDrive extends SubsystemBase {
       xSpeed = -xSpeed;
       ySpeed = -ySpeed;
     }
-    
+
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turn * -Constants.TURN_SPEED);
     MecanumDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
@@ -90,9 +90,7 @@ public class MecanumDrive extends SubsystemBase {
         wheelSpeeds.rearRightMetersPerSecond
             * Constants.DRIVE_SPEED_MULT
             / Constants.MOVEMENT_SPEED);
-  
   }
-
 
   public void stop() {
     updateSpeed(0, 0, 0, false);

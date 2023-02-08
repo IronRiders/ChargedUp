@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -47,6 +46,7 @@ public class DiferentialDrive extends SubsystemBase {
     // creating diferential drive kinematics with track width of 0.5715 m
     kinematics = new DifferentialDriveKinematics(0.5715);
   }
+
   public void invertDrive() {
     inverted = !inverted;
   }
@@ -66,14 +66,14 @@ public class DiferentialDrive extends SubsystemBase {
     }
 
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, 0, turn * -Constants.TURN_SPEED);
-    
+
     // Convert to wheel speeds
     DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-// Left velocity
+    // Left velocity
     double leftVelocity = wheelSpeeds.leftMetersPerSecond;
 
-// Right velocity
+    // Right velocity
     double rightVelocity = wheelSpeeds.rightMetersPerSecond;
 
     MotorControllerGroup leftMotors = new MotorControllerGroup(backLeftMotor, frontLeftMotor);
@@ -88,4 +88,3 @@ public class DiferentialDrive extends SubsystemBase {
     updateSpeed(0, 0, 0, false);
   }
 }
-
