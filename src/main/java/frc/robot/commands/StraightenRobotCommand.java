@@ -19,6 +19,7 @@ public class StraightenRobotCommand extends CommandBase {
         0,
         (mecanumDrive.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
             * Constants.STRAIGHTEN_ROBOT_TURN_SPEED,
+        false,
         false);
   }
 
