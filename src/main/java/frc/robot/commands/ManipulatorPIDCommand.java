@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
 public class ManipulatorPIDCommand extends CommandBase {
@@ -11,7 +12,7 @@ public class ManipulatorPIDCommand extends CommandBase {
 
   public ManipulatorPIDCommand(ManipulatorSubsystem manipulatorSubsystem, double setpoint) {
     this.manipulatorSubsystem = manipulatorSubsystem;
-    this.pidController = new PIDController(0, 0, 0);
+    this.pidController = new PIDController(Constants.MANIPULATOR_PID_KP, Constants.MANIPULATOR_PID_KI, Constants.MANIPULATOR_PID_KD);
     this.setpoint = setpoint;
     pidController.setSetpoint(setpoint);
 
