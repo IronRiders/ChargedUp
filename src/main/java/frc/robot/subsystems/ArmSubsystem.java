@@ -28,40 +28,40 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.setSmartCurrentLimit(currentLimit);
   }
 
-    public double getBoxClimberEncoderDistance() {
-        return boxClimberMotorEncoder.getPosition();
-    }
+  public double getBoxClimberEncoderDistance() {
+    return boxClimberMotorEncoder.getPosition();
+  }
 
-    public double getArmMotorEncoderDistance() {
-        return armMotorEncoder.getPosition();
-    }
+  public double getArmMotorEncoderDistance() {
+    return armMotorEncoder.getPosition();
+  }
 
-    public void setBoxClimberMotor(double speed) {
-        boxClimberMotor.set(speed);
-    }
+  public void setBoxClimberMotor(double speed) {
+    boxClimberMotor.set(speed);
+  }
 
-    public void setArmMotor(double speed) {
-        armMotor.set(speed);
-    }
+  public void setArmMotor(double speed) {
+    armMotor.set(speed);
+  }
 
-    public void extend() {
-        boxClimberMotor.set(Constants.BOX_CLIMBER_MOTOR_POWER);
-    }
+  public void extend() {
+    boxClimberMotor.set(Constants.BOX_CLIMBER_MOTOR_POWER);
+  }
 
-    public void retract() {
-        boxClimberMotor.set(-Constants.BOX_CLIMBER_MOTOR_POWER);
-    }
+  public void retract() {
+    boxClimberMotor.set(-Constants.BOX_CLIMBER_MOTOR_POWER);
+  }
 
-    public void raise() {
-        armMotor.set(Constants.ARM_MOTOR_POWER);
-    }
+  public void raise() {
+    armMotor.set(Constants.ARM_MOTOR_POWER);
+  }
 
-    public void lower() {
-        armMotor.set(-Constants.ARM_MOTOR_POWER);
-    }
+  public void lower() {
+    armMotor.set(-Constants.ARM_MOTOR_POWER);
+  }
 
-    public void stop() {
-        boxClimberMotor.set(0);
-        armMotor.set(0);
-    }
+  public void stop() {
+    boxClimberMotor.set(0);
+    armMotor.set(0);
+  }
 }

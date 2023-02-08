@@ -7,7 +7,7 @@ public final class Constants {
   public static final double MANIPULATOR_POWER = 1.0;
   public static final int MANIPULATOR_CURRENT_LIMIT = 10;
 
-  //Arm
+  // Arm
   public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
   public static final double ARM_MOTOR_POWER = 1.0;
 

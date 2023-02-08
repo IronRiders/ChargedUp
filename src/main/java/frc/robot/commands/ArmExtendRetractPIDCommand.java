@@ -5,15 +5,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmExtendRetractPIDCommand extends CommandBase {
-    private final ArmSubsystem armSubsystem;
-    private final PIDController pidController;
-    private final double setpoint;
+  private final ArmSubsystem armSubsystem;
+  private final PIDController pidController;
+  private final double setpoint;
 
-    public ArmExtendRetractPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
-        this.armSubsystem = armSubsystem;
-        this.pidController = new PIDController(0, 0, 0);
-        this.setpoint = setpoint;
-        pidController.setSetpoint(setpoint);
+  public ArmExtendRetractPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
+    this.armSubsystem = armSubsystem;
+    this.pidController = new PIDController(0, 0, 0);
+    this.setpoint = setpoint;
+    pidController.setSetpoint(setpoint);
 
     addRequirements(armSubsystem);
   }
@@ -23,11 +23,11 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
     pidController.reset();
   }
 
-    @Override
-    public void execute() {
-        double speed = pidController.calculate(armSubsystem.getArmMotorEncoderDistance(), setpoint);
-        armSubsystem.setBoxClimberMotor(speed);
-    }
+  @Override
+  public void execute() {
+    double speed = pidController.calculate(armSubsystem.getArmMotorEncoderDistance(), setpoint);
+    armSubsystem.setBoxClimberMotor(speed);
+  }
 
   @Override
   public boolean isFinished() {
