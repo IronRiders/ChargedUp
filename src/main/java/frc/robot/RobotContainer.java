@@ -61,7 +61,7 @@ public class RobotContainer {
 
   // Set up Shuffleboard
   private void setUpShuffleBoard() {
-    SmartDashboard.putData("Reset Yaw", new ResetYawCommand());
+    SmartDashboard.putData("Reset Yaw", new ResetYawCommand(drive));
   }
 
   // public Command getAutonomousCommand() {
