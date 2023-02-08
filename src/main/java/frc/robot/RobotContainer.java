@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArmRaiseLowerPIDCommand;
-import frc.robot.commands.ArmPIDCommand;
+import frc.robot.commands.ArmRaiseLowerPIDCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
@@ -51,16 +51,13 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
-<<<<<<< HEAD
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
     controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
     controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
-=======
-    controller.button(1).onTrue(new ArmPIDCommand(arm, 0));
+    controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, 0));
     controller.button(9).onTrue(new GrabManipulatorCommand(manipulator));
     controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
->>>>>>> 21278f4d9e3deac1e5ebf6f379ba12165e397a1e
   }
 
   // public Command getAutonomousCommand() {
