@@ -17,14 +17,14 @@ public class StraightenRobotCommand extends CommandBase {
     mecanumDrive.updateSpeed(
         0,
         0,
-        (mecanumDrive.pigeon.getRotation2d().getDegrees() > 180 ? -1 : 1)
+        (mecanumDrive.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
             * Constants.STRAIGHTEN_ROBOT_TURN_SPEED,
         false);
   }
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(mecanumDrive.pigeon.getRotation2d().getDegrees())
+    return (Math.abs(mecanumDrive.pigeon.getRotation2d().getDegrees() % 360)
         < Constants.STRAIGHTEN_TALORNCE_ANGLE);
   }
 }

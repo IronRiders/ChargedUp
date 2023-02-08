@@ -44,7 +44,6 @@ public class RobotContainer {
 
     // Configure the trigger bindings
     configureBindings();
-    setUpShuffleBoard();
   }
 
   // Bind triggers to Commands
@@ -52,11 +51,6 @@ public class RobotContainer {
     controller.button(9).onTrue(new GrabManipulatorCommand(manipulator));
     controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
     controller.button(4).onTrue(new StraightenRobotCommand(drive));
-  }
-
-  // Set up Shuffleboard
-  private void setUpShuffleBoard() {
-    SmartDashboard.putData("Reset Yaw", new ResetYawCommand(drive));
   }
 
   // public Command getAutonomousCommand() {
