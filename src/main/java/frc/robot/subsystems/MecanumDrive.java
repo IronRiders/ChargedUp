@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -18,7 +19,7 @@ public class MecanumDrive extends SubsystemBase {
   private CANSparkMax backLeftMotor;
   private CANSparkMax frontRightMotor;
   private CANSparkMax backRightMotor;
-  private WPI_Pigeon2 pigeon = new WPI_Pigeon2(0);
+  public WPI_Pigeon2 pigeon = new WPI_Pigeon2(0);
 
   private final MecanumDriveKinematics kinematics;
 
@@ -99,6 +100,6 @@ public class MecanumDrive extends SubsystemBase {
   }
 
   public double get2DRotation() {
-  
+    return pigeon.getRotation2d().getDegrees();
   }
 }
