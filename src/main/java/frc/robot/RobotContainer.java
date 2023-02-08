@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.ResetYawCommand;
 import frc.robot.commands.StraightenRobotCommand;
 import frc.robot.subsystems.*;
 
