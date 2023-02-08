@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.ResetYawCommand;
 
 public class MecanumDrive extends SubsystemBase {
   private boolean inverted;
@@ -63,6 +64,7 @@ public class MecanumDrive extends SubsystemBase {
     super.periodic();
 
     SmartDashboard.putBoolean("isInverted", inverted);
+    SmartDashboard.putData("Reset Yaw", new ResetYawCommand(this));
   }
 
   public void updateSpeed(double strafe, double drive, double turn, boolean useInverted) {
@@ -96,9 +98,5 @@ public class MecanumDrive extends SubsystemBase {
 
   public void stop() {
     updateSpeed(0, 0, 0, false);
-  }
-
-  public double get2DRotation() {
-    return pigeon.getRotation2d().getDegrees();
   }
 }
