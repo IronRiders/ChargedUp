@@ -52,12 +52,6 @@ public class MecanumDrive extends SubsystemBase {
             new Translation2d(0.28575, -0.2267),
             new Translation2d(-0.28575, 0.2267),
             new Translation2d(-0.28575, -0.2267));
-
-    ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-    2.0, 2.0, Math.PI / 2.0, pigeon.getRotation2d());
-            
-     // Now use this in our kinematics
-    MecanumDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(speeds);
             
   }
 
