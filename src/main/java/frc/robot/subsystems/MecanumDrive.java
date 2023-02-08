@@ -68,19 +68,22 @@ public class MecanumDrive extends SubsystemBase {
     SmartDashboard.putData("Reset Yaw", new ResetYawCommand(this));
   }
 
-  public void updateSpeed(double strafe, double drive, double turn, boolean useInverted, boolean useFieldCentricDrive) {
+  public void updateSpeed(
+      double strafe, double drive, double turn, boolean useInverted, boolean useFieldCentricDrive) {
     double xSpeed = drive * Constants.MOVEMENT_SPEED;
     double ySpeed = strafe * Constants.MOVEMENT_SPEED;
     if (useInverted && inverted) {
       xSpeed = -xSpeed;
       ySpeed = -ySpeed;
     }
-    
+
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turn * -Constants.TURN_SPEED);
     if (useFieldCentricDrive) {
-      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turn * -Constants.TURN_SPEED, pigeon.getRotation2d());
+      chassisSpeeds =
+          ChassisSpeeds.fromFieldRelativeSpeeds(
+              xSpeed, ySpeed, turn * -Constants.TURN_SPEED, pigeon.getRotation2d());
     }
-    
+
     MecanumDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
     this.frontLeftMotor.set(
