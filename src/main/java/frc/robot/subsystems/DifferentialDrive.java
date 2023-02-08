@@ -64,6 +64,8 @@ public class DifferentialDrive extends SubsystemBase {
     SmartDashboard.putBoolean("isInverted", inverted);
   }
 
+  // Use strafe parameter just to be backwards compatible
+  
   public void updateSpeed(double strafe, double drive, double turn, boolean useInverted) {
     double xSpeed = drive * Constants.MOVEMENT_SPEED;
     if (useInverted && inverted) {
