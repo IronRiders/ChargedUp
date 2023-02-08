@@ -12,7 +12,11 @@ public class ArmRaiseLowerPIDCommand extends CommandBase {
 
   public ArmRaiseLowerPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
     this.armSubsystem = armSubsystem;
-    this.pidController = new PIDController(Constants.ARM_RAISE_LOWER_PID_KP, Constants.ARM_RAISE_LOWER_PID_KI, Constants.ARM_RAISE_LOWER_PID_KD);
+    this.pidController =
+        new PIDController(
+            Constants.ARM_RAISE_LOWER_PID_KP,
+            Constants.ARM_RAISE_LOWER_PID_KI,
+            Constants.ARM_RAISE_LOWER_PID_KD);
     this.setpoint = setpoint;
     pidController.setSetpoint(setpoint);
 

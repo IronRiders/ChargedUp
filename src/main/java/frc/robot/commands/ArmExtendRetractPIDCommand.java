@@ -12,7 +12,11 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
 
   public ArmExtendRetractPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
     this.armSubsystem = armSubsystem;
-    this.pidController = new PIDController(Constants.ARM_EXTEND_RETRACT_PID_KP, Constants.ARM_EXTEND_RETRACT_PID_KI, Constants.ARM_EXTEND_RETRACT_PID_KD);
+    this.pidController =
+        new PIDController(
+            Constants.ARM_EXTEND_RETRACT_PID_KP,
+            Constants.ARM_EXTEND_RETRACT_PID_KI,
+            Constants.ARM_EXTEND_RETRACT_PID_KD);
     this.setpoint = setpoint;
     pidController.setSetpoint(setpoint);
 

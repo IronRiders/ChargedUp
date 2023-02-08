@@ -12,7 +12,11 @@ public class ManipulatorPIDCommand extends CommandBase {
 
   public ManipulatorPIDCommand(ManipulatorSubsystem manipulatorSubsystem, double setpoint) {
     this.manipulatorSubsystem = manipulatorSubsystem;
-    this.pidController = new PIDController(Constants.MANIPULATOR_PID_KP, Constants.MANIPULATOR_PID_KI, Constants.MANIPULATOR_PID_KD);
+    this.pidController =
+        new PIDController(
+            Constants.MANIPULATOR_PID_KP,
+            Constants.MANIPULATOR_PID_KI,
+            Constants.MANIPULATOR_PID_KD);
     this.setpoint = setpoint;
     pidController.setSetpoint(setpoint);
 
