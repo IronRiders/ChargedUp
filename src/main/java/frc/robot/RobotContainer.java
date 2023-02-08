@@ -16,7 +16,6 @@ public class RobotContainer {
   public final DriveSubsytem drive = new DriveSubsytem();
   // one of the two following lines of code must be commented out at all times
   // public final DifferentialDrive drive = new DifferentialDrive();
-  public final MecanumDrive drive = new MecanumDrive();
 
   private final CommandJoystick controller = new CommandJoystick(0);
 
