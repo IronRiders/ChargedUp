@@ -56,8 +56,6 @@ public class RobotContainer {
     controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
     controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
     controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, 0));
-    controller.button(9).onTrue(new GrabManipulatorCommand(manipulator));
-    controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
     controller
         .button(31)
         .onTrue(
