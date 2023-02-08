@@ -6,11 +6,7 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 
-import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
