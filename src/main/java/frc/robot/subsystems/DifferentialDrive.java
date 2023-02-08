@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import frc.robot.Constants;
 
 public class DifferentialDrive extends SubsystemBase {
+// creates variables & motors
   private boolean inverted;
   private CANSparkMax frontLeftMotor;
   private CANSparkMax middleLeftMotor;
@@ -25,6 +26,7 @@ public class DifferentialDrive extends SubsystemBase {
   private final DifferentialDriveKinematics kinematics;
 
   public DifferentialDrive() {
+    //Assigns motors to variables
     frontLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_LEFT, MotorType.kBrushless);
     frontRightMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_RIGHT, MotorType.kBrushless);
     middleLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_FRONT_LEFT, MotorType.kBrushless);
@@ -32,6 +34,7 @@ public class DifferentialDrive extends SubsystemBase {
     backLeftMotor = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
     backRightMotor = new CANSparkMax(Constants.WHEEL_PORT_REAR_LEFT, MotorType.kBrushless);
 
+    //sets inverted for motors
     frontLeftMotor.setInverted(true);
     frontRightMotor.setInverted(false);
     middleLeftMotor.setInverted(true);
@@ -40,6 +43,7 @@ public class DifferentialDrive extends SubsystemBase {
     backRightMotor.setInverted(false);
     inverted = false;
 
+    //Set all motor current limit
     frontLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     frontRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     middleLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
@@ -47,6 +51,7 @@ public class DifferentialDrive extends SubsystemBase {
     backLeftMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     backRightMotor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
 
+    //Set all motors to break
     frontLeftMotor.setIdleMode(IdleMode.kBrake);
     frontRightMotor.setIdleMode(IdleMode.kBrake);
     middleLeftMotor.setIdleMode(IdleMode.kBrake);
@@ -80,16 +85,16 @@ public class DifferentialDrive extends SubsystemBase {
     // Convert to wheel speeds
     DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-// Left velocity
+    // Left velocity
     double leftVelocity = wheelSpeeds.leftMetersPerSecond;
 
-// Right velocity
+    // Right velocity
     double rightVelocity = wheelSpeeds.rightMetersPerSecond;
-
+    //Motor control groups
     MotorControllerGroup leftMotors = new MotorControllerGroup(backLeftMotor, middleLeftMotor, frontLeftMotor);
 
     MotorControllerGroup rightMotors = new MotorControllerGroup(backRightMotor, middleRightMotor, frontRightMotor);
-
+    //Set velocity
     leftMotors.set(leftVelocity);
     rightMotors.set(rightVelocity);
   }
