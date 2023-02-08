@@ -5,6 +5,8 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.GrabObject;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -56,6 +58,17 @@ public class RobotContainer {
     controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, 0));
     controller.button(9).onTrue(new GrabManipulatorCommand(manipulator));
     controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
+    controller
+        .button(31)
+        .onTrue(
+            new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
+    controller
+        .button(32)
+        .onTrue(
+            new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
+    controller
+        .button(33)
+        .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
 
   // public Command getAutonomousCommand() {
