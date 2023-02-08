@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.ManipulatorSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -21,7 +20,11 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
-  public final MecanumDrive drive = new MecanumDrive();
+
+  // one of the two following lines of code must be commented out at all times
+  public final DiferentialDrive drive = new DiferentialDrive();
+  //public final MecanumDrive drive = new MecanumDrive();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);
