@@ -9,7 +9,7 @@ import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
-  
+
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final DriveSubsytem drive = new DriveSubsytem();
 
@@ -35,9 +35,9 @@ public class RobotContainer {
     controller.button(5).onTrue(new ReleaseManipulatorCommand(manipulator));
   }
 
-   public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     return null;
-   }
+  }
 
   private double joystickResponse(double raw) {
     double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);

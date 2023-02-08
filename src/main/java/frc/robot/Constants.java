@@ -30,5 +30,4 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_LEFT = 3;
   public static final int WHEEL_PORT_FRONT_RIGHT = 2;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
-
 }
