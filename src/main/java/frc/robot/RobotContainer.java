@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
