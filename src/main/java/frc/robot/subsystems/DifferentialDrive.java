@@ -65,7 +65,7 @@ public class DifferentialDrive extends SubsystemBase {
   }
 
   // Use strafe parameter just to be backwards compatible
-  
+
   public void updateSpeed(double strafe, double drive, double turn, boolean useInverted) {
     double xSpeed = drive * Constants.MOVEMENT_SPEED;
     if (useInverted && inverted) {
@@ -83,11 +83,9 @@ public class DifferentialDrive extends SubsystemBase {
     // Right velocity
     double rightVelocity = wheelSpeeds.rightMetersPerSecond;
     // Motor control groups
-    MotorControllerGroup leftMotors =
-        new MotorControllerGroup(backLeftMotor, frontLeftMotor);
+    MotorControllerGroup leftMotors = new MotorControllerGroup(backLeftMotor, frontLeftMotor);
 
-    MotorControllerGroup rightMotors =
-        new MotorControllerGroup(backRightMotor, frontRightMotor);
+    MotorControllerGroup rightMotors = new MotorControllerGroup(backRightMotor, frontRightMotor);
     // Set velocity
     leftMotors.set(leftVelocity);
     rightMotors.set(rightVelocity);
