@@ -15,7 +15,9 @@ public final class Constants {
 
   // Arm
   public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
+  public static final int BOX_CLIMBER_MOTOR_CURRENT_LIMIT = 10;
   public static final double ARM_MOTOR_POWER = 1.0;
+  public static final int ARM_MOTOR_CURRENT_LIMIT = 10;
   public static final double ARM_EXTEND_RETRACT_PID_KP = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_KI = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_KD = 0.0;

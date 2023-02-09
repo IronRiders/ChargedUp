@@ -17,15 +17,13 @@ public class ArmSubsystem extends SubsystemBase {
   RelativeEncoder armMotorEncoder = armMotor.getEncoder();
 
   public ArmSubsystem() {
-    int currentLimit = 10;
-
     boxClimberMotor = new CANSparkMax(Constants.ARM_BOX_CLIMBER_PORT, MotorType.kBrushless);
     boxClimberMotor.setIdleMode(IdleMode.kBrake);
-    boxClimberMotor.setSmartCurrentLimit(currentLimit);
+    boxClimberMotor.setSmartCurrentLimit(Constants.BOX_CLIMBER_MOTOR_CURRENT_LIMIT);
 
     armMotor = new CANSparkMax(Constants.ARM_RAISE_LOWER_PORT, MotorType.kBrushless);
     armMotor.setIdleMode(IdleMode.kBrake);
-    armMotor.setSmartCurrentLimit(currentLimit);
+    armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT);
   }
 
   public double getBoxClimberEncoderDistance() {
