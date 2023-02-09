@@ -9,6 +9,7 @@ public class ArmRaiseLowerPIDCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final PIDController pidController;
   private final double setpoint;
+  private double speed;
 
   public ArmRaiseLowerPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
     this.armSubsystem = armSubsystem;
@@ -30,13 +31,17 @@ public class ArmRaiseLowerPIDCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double speed = pidController.calculate(armSubsystem.getBoxClimberEncoderDistance(), setpoint);
+    speed = pidController.calculate(armSubsystem.getBoxClimberEncoderDistance(), setpoint);
     armSubsystem.setArmMotor(speed);
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    if (speed <= Constants.ARM_RAISE_LOWER_PID_TOLERANCE) {
+      return true;
+    }  else {
+      return false;
+    }
   }
 
   @Override

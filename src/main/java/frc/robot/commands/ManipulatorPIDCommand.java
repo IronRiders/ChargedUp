@@ -9,6 +9,7 @@ public class ManipulatorPIDCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
   private final PIDController pidController;
   private final double setpoint;
+  private double speed;
 
   public ManipulatorPIDCommand(ManipulatorSubsystem manipulatorSubsystem, double setpoint) {
     this.manipulatorSubsystem = manipulatorSubsystem;
@@ -30,19 +31,21 @@ public class ManipulatorPIDCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double speed =
+    speed =
         pidController.calculate(
             manipulatorSubsystem.getManipulatorMotor1EncoderDistance(), setpoint);
     manipulatorSubsystem.setManipulatorMotors(speed);
 
-    if (speed == 0) {
-      manipulatorSubsystem.stop();
-    }
+    
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    if (speed <= Constants.MANIPULATOR_PID_TOLERANCE) {
+        return true;
+      } else {
+        return false;
+      }
   }
 
   @Override

@@ -9,6 +9,7 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final PIDController pidController;
   private final double setpoint;
+  private double speed;
 
   public ArmExtendRetractPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
     this.armSubsystem = armSubsystem;
@@ -30,14 +31,19 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double speed = pidController.calculate(armSubsystem.getArmMotorEncoderDistance(), setpoint);
+    speed = pidController.calculate(armSubsystem.getArmMotorEncoderDistance(), setpoint);
     armSubsystem.setBoxClimberMotor(speed);
   }
 
   @Override
   public boolean isFinished() {
-    return false;
-  }
+    if (speed <= Constants.ARM_EXTEND_RETRACT_PID_TOLERANCE) {
+      return true;
+    }  else {
+      return false;
+    }
+    
+    }
 
   @Override
   public void end(boolean interrupted) {
