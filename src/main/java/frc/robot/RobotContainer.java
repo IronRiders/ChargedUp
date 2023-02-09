@@ -25,9 +25,9 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 drive.setChassisSpeeds(
-                    joystickResponse(controller.getRawAxis(0) * 0.2),
-                    joystickResponse(controller.getRawAxis(1) * 0.2),
-                    joystickResponse(controller.getRawAxis(2) * 0.2),
+                    joystickResponse(controller.getRawAxis(0)),
+                    joystickResponse(controller.getRawAxis(1)),
+                    joystickResponse(controller.getRawAxis(2)),
                     false),
             drive));
 

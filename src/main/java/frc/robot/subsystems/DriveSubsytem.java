@@ -17,9 +17,11 @@ import frc.robot.Constants;
 public class DriveSubsytem extends SubsystemBase {
 
   private boolean inverted;
-  private ChassisSpeeds actualChassisSpeeds;
   private ChassisSpeeds targetChassisSpeeds;
-  private MecanumWheel[] motors = new MecanumWheel[4];
+  private MecanumWheel frontLeftMotor;
+  private MecanumWheel frontRightMotor;
+  private MecanumWheel rearRightMotor;
+  private MecanumWheel rearLeftMotor;
   private final MecanumDriveKinematics kinematics;
   public final WPI_Pigeon2 pigeon;
   public final Field2d field;
@@ -27,10 +29,10 @@ public class DriveSubsytem extends SubsystemBase {
   private final MecanumDriveWheelPositions wheelPositions;
 
   public DriveSubsytem() {
-    motors[0] = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
-    motors[1] = new MecanumWheel(Constants.WHEEL_PORT_FRONT_RIGHT, false);
-    motors[2] = new MecanumWheel(Constants.WHEEL_PORT_REAR_LEFT, true);
-    motors[3] = new MecanumWheel(Constants.WHEEL_PORT_REAR_RIGHT, false);
+    frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
+    frontRightMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_RIGHT, false);
+    rearRightMotor = new MecanumWheel(Constants.WHEEL_PORT_REAR_LEFT, true);
+    rearLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_REAR_RIGHT, false);
     inverted = false;
 
     // meter per second
@@ -46,10 +48,10 @@ public class DriveSubsytem extends SubsystemBase {
     field = new Field2d();
     wheelPositions =
         new MecanumDriveWheelPositions(
-            motors[0].getWheelPostions(),
-            motors[1].getWheelPostions(),
-            motors[2].getWheelPostions(),
-            motors[3].getWheelPostions());
+          frontLeftMotor.getWheelPostions(),
+          frontRightMotor.getWheelPostions(),
+          rearRightMotor.getWheelPostions(),
+          rearLeftMotor.getWheelPostions());
     poseEstimator =
         new MecanumDrivePoseEstimator(
             getKinematics(), pigeon.getRotation2d(), wheelPositions, new Pose2d());
@@ -61,10 +63,10 @@ public class DriveSubsytem extends SubsystemBase {
 
   public MecanumDriveWheelSpeeds getWheelSpeeds() {
     return new MecanumDriveWheelSpeeds(
-        motors[0].getVelocity(),
-        motors[1].getVelocity(),
-        motors[2].getVelocity(),
-        motors[3].getVelocity());
+        frontLeftMotor.getVelocity(),
+        frontRightMotor.getVelocity(),
+        rearRightMotor.getVelocity(),
+        rearLeftMotor.getVelocity());
   }
 
   public void periodic() {
@@ -80,16 +82,16 @@ public class DriveSubsytem extends SubsystemBase {
     return kinematics;
   }
 
-  public void SetWheelSpeeds(MecanumDriveWheelSpeeds speed, boolean needPID) {
-    motors[0].setVelocity(speed.frontLeftMetersPerSecond, needPID);
-    motors[1].setVelocity(speed.frontRightMetersPerSecond, needPID);
-    motors[2].setVelocity(speed.rearLeftMetersPerSecond, needPID);
-    motors[3].setVelocity(speed.rearRightMetersPerSecond, needPID);
+  public void setWheelSpeeds(MecanumDriveWheelSpeeds speed, boolean needPID) {
+    frontLeftMotor.setVelocity(speed.frontLeftMetersPerSecond, needPID);
+    frontRightMotor.setVelocity(speed.frontRightMetersPerSecond, needPID);
+    rearRightMotor.setVelocity(speed.rearLeftMetersPerSecond, needPID);
+    rearLeftMotor.setVelocity(speed.rearRightMetersPerSecond, needPID);
   }
 
   public void setChassisSpeeds(ChassisSpeeds chassisSpeeds, boolean needPID) {
     targetChassisSpeeds = chassisSpeeds;
-    SetWheelSpeeds(kinematics.toWheelSpeeds(chassisSpeeds), needPID);
+    setWheelSpeeds(kinematics.toWheelSpeeds(chassisSpeeds), needPID);
   }
 
   public void setChassisSpeeds(double strafe, double drive, double turn, boolean needPID) {
