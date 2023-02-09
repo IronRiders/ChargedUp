@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 public final class Constants {
   // Manipulator
   public static final int MANIPULATOR_PORT1 = 9;
@@ -32,11 +34,15 @@ public final class Constants {
   public static final double EXPONENT = 0.1; // between 0 and 1
 
   // Drivetrain
-  public static final double DRIVE_SPEED_MULT = 1.0; // should be between 0 and 1
+  public static final double DRIVE_SPEED_MULT = 1.0;
   public static final double DRIVE_SPEED_AUTO = 0.1 / DRIVE_SPEED_MULT;
   public static final int DRIVE_CURRENT_LIMIT = 40;
   public static final double MOVEMENT_SPEED = 1; // meters per second
   public static final double TURN_SPEED = 1; // radians per second
+  public static final double DIAMETER = 7.9; // Inches
+  public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(DIAMETER * Math.PI);
+  public static final double AUTO_WHEELPID_KP = 0.2;
+  public static final double GEARING = 4;
 
   // Ports
   public static final int WHEEL_PORT_FRONT_LEFT = 1;
