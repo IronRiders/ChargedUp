@@ -39,11 +39,10 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
   public boolean isFinished() {
     if (speed <= Constants.ARM_EXTEND_RETRACT_PID_TOLERANCE) {
       return true;
-    }  else {
+    } else {
       return false;
     }
-    
-    }
+  }
 
   @Override
   public void end(boolean interrupted) {

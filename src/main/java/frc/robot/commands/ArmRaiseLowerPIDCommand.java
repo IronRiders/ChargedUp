@@ -39,7 +39,7 @@ public class ArmRaiseLowerPIDCommand extends CommandBase {
   public boolean isFinished() {
     if (speed <= Constants.ARM_RAISE_LOWER_PID_TOLERANCE) {
       return true;
-    }  else {
+    } else {
       return false;
     }
   }
