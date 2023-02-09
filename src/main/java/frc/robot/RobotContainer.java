@@ -6,16 +6,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.commands.ArmExtendRetractPIDCommand;
+import frc.robot.commands.ArmRaiseLowerPIDCommand;
 import frc.robot.commands.GrabManipulatorCommand;
+import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
-  public final DriveSubsytem drive = new DriveSubsytem();
   // one of the two following lines of code must be commented out at all times
   // public final DifferentialDrive drive = new DifferentialDrive();
+  public final DriveSubsytem drive = new DriveSubsytem();
+  public final MecanumDrive drive = new MecanumDrive();
+  public final ArmSubsystem arm = new ArmSubsystem();
 
   private final CommandJoystick controller = new CommandJoystick(0);
 
@@ -35,6 +40,13 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
+    controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
+    controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
+    controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
+    controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, 0));
+    controller.button(2).onTrue(new ArmExtendRetractPIDCommand(arm, 0));
+    controller.button(3).onTrue(new ManipulatorPIDCommand(manipulator, 0));
     controller
         .button(31)
         .onTrue(
