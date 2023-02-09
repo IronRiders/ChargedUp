@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -27,6 +26,9 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // Subsystems
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
+
+  // one of the two following lines of code must be commented out at all times
+  // public final DifferentialDrive drive = new DifferentialDrive();
   public final MecanumDrive drive = new MecanumDrive();
   public final ArmSubsystem arm = new ArmSubsystem();
 
