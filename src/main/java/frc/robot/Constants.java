@@ -41,6 +41,6 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_LEFT = 3;
   public static final int WHEEL_PORT_FRONT_RIGHT = 2;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
-  public static final int ARM_PORT1 = 5;
-  public static final int ARM_PORT2 = 6;
+  public static final int ARM_BOX_CLIMBER_PORT = 5;
+  public static final int ARM_RAISE_LOWER_PORT = 6;
 }
