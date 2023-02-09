@@ -35,17 +35,15 @@ public class ManipulatorPIDCommand extends CommandBase {
         pidController.calculate(
             manipulatorSubsystem.getManipulatorMotor1EncoderDistance(), setpoint);
     manipulatorSubsystem.setManipulatorMotors(speed);
-
-    
   }
 
   @Override
   public boolean isFinished() {
     if (speed <= Constants.MANIPULATOR_PID_TOLERANCE) {
-        return true;
-      } else {
-        return false;
-      }
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
