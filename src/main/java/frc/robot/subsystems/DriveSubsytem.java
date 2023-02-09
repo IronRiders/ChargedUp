@@ -17,7 +17,7 @@ import frc.robot.Constants;
 public class DriveSubsytem extends SubsystemBase {
 
   private boolean inverted;
-  private ChassisSpeeds ActualChassisSpeeds;
+  private ChassisSpeeds actualChassisSpeeds;
   private ChassisSpeeds targetChassisSpeeds;
   private MecanumWheel[] motors = new MecanumWheel[4];
   private final MecanumDriveKinematics kinematics;
