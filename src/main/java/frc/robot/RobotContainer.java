@@ -4,6 +4,7 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.ArmExtendRetractPIDCommand;
@@ -19,9 +20,7 @@ public class RobotContainer {
   // one of the two following lines of code must be commented out at all times
   // public final DifferentialDrive drive = new DifferentialDrive();
   public final DriveSubsytem drive = new DriveSubsytem();
-  public final MecanumDrive drive = new MecanumDrive();
   public final ArmSubsystem arm = new ArmSubsystem();
-
   private final CommandJoystick controller = new CommandJoystick(0);
 
   public RobotContainer() {
