@@ -25,7 +25,7 @@ public class MecanumWheel extends SubsystemBase {
     motor.setIdleMode(IdleMode.kBrake);
     pidController = new PIDController(Constants.AUTO_WHEELPID_KP, 0, 0);
     encoder = motor.getEncoder();
-    encoder.setPositionConversionFactor(Constants.wheel_circumference / Constants.Gearing);
+    encoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.GEARING);
   }
 
   public void log() {
@@ -35,7 +35,7 @@ public class MecanumWheel extends SubsystemBase {
   }
 
   public double getVelocity() {
-    return (encoder.getVelocity() / Constants.Gearing / 60 * Constants.wheel_circumference);
+    return (encoder.getVelocity() / Constants.GEARING / 60 * Constants.WHEEL_CIRCUMFERENCE);
   }
 
   public void setVelocity(double mps, boolean needPID) {
