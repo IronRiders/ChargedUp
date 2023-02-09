@@ -1,7 +1,6 @@
 package frc.robot;
 
 public final class Constants {
-
   // Manipulator
   public static final int MANIPULATOR_PORT1 = 9;
   public static final int MANIPULATOR_PORT2 = 10;
@@ -9,6 +8,24 @@ public final class Constants {
   public static final int MANIPULATOR_CURRENT_LIMIT = 10;
   public static final int MANIPULATOR_CURRENT_LIMIT_CONE = 15;
   public static final int MANIPULATOR_CURRENT_LIMIT_BOX = 20;
+  public static final double MANIPULATOR_PID_KP = 0.0;
+  public static final double MANIPULATOR_PID_KI = 0.0;
+  public static final double MANIPULATOR_PID_KD = 0.0;
+  public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
+
+  // Arm
+  public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
+  public static final int BOX_CLIMBER_MOTOR_CURRENT_LIMIT = 10;
+  public static final double ARM_MOTOR_POWER = 1.0;
+  public static final int ARM_MOTOR_CURRENT_LIMIT = 10;
+  public static final double ARM_EXTEND_RETRACT_PID_KP = 0.0;
+  public static final double ARM_EXTEND_RETRACT_PID_KI = 0.0;
+  public static final double ARM_EXTEND_RETRACT_PID_KD = 0.0;
+  public static final double ARM_EXTEND_RETRACT_PID_TOLERANCE = 0.3;
+  public static final double ARM_RAISE_LOWER_PID_KP = 0.0;
+  public static final double ARM_RAISE_LOWER_PID_KI = 0.0;
+  public static final double ARM_RAISE_LOWER_PID_KD = 0.0;
+  public static final double ARM_RAISE_LOWER_PID_TOLERANCE = 0.3;
 
   // Joystick
   public static final double DEADBAND = 0.06;
@@ -26,4 +43,6 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_LEFT = 3;
   public static final int WHEEL_PORT_FRONT_RIGHT = 2;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
+  public static final int ARM_BOX_CLIMBER_PORT = 5;
+  public static final int ARM_RAISE_LOWER_PORT = 6;
 }
