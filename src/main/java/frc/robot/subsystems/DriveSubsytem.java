@@ -48,10 +48,10 @@ public class DriveSubsytem extends SubsystemBase {
     field = new Field2d();
     wheelPositions =
         new MecanumDriveWheelPositions(
-          frontLeftMotor.getWheelPostions(),
-          frontRightMotor.getWheelPostions(),
-          rearRightMotor.getWheelPostions(),
-          rearLeftMotor.getWheelPostions());
+            frontLeftMotor.getWheelPostions(),
+            frontRightMotor.getWheelPostions(),
+            rearRightMotor.getWheelPostions(),
+            rearLeftMotor.getWheelPostions());
     poseEstimator =
         new MecanumDrivePoseEstimator(
             getKinematics(), pigeon.getRotation2d(), wheelPositions, new Pose2d());
