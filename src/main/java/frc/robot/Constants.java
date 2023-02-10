@@ -51,4 +51,8 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
   public static final int ARM_BOX_CLIMBER_PORT = 5;
   public static final int ARM_RAISE_LOWER_PORT = 6;
+
+  // Straighten Robot
+  public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
+  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
 }
