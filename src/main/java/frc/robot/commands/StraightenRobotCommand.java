@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsytem;
 
 public class StraightenRobotCommand extends CommandBase {
@@ -14,18 +15,17 @@ public class StraightenRobotCommand extends CommandBase {
 
     @Override
     public void execute() {
-        driveSubsytem.updateSpeed(
+        driveSubsytem.setChassisSpeeds(
             0,
             0,
-            (mecanumDrive.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
+            (driveSubsytem.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
                 * Constants.STRAIGHTEN_ROBOT_TURN_SPEED,
-            false,
             false);
     }
 
     @Override
     public boolean isFinished() {
-        return (Math.abs(mecanumDrive.pigeon.getRotation2d().getDegrees() % 360)
-            < Constants.STRAIGHTEN_TALORNCE_ANGLE);
+        return (Math.abs(driveSubsytem.pigeon.getRotation2d().getDegrees() % 360)
+            < Constants.STRAIGHTEN_TALORANCE_ANGLE);
     }
 }
