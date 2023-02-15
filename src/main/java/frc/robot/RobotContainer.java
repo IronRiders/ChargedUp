@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.ArmExtendRetractPIDCommand;
 import frc.robot.commands.ArmRaiseLowerPIDCommand;
+import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
@@ -46,6 +47,7 @@ public class RobotContainer {
     controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, 0));
     controller.button(2).onTrue(new ArmExtendRetractPIDCommand(arm, 0));
     controller.button(3).onTrue(new ManipulatorPIDCommand(manipulator, 0));
+    controller.button(4).whileTrue(new AutoLevelingCommand(drive));
     controller
         .button(31)
         .onTrue(
