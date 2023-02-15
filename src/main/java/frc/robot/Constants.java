@@ -1,6 +1,5 @@
 package frc.robot;
 
-import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.util.Units;
 
@@ -58,7 +57,7 @@ public final class Constants {
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
   public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
 
-  //Auto Leveling
+  // Auto Leveling
   public static final double FORWARD_VELOCITY = .05;
   public static final double STRAFE_VELOCITY = .03;
   public static final double ANGLE_TOLERANCE = 1.5;
