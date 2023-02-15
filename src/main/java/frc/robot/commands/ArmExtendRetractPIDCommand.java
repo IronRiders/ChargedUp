@@ -27,6 +27,7 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
   @Override
   public void initialize() {
     pidController.reset();
+    armSubsystem.resetBoxClimberMotorEncoder();
   }
 
   @Override
