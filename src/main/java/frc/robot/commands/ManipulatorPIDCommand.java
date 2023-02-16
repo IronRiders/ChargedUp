@@ -32,9 +32,7 @@ public class ManipulatorPIDCommand extends CommandBase {
 
   @Override
   public void execute() {
-    speed =
-        pidController.calculate(
-            manipulator.getManipulatorMotor1EncoderDistance(), setpoint);
+    speed = pidController.calculate(manipulator.getManipulatorMotor1EncoderDistance(), setpoint);
     manipulator.setManipulatorMotors(speed);
   }
 

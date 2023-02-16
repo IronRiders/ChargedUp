@@ -45,9 +45,15 @@ public class RobotContainer {
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
     controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
     controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
-    controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, Constants.ARM_RAISE_LOWER_SETPOINT));
-    controller.button(2).onTrue(new ArmExtendRetractPIDCommand(arm, Constants.ARM_EXTEND_RETRACT_SETPOINT));
-    controller.button(3).onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
+    controller
+        .button(1)
+        .onTrue(new ArmRaiseLowerPIDCommand(arm, Constants.ARM_RAISE_LOWER_SETPOINT));
+    controller
+        .button(2)
+        .onTrue(new ArmExtendRetractPIDCommand(arm, Constants.ARM_EXTEND_RETRACT_SETPOINT));
+    controller
+        .button(3)
+        .onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
     controller.button(4).whileTrue(new AutoLevelingCommand(drive));
     controller
         .button(31)
@@ -60,8 +66,16 @@ public class RobotContainer {
     controller
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
-    controller.button(34).onTrue(new CurrentLimitsManipulatorCommand(manipulator, GrabObject.CONE, Constants.MANIPULATOR_SETPOINT));
-    controller.button(35).onTrue(new CurrentLimitsManipulatorCommand(manipulator, GrabObject.BOX, Constants.MANIPULATOR_SETPOINT));
+    controller
+        .button(34)
+        .onTrue(
+            new CurrentLimitsManipulatorCommand(
+                manipulator, GrabObject.CONE, Constants.MANIPULATOR_SETPOINT));
+    controller
+        .button(35)
+        .onTrue(
+            new CurrentLimitsManipulatorCommand(
+                manipulator, GrabObject.BOX, Constants.MANIPULATOR_SETPOINT));
   }
 
   public Command getAutonomousCommand() {

@@ -13,7 +13,7 @@ public class AutoLevelingCommand extends CommandBase {
 
   public AutoLevelingCommand(DriveSubsytem drive) {
     this.drive = drive;
-    pigeon = drive.pigeon;  
+    pigeon = drive.pigeon;
     gyroData = new double[3];
 
     addRequirements(drive);
