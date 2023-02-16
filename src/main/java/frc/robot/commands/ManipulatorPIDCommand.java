@@ -6,13 +6,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
 public class ManipulatorPIDCommand extends CommandBase {
-  private final ManipulatorSubsystem manipulatorSubsystem;
+  private final ManipulatorSubsystem manipulator;
   private final PIDController pidController;
   private final double setpoint;
   private double speed;
 
-  public ManipulatorPIDCommand(ManipulatorSubsystem manipulatorSubsystem, double setpoint) {
-    this.manipulatorSubsystem = manipulatorSubsystem;
+  public ManipulatorPIDCommand(ManipulatorSubsystem manipulator, double setpoint) {
+    this.manipulator = manipulator;
     this.pidController =
         new PIDController(
             Constants.MANIPULATOR_PID_KP,
@@ -21,20 +21,21 @@ public class ManipulatorPIDCommand extends CommandBase {
     this.setpoint = setpoint;
     pidController.setSetpoint(setpoint);
 
-    addRequirements(manipulatorSubsystem);
+    addRequirements(manipulator);
   }
 
   @Override
   public void initialize() {
     pidController.reset();
+    manipulator.resetManipulatorMotor1EncoderDistance();
   }
 
   @Override
   public void execute() {
     speed =
         pidController.calculate(
-            manipulatorSubsystem.getManipulatorMotor1EncoderDistance(), setpoint);
-    manipulatorSubsystem.setManipulatorMotors(speed);
+            manipulator.getManipulatorMotor1EncoderDistance(), setpoint);
+    manipulator.setManipulatorMotors(speed);
   }
 
   @Override
@@ -48,6 +49,6 @@ public class ManipulatorPIDCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    manipulatorSubsystem.stop();
+    manipulator.stop();
   }
 }

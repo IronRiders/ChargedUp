@@ -14,6 +14,7 @@ public final class Constants {
   public static final double MANIPULATOR_PID_KI = 0.0;
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
+  public static final double MANIPULATOR_SETPOINT = 0.0;
 
   // Arm
   public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
@@ -24,10 +25,12 @@ public final class Constants {
   public static final double ARM_EXTEND_RETRACT_PID_KI = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_KD = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_TOLERANCE = 0.3;
+  public static final double ARM_EXTEND_RETRACT_SETPOINT = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KP = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KI = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KD = 0.0;
   public static final double ARM_RAISE_LOWER_PID_TOLERANCE = 0.3;
+  public static final double ARM_RAISE_LOWER_SETPOINT = 0.0;
 
   // Joystick
   public static final double DEADBAND = 0.06;

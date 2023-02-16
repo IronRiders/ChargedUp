@@ -54,7 +54,17 @@ public class ManipulatorSubsystem extends SubsystemBase {
     return manipulatorMotor1Encoder.getPosition();
   }
 
+  public void resetManipulatorMotor1EncoderDistance() {
+    manipulatorMotor1Encoder.setPosition(0);
+  }
+
   public void setManipulatorMotors(double speed) {
+    manipulatorMotor1.set(speed);
+    manipulatorMotor2.set(-speed);
+  }
+
+  public void setManipulatorMotors(double speed, GrabObject object) {
+    setGrabCurrentLimit(object);
     manipulatorMotor1.set(speed);
     manipulatorMotor2.set(-speed);
   }
