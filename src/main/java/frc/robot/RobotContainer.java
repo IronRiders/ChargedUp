@@ -1,52 +1,53 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.commands.ArmExtendRetractPIDCommand;
+import frc.robot.commands.ArmRaiseLowerPIDCommand;
+import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
+import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
-  // Subsystems
-  public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
-  public final MecanumDrive drive = new MecanumDrive();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
+  // one of the two following lines of code must be commented out at all times
+  // public final DifferentialDrive drive = new DifferentialDrive();
+  public final DriveSubsytem drive = new DriveSubsytem();
+  public final ArmSubsystem arm = new ArmSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Drive
+
     drive.setDefaultCommand(
         new RunCommand(
             () ->
-                drive.updateSpeed(
+                drive.setChassisSpeeds(
                     joystickResponse(controller.getRawAxis(0)),
                     joystickResponse(controller.getRawAxis(1)),
-                    joystickResponse(controller.getRawAxis(3)),
-                    true),
+                    joystickResponse(controller.getRawAxis(2)),
+                    false),
             drive));
 
-    // Configure the trigger bindings
     configureBindings();
   }
 
-  // Bind triggers to Commands
   private void configureBindings() {
+    controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
+    controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
+    controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
+    controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
+    controller.button(1).onTrue(new ArmRaiseLowerPIDCommand(arm, 0));
+    controller.button(2).onTrue(new ArmExtendRetractPIDCommand(arm, 0));
+    controller.button(3).onTrue(new ManipulatorPIDCommand(manipulator, 0));
+    controller.button(4).whileTrue(new AutoLevelingCommand(drive));
     controller
         .button(31)
         .onTrue(
@@ -60,8 +61,9 @@ public class RobotContainer {
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
 
-  // public Command getAutonomousCommand() {
-  // }
+  public Command getAutonomousCommand() {
+    return null;
+  }
 
   private double joystickResponse(double raw) {
     double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);
