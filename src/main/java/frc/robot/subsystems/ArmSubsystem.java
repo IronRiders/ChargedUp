@@ -26,6 +26,14 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT);
   }
 
+  public void resetBoxClimberMotorEncoder() {
+    boxClimberMotorEncoder.setPosition(0);
+  }
+
+  public void resetArmMotorEncoder() {
+    armMotorEncoder.setPosition(0);
+  }
+
   public double getBoxClimberEncoderDistance() {
     return boxClimberMotorEncoder.getPosition();
   }

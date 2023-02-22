@@ -27,6 +27,7 @@ public class ArmRaiseLowerPIDCommand extends CommandBase {
   @Override
   public void initialize() {
     pidController.reset();
+    armSubsystem.resetArmMotorEncoder();
   }
 
   @Override

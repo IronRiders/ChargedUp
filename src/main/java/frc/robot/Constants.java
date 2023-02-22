@@ -19,6 +19,7 @@ public final class Constants {
   public static final double MANIPULATOR_PID_KI = 0.0;
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
+  public static final double MANIPULATOR_SETPOINT = 0.0;
 
   // Arm
   public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
@@ -29,10 +30,12 @@ public final class Constants {
   public static final double ARM_EXTEND_RETRACT_PID_KI = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_KD = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_TOLERANCE = 0.3;
+  public static final double ARM_EXTEND_RETRACT_SETPOINT = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KP = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KI = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KD = 0.0;
   public static final double ARM_RAISE_LOWER_PID_TOLERANCE = 0.3;
+  public static final double ARM_RAISE_LOWER_SETPOINT = 0.0;
 
   // Joystick
   public static final double DEADBAND = 0.06;
@@ -61,6 +64,7 @@ public final class Constants {
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
   public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
 
+
   //Auto
   public static final double AUTO_POSITION_KP = 0;
   public static final double AUTO_THETACONTROLLER_KP = 9;
@@ -76,4 +80,9 @@ public final class Constants {
 
   //Grid Poses
   public static final Pose2d STATION1 = new Pose2d(new Translation2d(1.86, 3.28), Rotation2d.fromDegrees(180));
+  
+  // Auto Leveling
+  public static final double FORWARD_VELOCITY = .05;
+  public static final double STRAFE_VELOCITY = .03;
+  public static final double ANGLE_TOLERANCE = 1.5;
 }
