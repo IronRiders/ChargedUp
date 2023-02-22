@@ -1,18 +1,22 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
+import frc.robot.subsystems.GrabObject;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
-public class ManipulatorPIDCommand extends CommandBase {
+public class CurrentLimitsManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulator;
+  private final GrabObject object;
   private final PIDController pidController;
   private final double setpoint;
-  private double speed;
+  private double speed = 0;
 
-  public ManipulatorPIDCommand(ManipulatorSubsystem manipulator, double setpoint) {
+  public CurrentLimitsManipulatorCommand(
+      ManipulatorSubsystem manipulator, GrabObject object, double setpoint) {
     this.manipulator = manipulator;
+    this.object = object;
     this.pidController =
         new PIDController(
             Constants.MANIPULATOR_PID_KP,
@@ -33,7 +37,7 @@ public class ManipulatorPIDCommand extends CommandBase {
   @Override
   public void execute() {
     speed = pidController.calculate(manipulator.getManipulatorMotor1EncoderDistance(), setpoint);
-    manipulator.setManipulatorMotors(speed);
+    manipulator.setManipulatorMotors(speed, object);
   }
 
   @Override

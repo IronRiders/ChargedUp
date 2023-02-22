@@ -36,10 +36,10 @@ public class AutoLevelingCommand extends CommandBase {
       strafe = Constants.STRAFE_VELOCITY;
     }
     if (gyroData[1] < Constants.ANGLE_TOLERANCE) {
-      forward = forward * -1;
+      forward *= -1;
     }
-    if (gyroData[2] < Constants.ANGLE_TOLERANCE) {
-      strafe = strafe * -1;
+    if (gyroData[2] > Constants.ANGLE_TOLERANCE) {
+      strafe *= -1;
     }
     drive.setChassisSpeeds(strafe, forward, 0, true);
   }
