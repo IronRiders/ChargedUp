@@ -85,7 +85,7 @@ public class RobotContainer {
 
   public void traj() {
     SmartDashboard.putData("field", drive.field);
-}
+  }
 
   private double joystickResponse(double raw) {
     double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);

@@ -32,12 +32,18 @@ public class DriveSubsytem extends SubsystemBase {
   public final Field2d field;
   private final MecanumDrivePoseEstimator poseEstimator;
   private final MecanumDriveWheelPositions wheelPositions;
-  private static ProfiledPIDController profiledThetaController = new ProfiledPIDController(
-      Constants.AUTO_THETACONTROLLER_KP,
-      0, 0,
-      new TrapezoidProfile.Constraints(Units.rotationsToRadians(0.75), Units.rotationsToRadians(1.5)));
-  private static PIDController thetaController = new PIDController(profiledThetaController.getP(),
-      profiledThetaController.getI(), profiledThetaController.getD());
+  private static ProfiledPIDController profiledThetaController =
+      new ProfiledPIDController(
+          Constants.AUTO_THETACONTROLLER_KP,
+          0,
+          0,
+          new TrapezoidProfile.Constraints(
+              Units.rotationsToRadians(0.75), Units.rotationsToRadians(1.5)));
+  private static PIDController thetaController =
+      new PIDController(
+          profiledThetaController.getP(),
+          profiledThetaController.getI(),
+          profiledThetaController.getD());
   private static PIDController xController = new PIDController(Constants.AUTO_XCONTROLLER_KP, 0, 0);
   private static PIDController yController = new PIDController(Constants.AUTO_YCONTROLLER_KP, 0, 0);
 
@@ -49,22 +55,25 @@ public class DriveSubsytem extends SubsystemBase {
     inverted = false;
 
     // meter per second
-    kinematics = new MecanumDriveKinematics(
-        new Translation2d(0.28575, 0.2267),
-        new Translation2d(0.28575, -0.2267),
-        new Translation2d(-0.28575, 0.2267),
-        new Translation2d(-0.28575, -0.2267));
+    kinematics =
+        new MecanumDriveKinematics(
+            new Translation2d(0.28575, 0.2267),
+            new Translation2d(0.28575, -0.2267),
+            new Translation2d(-0.28575, 0.2267),
+            new Translation2d(-0.28575, -0.2267));
 
     pigeon = new WPI_Pigeon2(15);
     targetChassisSpeeds = new ChassisSpeeds();
     field = new Field2d();
-    wheelPositions = new MecanumDriveWheelPositions(
-        frontLeftMotor.getWheelPostions(),
-        frontRightMotor.getWheelPostions(),
-        rearRightMotor.getWheelPostions(),
-        rearLeftMotor.getWheelPostions());
-    poseEstimator = new MecanumDrivePoseEstimator(
-        getKinematics(), pigeon.getRotation2d(), wheelPositions, new Pose2d());
+    wheelPositions =
+        new MecanumDriveWheelPositions(
+            frontLeftMotor.getWheelPostions(),
+            frontRightMotor.getWheelPostions(),
+            rearRightMotor.getWheelPostions(),
+            rearLeftMotor.getWheelPostions());
+    poseEstimator =
+        new MecanumDrivePoseEstimator(
+            getKinematics(), pigeon.getRotation2d(), wheelPositions, new Pose2d());
   }
 
   public void invertDrive() {
@@ -84,11 +93,13 @@ public class DriveSubsytem extends SubsystemBase {
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), pigeon.getRotation2d(), wheelPositions);
 
     // Simple Simulation
-    field.getObject("Target").setPose(
-        new Pose2d(
-            xController.getSetpoint(),
-            yController.getSetpoint(),
-            new Rotation2d(getThetaController().getSetpoint())));
+    field
+        .getObject("Target")
+        .setPose(
+            new Pose2d(
+                xController.getSetpoint(),
+                yController.getSetpoint(),
+                new Rotation2d(getThetaController().getSetpoint())));
   }
 
   public Pose2d getPose2d() {
@@ -120,10 +131,9 @@ public class DriveSubsytem extends SubsystemBase {
     ChassisSpeeds chassisSpeeds;
 
     if (!needPID)
-      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turnSpeed,
-          pigeon.getRotation2d());
-    else
-      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turnSpeed);
+      chassisSpeeds =
+          ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turnSpeed, pigeon.getRotation2d());
+    else chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turnSpeed);
 
     setChassisSpeeds(chassisSpeeds, needPID);
   }
@@ -131,11 +141,12 @@ public class DriveSubsytem extends SubsystemBase {
   public double getMaxRotationalVelocity() {
     return Math.abs(
         (kinematics.toChassisSpeeds(
-            new MecanumDriveWheelSpeeds(
-                MecanumWheel.getMaxLinearVelocity(),
-                -MecanumWheel.getMaxLinearVelocity(),
-                MecanumWheel.getMaxLinearVelocity(),
-                -MecanumWheel.getMaxLinearVelocity()))).omegaRadiansPerSecond);
+                new MecanumDriveWheelSpeeds(
+                    MecanumWheel.getMaxLinearVelocity(),
+                    -MecanumWheel.getMaxLinearVelocity(),
+                    MecanumWheel.getMaxLinearVelocity(),
+                    -MecanumWheel.getMaxLinearVelocity())))
+            .omegaRadiansPerSecond);
   }
 
   public void stop() {

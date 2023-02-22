@@ -64,8 +64,7 @@ public final class Constants {
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
   public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
 
-
-  //Auto
+  // Auto
   public static final double AUTO_POSITION_KP = 0;
   public static final double AUTO_THETACONTROLLER_KP = 9;
   public static final double AUTO_XCONTROLLER_KP = 0.45;
@@ -78,9 +77,10 @@ public final class Constants {
   public static final PathConstraints TooFastAutoConstraints = new PathConstraints(4, 4);
   public static final double ANGLETOLERANCE = 1;
 
-  //Grid Poses
-  public static final Pose2d STATION1 = new Pose2d(new Translation2d(1.86, 3.28), Rotation2d.fromDegrees(180));
-  
+  // Grid Poses
+  public static final Pose2d STATION1 =
+      new Pose2d(new Translation2d(1.86, 3.28), Rotation2d.fromDegrees(180));
+
   // Auto Leveling
   public static final double FORWARD_VELOCITY = .05;
   public static final double STRAFE_VELOCITY = .03;

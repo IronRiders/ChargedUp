@@ -20,7 +20,8 @@ public class MecanumPathFollower extends CommandBase {
   private CommandBase controllerCommand = Commands.none();
 
   // Pre-Planned Autonomous Pathing
-  public MecanumPathFollower(DriveSubsytem drive, String pathName, PathConstraints constraints, boolean resetOdom) {
+  public MecanumPathFollower(
+      DriveSubsytem drive, String pathName, PathConstraints constraints, boolean resetOdom) {
     this.drive = drive;
     this.pathName = pathName;
     this.constraints = constraints;
@@ -38,24 +39,30 @@ public class MecanumPathFollower extends CommandBase {
   }
 
   public void initialize() {
-     if (pathName == null && trajectory == null) {
+    if (pathName == null && trajectory == null) {
       end(false);
       return;
     } else if (pathName != null) {
       alliancePath = PathPlanner.loadPath(pathName, constraints);
-      //var path = PathPlanner.loadPath(pathName, constraints);
-     // alliancePath = PathPlannerTrajectory.transformTrajectoryForAlliance(path, DriverStation.getAlliance());
+      // var path = PathPlanner.loadPath(pathName, constraints);
+      // alliancePath = PathPlannerTrajectory.transformTrajectoryForAlliance(path,
+      // DriverStation.getAlliance());
     } else {
       alliancePath = trajectory;
     }
-    if (resetOdom)
-      drive.resetOdometry(alliancePath.getInitialHolonomicPose());
+    if (resetOdom) drive.resetOdometry(alliancePath.getInitialHolonomicPose());
 
-    controllerCommand = new PPMecanumControllerCommand(alliancePath, drive::getPose2d, drive.getxController(),
-        drive.getyController(), drive.getThetaController(), (speed) -> drive.setChassisSpeeds(speed, true), drive);
+    controllerCommand =
+        new PPMecanumControllerCommand(
+            alliancePath,
+            drive::getPose2d,
+            drive.getxController(),
+            drive.getyController(),
+            drive.getThetaController(),
+            (speed) -> drive.setChassisSpeeds(speed, true),
+            drive);
 
     controllerCommand.initialize();
-
   }
 
   public void execute() {
