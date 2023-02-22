@@ -22,6 +22,7 @@ public class RobotContainer {
   public final DriveSubsytem drive = new DriveSubsytem();
   public final ArmSubsystem arm = new ArmSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
+  private final AutoOptions autoOptions = new AutoOptions(drive);
 
   public RobotContainer() {
 
@@ -60,8 +61,12 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return autoOptions.getAutoCommand();
   }
+
+  public void traj() {
+    SmartDashboard.putData("field", drive.field);
+}
 
   private double joystickResponse(double raw) {
     double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);
