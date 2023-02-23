@@ -2,13 +2,18 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,6 +32,20 @@ public class DriveSubsytem extends SubsystemBase {
   public final Field2d field;
   private final MecanumDrivePoseEstimator poseEstimator;
   private final MecanumDriveWheelPositions wheelPositions;
+  private static ProfiledPIDController profiledThetaController =
+      new ProfiledPIDController(
+          Constants.AUTO_THETACONTROLLER_KP,
+          0,
+          0,
+          new TrapezoidProfile.Constraints(
+              Units.rotationsToRadians(0.75), Units.rotationsToRadians(1.5)));
+  private static PIDController thetaController =
+      new PIDController(
+          profiledThetaController.getP(),
+          profiledThetaController.getI(),
+          profiledThetaController.getD());
+  private static PIDController xController = new PIDController(Constants.AUTO_XCONTROLLER_KP, 0, 0);
+  private static PIDController yController = new PIDController(Constants.AUTO_YCONTROLLER_KP, 0, 0);
 
   public DriveSubsytem() {
     frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
@@ -72,6 +91,15 @@ public class DriveSubsytem extends SubsystemBase {
   public void periodic() {
     // Update pose estimator with drivetrain sensors
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), pigeon.getRotation2d(), wheelPositions);
+
+    // Simple Simulation
+    field
+        .getObject("Target")
+        .setPose(
+            new Pose2d(
+                xController.getSetpoint(),
+                yController.getSetpoint(),
+                new Rotation2d(getThetaController().getSetpoint())));
   }
 
   public Pose2d getPose2d() {
@@ -100,8 +128,13 @@ public class DriveSubsytem extends SubsystemBase {
     double ySpeed = strafe * MecanumWheel.getMaxLinearVelocity();
     double turnSpeed = turn * -getMaxRotationalVelocity();
 
-    ChassisSpeeds chassisSpeeds =
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turnSpeed, pigeon.getRotation2d());
+    ChassisSpeeds chassisSpeeds;
+
+    if (!needPID)
+      chassisSpeeds =
+          ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turnSpeed, pigeon.getRotation2d());
+    else chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turnSpeed);
+
     setChassisSpeeds(chassisSpeeds, needPID);
   }
 
@@ -126,5 +159,25 @@ public class DriveSubsytem extends SubsystemBase {
 
   public MecanumDrivePoseEstimator getPoseEstimator() {
     return poseEstimator;
+  }
+
+  public ProfiledPIDController getProfiledThetaController() {
+    return profiledThetaController;
+  }
+
+  public PIDController getThetaController() {
+    return thetaController;
+  }
+
+  public PIDController getxController() {
+    return xController;
+  }
+
+  public PIDController getyController() {
+    return yController;
+  }
+
+  public ChassisSpeeds getChasssisSpeeds() {
+    return kinematics.toChassisSpeeds(getWheelSpeeds());
   }
 }

@@ -1,5 +1,10 @@
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
@@ -58,6 +63,23 @@ public final class Constants {
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
   public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
+
+  // Auto
+  public static final double AUTO_POSITION_KP = 0;
+  public static final double AUTO_THETACONTROLLER_KP = 9;
+  public static final double AUTO_XCONTROLLER_KP = 0.45;
+  public static final double AUTO_YCONTROLLER_KP = 0.06;
+  public static final double DRIVE_ACCELERATION_AUTO = 1;
+  public static final double Gearing = 4;
+  public static final PathConstraints SlowAutoConstraints = new PathConstraints(0.4, 0.4);
+  public static final PathConstraints MediumAutoConstraints = new PathConstraints(2, 2);
+  public static final PathConstraints FastAutoConstraints = new PathConstraints(3, 3);
+  public static final PathConstraints TooFastAutoConstraints = new PathConstraints(4, 4);
+  public static final double ANGLETOLERANCE = 1;
+
+  // Grid Poses
+  public static final Pose2d STATION1 =
+      new Pose2d(new Translation2d(1.86, 3.28), Rotation2d.fromDegrees(180));
 
   // Auto Leveling
   public static final double FORWARD_VELOCITY = .05;
