@@ -4,7 +4,10 @@ import com.pathplanner.lib.PathConstraints;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
@@ -85,4 +88,11 @@ public final class Constants {
   public static final double FORWARD_VELOCITY = .05;
   public static final double STRAFE_VELOCITY = .03;
   public static final double ANGLE_TOLERANCE = 1.5;
+
+  // Vision Stuff
+  public static final Transform3d RobotToCam =
+      new Transform3d(
+          new Translation3d(
+              -Units.inchesToMeters(16), -Units.inchesToMeters(18.68), Units.inchesToMeters(18.5)),
+          new Rotation3d(0, Math.toRadians(-20), Math.toRadians(180)));
 }

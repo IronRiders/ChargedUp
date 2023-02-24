@@ -119,7 +119,7 @@ public class DriveSubsytem extends SubsystemBase {
 
   public void setChassisSpeeds(ChassisSpeeds chassisSpeeds, boolean needPID) {
     targetChassisSpeeds = chassisSpeeds;
-    setWheelSpeeds(kinematics.toWheelSpeeds(chassisSpeeds), needPID);
+    setWheelSpeeds(kinematics.toWheelSpeeds(targetChassisSpeeds), needPID);
   }
 
   public void setChassisSpeeds(double strafe, double drive, double turn, boolean needPID) {

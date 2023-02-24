@@ -2,6 +2,11 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -14,6 +19,7 @@ import frc.robot.commands.CurrentLimitsManipulatorCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.TagFollowing;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -23,6 +29,7 @@ public class RobotContainer {
   // public final DifferentialDrive drive = new DifferentialDrive();
   public final DriveSubsytem drive = new DriveSubsytem();
   public final ArmSubsystem arm = new ArmSubsystem();
+  private final VisionSubsystem vision = new VisionSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
   private final AutoOptions autoOptions = new AutoOptions(drive);
 
@@ -42,6 +49,24 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    controller
+        .button(50)
+        .onTrue(
+            new TagFollowing(
+                drive,
+                () -> {
+                  var target = vision.camera.getLatestResult().getBestTarget();
+                  if (target == null) return null;
+                  return new Pose3d(drive.getPose2d())
+                      .plus(Constants.RobotToCam)
+                      .plus(target.getBestCameraToTarget())
+                      .toPose2d()
+                      .plus(
+                          new Transform2d(
+                              new Translation2d(Units.inchesToMeters(36 + 30 / 2.0), 0),
+                              new Rotation2d(Math.PI)));
+                }));
+
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
     controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
