@@ -5,7 +5,7 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 
 public class ReleaseManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
-  boolean grabcone;
+  boolean grabone;
 
   public ReleaseManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem) {
     this.manipulatorSubsystem = manipulatorSubsystem;

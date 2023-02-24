@@ -28,5 +28,7 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
 
   // Sensor
-  public static final int BEAM_BREAKER_SENSOR = 0;
+  public static final int ULTRASONIC_SENSOR_PORT1 = 1;
+  public static final int ULTRASONIC_SENSOR_PORT2 = 2;
+  public static final int DISTANCE_TO_OBJECT = 4;
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.UltrasonicSensorCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -27,6 +28,7 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick controller = new CommandJoystick(0);
+  private final UltrasonicSensorSubsystem ultrasonicSensor = new UltrasonicSensorSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,6 +49,14 @@ public class RobotContainer {
 
   // Bind triggers to Commands
   private void configureBindings() {
+    controller
+        .button(29)
+        .whileTrue(
+            new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.BOX));
+    controller
+        .button(30)
+        .onTrue(
+            new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.CONE));
     controller
         .button(31)
         .onTrue(
