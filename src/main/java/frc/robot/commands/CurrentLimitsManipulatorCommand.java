@@ -37,7 +37,7 @@ public class CurrentLimitsManipulatorCommand extends CommandBase {
   @Override
   public void execute() {
     speed = pidController.calculate(manipulator.getManipulatorMotor1EncoderDistance(), setpoint);
-    manipulator.setManipulatorMotors(speed, object);
+    manipulator.setManipulatorMotors(speed, object);  // TODO: FIX ME
   }
 
   @Override
