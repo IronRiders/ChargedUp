@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Random;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,9 +19,8 @@ public class LightsSubsystem extends SubsystemBase {
     }
 
     public void periodic() {
-      checkerboard(255, 255, 255, 0, 0, 0, 30, offset);
-      offset += 1;
-      
+      checkerboard(0, 64, 1, 219, 172, 0, 30, offset);
+      offset += 1;    
     }
 
     public void rainbow() {
@@ -29,6 +30,8 @@ public class LightsSubsystem extends SubsystemBase {
       }
       ranbowFirstLedHue += 3;
       ranbowFirstLedHue %= 180;
+      addressableLed.setData(ledBuffer);
+      addressableLed.start();
     }
 
     public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int offset) {
@@ -39,7 +42,15 @@ public class LightsSubsystem extends SubsystemBase {
         int b = (isColorOne ? b1 : b2);
         ledBuffer.setRGB(i, r, g, b);
       }
-    } 
+      addressableLed.setData(ledBuffer);
+      addressableLed.start();
+    }
+
+    public void noise() {
+      for (int i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setRGB(i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
+      }
+    }
     
     public void setColorRGB(int r, int g, int b) {
       for (var i = 0; i < ledBuffer.getLength(); i++) {
@@ -50,6 +61,7 @@ public class LightsSubsystem extends SubsystemBase {
     }
 
     public void setColorHSV(int h, int s, int v) {
+
       for (var i = 0; i < ledBuffer.getLength(); i++) {
         ledBuffer.setHSV(i, h, s, v);
       }
