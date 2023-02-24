@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.ArmExtendRetractPIDCommand;
 import frc.robot.commands.ArmRaiseLowerPIDCommand;
 import frc.robot.commands.AutoLevelingCommand;
-import frc.robot.commands.CurrentLimitsManipulatorCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
@@ -92,16 +91,6 @@ public class RobotContainer {
     controller
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
-    controller
-        .button(34)
-        .onTrue(
-            new CurrentLimitsManipulatorCommand(
-                manipulator, GrabObject.CONE, Constants.MANIPULATOR_SETPOINT));
-    controller
-        .button(35)
-        .onTrue(
-            new CurrentLimitsManipulatorCommand(
-                manipulator, GrabObject.BOX, Constants.MANIPULATOR_SETPOINT));
   }
 
   public Command getAutonomousCommand() {

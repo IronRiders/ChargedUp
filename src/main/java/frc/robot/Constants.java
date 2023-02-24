@@ -14,10 +14,10 @@ public final class Constants {
   // Manipulator
   public static final int MANIPULATOR_PORT1 = 9;
   public static final int MANIPULATOR_PORT2 = 10;
-  public static final double MANIPULATOR_POWER = 0.8;
-  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
-  public static final int MANIPULATOR_CURRENT_LIMIT_CONE = 15;
-  public static final int MANIPULATOR_CURRENT_LIMIT_BOX = 20;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 20;
+  public static final double MANIPULATOR_SPEED_CONE = 0.7;
+  public static final double MANIPULATOR_SPEED_BOX = 0.6;
+
   public static final double MANIPULATOR_PID_KP = 0.0;
   public static final double MANIPULATOR_PID_KI = 0.0;
   public static final double MANIPULATOR_PID_KD = 0.0;
