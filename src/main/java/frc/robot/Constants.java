@@ -89,9 +89,10 @@ public final class Constants {
   public static final double STRAFE_VELOCITY = .03;
   public static final double ANGLE_TOLERANCE = 1.5;
 
-   //Vision Stuff
-   public static final Transform3d RobotToCam = new Transform3d(
-       new Translation3d(-Units.inchesToMeters(16), -Units.inchesToMeters(18.68),
-               Units.inchesToMeters(18.5)),
-       new Rotation3d(0, Math.toRadians(-20), Math.toRadians(180)));
+  // Vision Stuff
+  public static final Transform3d RobotToCam =
+      new Transform3d(
+          new Translation3d(
+              -Units.inchesToMeters(16), -Units.inchesToMeters(18.68), Units.inchesToMeters(18.5)),
+          new Rotation3d(0, Math.toRadians(-20), Math.toRadians(180)));
 }

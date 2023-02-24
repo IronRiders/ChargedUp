@@ -20,52 +20,50 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class VisionSubsystem extends SubsystemBase {
-    public final PhotonCamera camera = new PhotonCamera("Anish");
-    public AprilTagFieldLayout tagLayout;
-    public PhotonPipelineResult previousPipelineResult = null;
-    public Transform3d camToTarget = new Transform3d();
-    public PhotonPoseEstimator photonPoseEstimator;
+  public final PhotonCamera camera = new PhotonCamera("Anish");
+  public AprilTagFieldLayout tagLayout;
+  public PhotonPipelineResult previousPipelineResult = null;
+  public Transform3d camToTarget = new Transform3d();
+  public PhotonPoseEstimator photonPoseEstimator;
 
-    public VisionSubsystem() {
-        try {
-            tagLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
-            photonPoseEstimator = new PhotonPoseEstimator(tagLayout,
-                    PoseStrategy.MULTI_TAG_PNP, camera, Constants.RobotToCam);
-            photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-        } catch (Exception e) {
-            DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
-            photonPoseEstimator = null;
-        }
+  public VisionSubsystem() {
+    try {
+      tagLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
+      photonPoseEstimator =
+          new PhotonPoseEstimator(
+              tagLayout, PoseStrategy.MULTI_TAG_PNP, camera, Constants.RobotToCam);
+      photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+    } catch (Exception e) {
+      DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+      photonPoseEstimator = null;
     }
+  }
 
-    public void periodic() {
-        SmartDashboard.putNumber("Ground Distance to target", Units.metersToInches(estimateDistance()));
-    }
+  public void periodic() {
+    SmartDashboard.putNumber("Ground Distance to target", Units.metersToInches(estimateDistance()));
+  }
 
-    public double getYaw() {
-        if (hasTarget())
-            return camera.getLatestResult().getBestTarget().getYaw();
+  public double getYaw() {
+    if (hasTarget()) return camera.getLatestResult().getBestTarget().getYaw();
 
-        return 0;
-    }
+    return 0;
+  }
 
-    public boolean hasTarget() {
-        var result = camera.getLatestResult();
-        return result.hasTargets();
-    }
+  public boolean hasTarget() {
+    var result = camera.getLatestResult();
+    return result.hasTargets();
+  }
 
-    public double estimateDistance() {
+  public double estimateDistance() {
 
-        if (hasTarget())
-            Units.metersToInches(new Pose3d().plus(camToTarget).toPose2d().getTranslation().getNorm());
-        return 0;
+    if (hasTarget())
+      Units.metersToInches(new Pose3d().plus(camToTarget).toPose2d().getTranslation().getNorm());
+    return 0;
+  }
 
-    }
-
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-        if (photonPoseEstimator == null)
-            return Optional.empty();
-        photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
-        return photonPoseEstimator.update();
-    }
+  public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+    if (photonPoseEstimator == null) return Optional.empty();
+    photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+    return photonPoseEstimator.update();
+  }
 }

@@ -49,19 +49,23 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    controller.button(50)
-    .onTrue(new TagFollowing(
-            drive, () -> {
-                var target = vision.camera.getLatestResult().getBestTarget();
-                if (target == null)
-                    return null;
-                return new Pose3d(drive.getPose2d())
-                        .plus(Constants.RobotToCam)
-                        .plus(target.getBestCameraToTarget())
-                        .toPose2d().plus(
-                                new Transform2d(new Translation2d(Units.inchesToMeters(36 + 30 / 2.0), 0),
-                                        new Rotation2d(Math.PI)));
-            }));
+    controller
+        .button(50)
+        .onTrue(
+            new TagFollowing(
+                drive,
+                () -> {
+                  var target = vision.camera.getLatestResult().getBestTarget();
+                  if (target == null) return null;
+                  return new Pose3d(drive.getPose2d())
+                      .plus(Constants.RobotToCam)
+                      .plus(target.getBestCameraToTarget())
+                      .toPose2d()
+                      .plus(
+                          new Transform2d(
+                              new Translation2d(Units.inchesToMeters(36 + 30 / 2.0), 0),
+                              new Rotation2d(Math.PI)));
+                }));
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
