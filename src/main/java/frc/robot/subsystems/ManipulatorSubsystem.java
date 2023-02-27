@@ -25,29 +25,21 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
   }
 
-  public void setGrabCurrentLimit(GrabObject grabObject) {
+  public void grab(GrabObject grabObject) {
     switch (grabObject) {
       case CONE:
-        manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);
-        manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_CONE);
+        setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
         break;
 
       case BOX:
-        manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_BOX);
-        manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT_BOX);
+        setManipulatorMotors(Constants.MANIPULATOR_SPEED_BOX);
         break;
     }
   }
 
-  public void grab(GrabObject object) {
-    setGrabCurrentLimit(object);
-    manipulatorMotor1.set(Constants.MANIPULATOR_POWER);
-    manipulatorMotor2.set(-Constants.MANIPULATOR_POWER);
-  }
-
   public void release() {
-    manipulatorMotor1.set(-Constants.MANIPULATOR_POWER);
-    manipulatorMotor2.set(Constants.MANIPULATOR_POWER);
+    manipulatorMotor1.set(-Constants.MANIPULATOR_SPEED_CONE);
+    manipulatorMotor2.set(Constants.MANIPULATOR_SPEED_CONE);
   }
 
   public double getManipulatorMotor1EncoderDistance() {
@@ -59,12 +51,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void setManipulatorMotors(double speed) {
-    manipulatorMotor1.set(speed);
-    manipulatorMotor2.set(-speed);
-  }
-
-  public void setManipulatorMotors(double speed, GrabObject object) {
-    setGrabCurrentLimit(object);
     manipulatorMotor1.set(speed);
     manipulatorMotor2.set(-speed);
   }
