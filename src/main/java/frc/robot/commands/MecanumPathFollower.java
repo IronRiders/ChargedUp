@@ -50,17 +50,17 @@ public class MecanumPathFollower extends CommandBase {
     } else {
       alliancePath = trajectory;
     }
-    if (resetOdom)
-      drive.resetOdometry(alliancePath.getInitialHolonomicPose());
+    if (resetOdom) drive.resetOdometry(alliancePath.getInitialHolonomicPose());
 
-    controllerCommand = new PPMecanumControllerCommand(
-        alliancePath,
-        drive::getPose2d,
-        drive.getxController(),
-        drive.getyController(),
-        drive.getThetaController(),
-        (speed) -> drive.setChassisSpeeds(speed, true),
-        drive);
+    controllerCommand =
+        new PPMecanumControllerCommand(
+            alliancePath,
+            drive::getPose2d,
+            drive.getxController(),
+            drive.getyController(),
+            drive.getThetaController(),
+            (speed) -> drive.setChassisSpeeds(speed, true),
+            drive);
 
     controllerCommand.initialize();
   }
