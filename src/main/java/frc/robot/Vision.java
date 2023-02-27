@@ -59,18 +59,9 @@ public class Vision {
 
   public double estimateDistance() {
     if (hasTarget())
-<<<<<<< HEAD
       return Units.metersToInches(new Pose3d().plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
           .toPose2d().getTranslation().getNorm());
-=======
-      Units.metersToInches(
-          new Pose3d()
-              .plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
-              .toPose2d()
-              .getTranslation()
-              .getNorm());
->>>>>>> fe72f1c248b831ce8ba7e7d70610d80a4182ff02
-    return 0;
+      return 0;
   }
 
   public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
