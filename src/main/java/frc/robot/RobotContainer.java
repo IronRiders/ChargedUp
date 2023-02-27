@@ -33,11 +33,12 @@ public class RobotContainer {
 
     drive.setDefaultCommand(
         new RunCommand(
-            () -> drive.setChassisSpeeds(
-                joystickResponse(controller.getRawAxis(0)),
-                joystickResponse(controller.getRawAxis(1)),
-                joystickResponse(controller.getRawAxis(2)),
-                false),
+            () ->
+                drive.setChassisSpeeds(
+                    joystickResponse(controller.getRawAxis(0)),
+                    joystickResponse(controller.getRawAxis(1)),
+                    joystickResponse(controller.getRawAxis(2)),
+                    false),
             drive));
 
     configureBindings();
@@ -46,9 +47,17 @@ public class RobotContainer {
   private void configureBindings() {
 
     // April Tag Tracking
-    controller.button(13).onTrue(new PathToPose(drive, () -> vision.tagLocalization(30 + 36 / 2, 0.0, Math.PI, drive.getPose2d()).get()));
+    controller
+        .button(13)
+        .onTrue(
+            new PathToPose(
+                drive,
+                () -> vision.tagLocalization(30 + 36 / 2, 0.0, Math.PI, drive.getPose2d()).get()));
     // Game Piece Tracking
-    controller.button(34).whileTrue(new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
+    controller
+        .button(34)
+        .whileTrue(
+            new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
 
     // Switching Pipelines manually
     controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(2)));

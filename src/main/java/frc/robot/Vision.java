@@ -32,8 +32,9 @@ public class Vision {
   public Vision() {
     try {
       tagLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
-      photonPoseEstimator = new PhotonPoseEstimator(
-          tagLayout, PoseStrategy.MULTI_TAG_PNP, camera, Constants.RobotToCam);
+      photonPoseEstimator =
+          new PhotonPoseEstimator(
+              tagLayout, PoseStrategy.MULTI_TAG_PNP, camera, Constants.RobotToCam);
       photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
     } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
@@ -46,8 +47,7 @@ public class Vision {
   }
 
   public double getYaw() {
-    if (hasTarget())
-      return camera.getLatestResult().getBestTarget().getYaw();
+    if (hasTarget()) return camera.getLatestResult().getBestTarget().getYaw();
 
     return 0;
   }
@@ -59,41 +59,54 @@ public class Vision {
 
   public double estimateDistance() {
     if (hasTarget())
-      Units.metersToInches(new Pose3d().plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
-          .toPose2d().getTranslation().getNorm());
+      Units.metersToInches(
+          new Pose3d()
+              .plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
+              .toPose2d()
+              .getTranslation()
+              .getNorm());
     return 0;
   }
 
   public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (photonPoseEstimator == null)
-      return Optional.empty();
+    if (photonPoseEstimator == null) return Optional.empty();
     photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
     return photonPoseEstimator.update();
   }
 
-  public Optional<Pose2d> tagLocalization(double xDistance, double yDistance, double angleRadians, Pose2d robotPos) {
-    if (!hasTarget())
-      return Optional.empty();
+  public Optional<Pose2d> tagLocalization(
+      double xDistance, double yDistance, double angleRadians, Pose2d robotPos) {
+    if (!hasTarget()) return Optional.empty();
     var target = camera.getLatestResult().getBestTarget();
-    return Optional.of(new Pose3d(robotPos)
-        .plus(Constants.RobotToCam)
-        .plus(target.getBestCameraToTarget())
-        .toPose2d().plus(
-            new Transform2d(
-                new Translation2d(Units.inchesToMeters(xDistance), Units.inchesToMeters(yDistance)),
-                new Rotation2d(angleRadians))));
+    return Optional.of(
+        new Pose3d(robotPos)
+            .plus(Constants.RobotToCam)
+            .plus(target.getBestCameraToTarget())
+            .toPose2d()
+            .plus(
+                new Transform2d(
+                    new Translation2d(
+                        Units.inchesToMeters(xDistance), Units.inchesToMeters(yDistance)),
+                    new Rotation2d(angleRadians))));
   }
 
   public Optional<Pose2d> fieldElementTracking(Pose2d robotPose) {
-    double targetHeight = Units.inchesToMeters(4.5); // Change based on cone orientation and cubes game pieces
-    if (!hasTarget())
-      return Optional.empty();
+    double targetHeight =
+        Units.inchesToMeters(4.5); // Change based on cone orientation and cubes game pieces
+    if (!hasTarget()) return Optional.empty();
     var target = camera.getLatestResult().getBestTarget();
-    Translation3d camToTargetTrl = frc.robot.util.PhotonUtils.estimateCamToTargetTrl(Constants.RobotToCam,
-        targetHeight, Rotation2d.fromDegrees(target.getYaw()), Rotation2d.fromDegrees(-target.getPitch()));
-    Translation3d robotToTargetTrl = new Pose3d(camToTargetTrl, new Rotation3d())
-        .relativeTo(new Pose3d().plus(Constants.RobotToCam.inverse())).getTranslation();
-    Pose2d fieldPose = new Pose3d(robotPose).plus(new Transform3d(robotToTargetTrl, new Rotation3d())).toPose2d();
+    Translation3d camToTargetTrl =
+        frc.robot.util.PhotonUtils.estimateCamToTargetTrl(
+            Constants.RobotToCam,
+            targetHeight,
+            Rotation2d.fromDegrees(target.getYaw()),
+            Rotation2d.fromDegrees(-target.getPitch()));
+    Translation3d robotToTargetTrl =
+        new Pose3d(camToTargetTrl, new Rotation3d())
+            .relativeTo(new Pose3d().plus(Constants.RobotToCam.inverse()))
+            .getTranslation();
+    Pose2d fieldPose =
+        new Pose3d(robotPose).plus(new Transform3d(robotToTargetTrl, new Rotation3d())).toPose2d();
     return Optional.of(fieldPose);
   }
 }

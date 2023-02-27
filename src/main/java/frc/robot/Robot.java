@@ -22,8 +22,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autoCommand = robotContainer.getAutonomousCommand();
-    if (autoCommand != null)
-      autoCommand.schedule();
+    if (autoCommand != null) autoCommand.schedule();
   }
 
   @Override
@@ -39,6 +38,5 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void simulationPeriodic() {
-  }
+  public void simulationPeriodic() {}
 }
