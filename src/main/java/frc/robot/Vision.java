@@ -59,7 +59,7 @@ public class Vision {
 
   public double estimateDistance() {
     if (hasTarget())
-      Units.metersToInches(new Pose3d().plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
+      return Units.metersToInches(new Pose3d().plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
           .toPose2d().getTranslation().getNorm());
     return 0;
   }
