@@ -9,7 +9,6 @@ public class GrabManipulatorCommand extends CommandBase {
   private final Enum coneGrabber;
   private final GrabObject coneGraber;
 
-
   public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject coneGraber) {
     this.manipulatorSubsystem = manipulatorSubsystem;
     this.coneGrabber = coneGraber;
@@ -23,7 +22,6 @@ public class GrabManipulatorCommand extends CommandBase {
     } else {
       manipulatorSubsystem.grab(GrabObject.BOX);
     }
-
   }
 
   @Override

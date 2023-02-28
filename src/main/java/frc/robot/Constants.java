@@ -61,7 +61,6 @@ public final class Constants {
   public static final int WHEEL_PORT_FRONT_RIGHT = 2;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
 
-
   // Sensor
   public static final int ULTRASONIC_SENSOR_PORT1 = 1;
   public static final int ULTRASONIC_SENSOR_PORT2 = 2;

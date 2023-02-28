@@ -15,7 +15,6 @@ import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.UltrasonicSensorCommand;
-import frc.robot.commands.TagFollowing;
 import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.*;
 
@@ -30,7 +29,6 @@ public class RobotContainer {
   private final CommandJoystick controller = new CommandJoystick(0);
   private final UltrasonicSensorSubsystem ultrasonicSensor = new UltrasonicSensorSubsystem();
   private final AutoOptions autoOptions = new AutoOptions(drive);
-
 
   public RobotContainer() {
 
@@ -52,12 +50,10 @@ public class RobotContainer {
     // April Tag Tracking
     controller
         .button(29)
-        .whileTrue(
-            new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.BOX));
+        .whileTrue(new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.BOX));
     controller
         .button(30)
-        .onTrue(
-            new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.CONE));
+        .onTrue(new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.CONE));
     controller
         .button(13)
         .onTrue(
