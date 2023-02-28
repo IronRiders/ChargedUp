@@ -58,7 +58,6 @@ public class RobotContainer {
         .button(30)
         .onTrue(
             new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.CONE));
-        .button(50)
     controller
         .button(13)
         .onTrue(
