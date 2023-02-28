@@ -11,7 +11,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    Timer.delay(2.5);
+    Timer.delay(3);
     robotContainer = new RobotContainer();
     robotContainer.traj();
   }
