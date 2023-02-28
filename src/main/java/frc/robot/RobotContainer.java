@@ -22,8 +22,6 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
-  // one of the two following lines of code must be commented out at all times
-  // public final DifferentialDrive drive = new DifferentialDrive();
   public final DriveSubsytem drive = new DriveSubsytem();
   public final ArmSubsystem arm = new ArmSubsystem();
   private final Vision vision = new Vision();
