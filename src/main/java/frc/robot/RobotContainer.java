@@ -46,19 +46,39 @@ public class RobotContainer {
   private void configureBindings() {
 
     // Game Piece Tracking
-    controller.button(34).whileTrue(new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
+    controller
+        .button(34)
+        .whileTrue(
+            new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
 
     // On The Fly Pathing to Every Station
-    controller.button(100).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
-    controller.button(101).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
-    controller.button(102).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
-    controller.button(103).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
-    controller.button(104).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
-    controller.button(105).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
-    controller.button(106).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
-    controller.button(107).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
-    controller.button(108).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
-
+    controller
+        .button(100)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
+    controller
+        .button(101)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
+    controller
+        .button(102)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
+    controller
+        .button(103)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
+    controller
+        .button(104)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
+    controller
+        .button(105)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
+    controller
+        .button(106)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
+    controller
+        .button(107)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
+    controller
+        .button(108)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
     // Switching Pipelines manually
     controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(2)));
