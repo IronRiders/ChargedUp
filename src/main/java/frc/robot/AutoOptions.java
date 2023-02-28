@@ -4,14 +4,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.subsystems.DriveSubsytem;
 
 public class AutoOptions {
 
   private SendableChooser<CommandBase> autoOptions = new SendableChooser<>();
+  private DriveSubsytem drive;
 
   public AutoOptions(DriveSubsytem drive) {
+    this.drive = drive;
     autoOptions.setDefaultOption(
         "FirstPickUpLeftSide",
         new MecanumPathFollower(
@@ -31,6 +35,7 @@ public class AutoOptions {
     autoOptions.addOption(
         "Test Path",
         new MecanumPathFollower(drive, "Test Path", Constants.TooFastAutoConstraints, true));
+    autoOptions.addOption("Three Piece", threePieceAuto());
 
     submit();
   }
@@ -46,4 +51,15 @@ public class AutoOptions {
   public void submit() {
     SmartDashboard.putData("Auto Options", autoOptions);
   }
+
+  public SequentialCommandGroup threePieceAuto() {
+    return new SequentialCommandGroup(
+      new MecanumPathFollower(drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
+      new WaitCommand(2),
+      new MecanumPathFollower(drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, false),
+      new WaitCommand(2),
+      new MecanumPathFollower(drive, "SecondPickUpLeftSide", Constants.MediumAutoConstraints, false),
+      new WaitCommand(2),
+      new MecanumPathFollower(drive, "SecondDropOffLeftSide", Constants.MediumAutoConstraints, false));
+    }
 }
