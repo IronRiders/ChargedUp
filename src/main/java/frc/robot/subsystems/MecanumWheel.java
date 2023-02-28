@@ -22,7 +22,6 @@ public class MecanumWheel extends SubsystemBase {
     motor = new CANSparkMax(motorId, MotorType.kBrushless);
     motor.setInverted(inverted);
     motor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
-    motor.burnFlash();
     motor.setIdleMode(IdleMode.kBrake);
     pidController = new PIDController(0, 0, 0);
     encoder = motor.getEncoder();

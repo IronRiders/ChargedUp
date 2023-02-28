@@ -44,7 +44,7 @@ public final class Constants {
   // Drivetrain
   public static final double DRIVE_SPEED_MULT = 1.0;
   public static final double DRIVE_SPEED_AUTO = 0.1 / DRIVE_SPEED_MULT;
-  public static final int DRIVE_CURRENT_LIMIT = 45;
+  public static final int DRIVE_CURRENT_LIMIT = 40;
   public static final double MOVEMENT_SPEED = 1; // meters per second
   public static final double TURN_SPEED = 1; // radians per second
   public static final double DIAMETER = 8; // Inches
