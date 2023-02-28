@@ -16,7 +16,7 @@ public class MecanumWheel extends SubsystemBase {
   private RelativeEncoder encoder;
   private PIDController pidController;
   private static SimpleMotorFeedforward feedForward =
-      new SimpleMotorFeedforward(0.062216, 1.3386, 1.0978);
+      new SimpleMotorFeedforward(0, 0, 0);
 
   public MecanumWheel(int motorId, boolean inverted) {
     motor = new CANSparkMax(motorId, MotorType.kBrushless);
