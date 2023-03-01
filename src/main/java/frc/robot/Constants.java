@@ -50,7 +50,7 @@ public final class Constants {
   public static final double DIAMETER = 8; // Inches
   public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(DIAMETER * Math.PI);
   public static final double AUTO_WHEELPID_KP = 0;
-  public static final double GEARING = 4;
+  public static final double GEARING = 11.314285714;
 
   // Ports
   public static final int WHEEL_PORT_FRONT_LEFT = 1;
@@ -70,7 +70,6 @@ public final class Constants {
   public static final double AUTO_XCONTROLLER_KP = 0;
   public static final double AUTO_YCONTROLLER_KP = 0;
   public static final double DRIVE_ACCELERATION_AUTO = 1;
-  public static final double Gearing = 11.314285714;
   public static final PathConstraints SlowAutoConstraints = new PathConstraints(2, 2);
   public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
   public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
