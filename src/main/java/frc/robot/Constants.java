@@ -2,11 +2,8 @@ package frc.robot;
 
 import com.pathplanner.lib.PathConstraints;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 
@@ -50,10 +47,10 @@ public final class Constants {
   public static final int DRIVE_CURRENT_LIMIT = 40;
   public static final double MOVEMENT_SPEED = 1; // meters per second
   public static final double TURN_SPEED = 1; // radians per second
-  public static final double DIAMETER = 7.9; // Inches
+  public static final double DIAMETER = 8; // Inches
   public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(DIAMETER * Math.PI);
-  public static final double AUTO_WHEELPID_KP = 0.2;
-  public static final double GEARING = 4;
+  public static final double AUTO_WHEELPID_KP = 0;
+  public static final double GEARING = 11.314285714;
 
   // Ports
   public static final int WHEEL_PORT_FRONT_LEFT = 1;
@@ -69,20 +66,15 @@ public final class Constants {
 
   // Auto
   public static final double AUTO_POSITION_KP = 0;
-  public static final double AUTO_THETACONTROLLER_KP = 9;
-  public static final double AUTO_XCONTROLLER_KP = 0.45;
-  public static final double AUTO_YCONTROLLER_KP = 0.06;
+  public static final double AUTO_THETACONTROLLER_KP = 0;
+  public static final double AUTO_XCONTROLLER_KP = 0;
+  public static final double AUTO_YCONTROLLER_KP = 0;
   public static final double DRIVE_ACCELERATION_AUTO = 1;
-  public static final double Gearing = 4;
-  public static final PathConstraints SlowAutoConstraints = new PathConstraints(0.4, 0.4);
-  public static final PathConstraints MediumAutoConstraints = new PathConstraints(2, 2);
-  public static final PathConstraints FastAutoConstraints = new PathConstraints(3, 3);
-  public static final PathConstraints TooFastAutoConstraints = new PathConstraints(4, 4);
+  public static final PathConstraints SlowAutoConstraints = new PathConstraints(2, 2);
+  public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
+  public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
+  public static final PathConstraints TooFastAutoConstraints = new PathConstraints(4.5, 4.5);
   public static final double ANGLETOLERANCE = 1;
-
-  // Grid Poses
-  public static final Pose2d STATION1 =
-      new Pose2d(new Translation2d(1.86, 3.28), Rotation2d.fromDegrees(180));
 
   // Auto Leveling
   public static final double FORWARD_VELOCITY = .05;
@@ -94,5 +86,5 @@ public final class Constants {
       new Transform3d(
           new Translation3d(
               -Units.inchesToMeters(16), -Units.inchesToMeters(18.68), Units.inchesToMeters(18.5)),
-          new Rotation3d(0, Math.toRadians(-20), Math.toRadians(180)));
+          new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 }

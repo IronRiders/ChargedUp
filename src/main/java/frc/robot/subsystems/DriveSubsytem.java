@@ -61,10 +61,10 @@ public class DriveSubsytem extends SubsystemBase {
     // meter per second
     kinematics =
         new MecanumDriveKinematics(
-            new Translation2d(0.28575, 0.2267),
-            new Translation2d(0.28575, -0.2267),
-            new Translation2d(-0.28575, 0.2267),
-            new Translation2d(-0.28575, -0.2267));
+            new Translation2d(0.2413, 0.28893008),
+            new Translation2d(0.2413, -0.28893008),
+            new Translation2d(-0.2413, 0.28893008),
+            new Translation2d(-0.2413, -0.28893008));
 
     pigeon = new WPI_Pigeon2(15);
     targetChassisSpeeds = new ChassisSpeeds();

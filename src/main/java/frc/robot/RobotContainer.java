@@ -1,7 +1,9 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.util.FieldUtil;
 import frc.robot.subsystems.GrabObject;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -20,8 +22,6 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
-  // one of the two following lines of code must be commented out at all times
-  // public final DifferentialDrive drive = new DifferentialDrive();
   public final DriveSubsytem drive = new DriveSubsytem();
   public final ArmSubsystem arm = new ArmSubsystem();
   private final Vision vision = new Vision();
@@ -45,18 +45,40 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    // April Tag Tracking
-    controller
-        .button(13)
-        .onTrue(
-            new PathToPose(
-                drive,
-                () -> vision.tagLocalization(30 + 36 / 2, 0.0, Math.PI, drive.getPose2d()).get()));
     // Game Piece Tracking
     controller
         .button(34)
         .whileTrue(
             new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
+
+    // On The Fly Pathing to Every Station
+    controller
+        .button(100)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
+    controller
+        .button(101)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
+    controller
+        .button(102)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
+    controller
+        .button(103)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
+    controller
+        .button(104)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
+    controller
+        .button(105)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
+    controller
+        .button(106)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
+    controller
+        .button(107)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
+    controller
+        .button(108)
+        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
     // Switching Pipelines manually
     controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(2)));
