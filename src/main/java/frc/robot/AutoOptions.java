@@ -54,12 +54,16 @@ public class AutoOptions {
 
   public SequentialCommandGroup threePieceAuto() {
     return new SequentialCommandGroup(
-      new MecanumPathFollower(drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
-      new WaitCommand(2),
-      new MecanumPathFollower(drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, false),
-      new WaitCommand(2),
-      new MecanumPathFollower(drive, "SecondPickUpLeftSide", Constants.MediumAutoConstraints, false),
-      new WaitCommand(2),
-      new MecanumPathFollower(drive, "SecondDropOffLeftSide", Constants.MediumAutoConstraints, false));
-    }
+        new MecanumPathFollower(
+            drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
+        new WaitCommand(2),
+        new MecanumPathFollower(
+            drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, false),
+        new WaitCommand(2),
+        new MecanumPathFollower(
+            drive, "SecondPickUpLeftSide", Constants.MediumAutoConstraints, false),
+        new WaitCommand(2),
+        new MecanumPathFollower(
+            drive, "SecondDropOffLeftSide", Constants.MediumAutoConstraints, false));
+  }
 }
