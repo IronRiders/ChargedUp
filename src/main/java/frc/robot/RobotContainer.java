@@ -31,11 +31,12 @@ public class RobotContainer {
 
     drive.setDefaultCommand(
         new RunCommand(
-            () -> drive.setChassisSpeeds(
-                joystickResponse(controller.getRawAxis(0)),
-                joystickResponse(controller.getRawAxis(1)),
-                joystickResponse(controller.getRawAxis(2)),
-                false),
+            () ->
+                drive.setChassisSpeeds(
+                    joystickResponse(controller.getRawAxis(0)),
+                    joystickResponse(controller.getRawAxis(1)),
+                    joystickResponse(controller.getRawAxis(2)),
+                    false),
             drive));
 
     configureBindings();
@@ -50,8 +51,12 @@ public class RobotContainer {
             new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
 
     // Switching Pipelines manually
-    controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(false))));
-    controller.button(4).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(true))));
+    controller
+        .button(3)
+        .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(false))));
+    controller
+        .button(4)
+        .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(true))));
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
