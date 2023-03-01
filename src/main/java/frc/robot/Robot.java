@@ -11,6 +11,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    robotContainer.traj();
   }
 
   @Override
@@ -35,4 +36,7 @@ public class Robot extends TimedRobot {
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
   }
+
+  @Override
+  public void simulationPeriodic() {}
 }
