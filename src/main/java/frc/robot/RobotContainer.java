@@ -24,6 +24,7 @@ public class RobotContainer {
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final DriveSubsytem drive = new DriveSubsytem();
   public final ArmSubsystem arm = new ArmSubsystem();
+  public final LightsSubsystem lights = new LightsSubsystem();
   private final Vision vision = new Vision();
   private final CommandJoystick controller = new CommandJoystick(0);
   private final AutoOptions autoOptions = new AutoOptions(drive);
@@ -81,8 +82,12 @@ public class RobotContainer {
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
     // Switching Pipelines manually
-    controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(2)));
-    controller.button(4).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(4)));
+    controller
+      .button(3)
+      .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(false))));
+    controller
+      .button(4)
+      .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(true))));
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
@@ -110,6 +115,7 @@ public class RobotContainer {
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
+  
 
   public Command getAutonomousCommand() {
     return autoOptions.getAutoCommand();
@@ -117,6 +123,15 @@ public class RobotContainer {
 
   public void traj() {
     SmartDashboard.putData("field", drive.field);
+  }
+ 
+  public int isCube(boolean isCube) {
+    if (isCube) {
+      lights.setColorHSV(253, 224, 25);
+      return 4;
+    }
+    lights.setColorHSV(259, 100, 70);
+    return 2;
   }
 
   private double joystickResponse(double raw) {
