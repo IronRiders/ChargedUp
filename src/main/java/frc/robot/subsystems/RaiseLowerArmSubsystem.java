@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -28,11 +27,9 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
     armMotorEncoder.setPosition(0);
   }
 
-
   public double getArmMotorEncoderDistance() {
     return armMotorEncoder.getPosition();
   }
-
 
   public void setArmMotor(double speed) {
     armMotor.set(speed);
@@ -50,5 +47,3 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
     armMotor.set(0);
   }
 }
-
-

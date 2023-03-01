@@ -19,7 +19,8 @@ public class ExtendingArmSubsystem extends SubsystemBase {
     boxClimberMotor.setIdleMode(IdleMode.kBrake);
     boxClimberMotor.setSmartCurrentLimit(Constants.BOX_CLIMBER_MOTOR_CURRENT_LIMIT);
 
-    boxClimberMotorEncoder = boxClimberMotor.getEncoder();  }
+    boxClimberMotorEncoder = boxClimberMotor.getEncoder();
+  }
 
   public void resetBoxClimberMotorEncoder() {
     boxClimberMotorEncoder.setPosition(0);
@@ -45,5 +46,3 @@ public class ExtendingArmSubsystem extends SubsystemBase {
     boxClimberMotor.set(0);
   }
 }
-
-
