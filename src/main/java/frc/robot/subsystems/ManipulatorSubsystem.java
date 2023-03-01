@@ -12,7 +12,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
   private CANSparkMax manipulatorMotor1;
   private CANSparkMax manipulatorMotor2;
 
-  RelativeEncoder manipulatorMotor1Encoder = manipulatorMotor1.getEncoder();
+  RelativeEncoder manipulatorMotor1Encoder;
 
   public ManipulatorSubsystem() {
     manipulatorMotor1 = new CANSparkMax(Constants.MANIPULATOR_PORT1, MotorType.kBrushless);
@@ -23,6 +23,8 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
     manipulatorMotor2.setIdleMode(IdleMode.kBrake);
     manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
+
+    manipulatorMotor1Encoder = manipulatorMotor1.getEncoder();
   }
 
   public void grab(GrabObject grabObject) {
