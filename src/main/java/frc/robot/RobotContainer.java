@@ -83,11 +83,11 @@ public class RobotContainer {
 
     // Switching Pipelines manually
     controller
-      .button(3)
-      .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(false))));
+        .button(3)
+        .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(false))));
     controller
-      .button(4)
-      .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(true))));
+        .button(4)
+        .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(true))));
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
@@ -115,7 +115,6 @@ public class RobotContainer {
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
-  
 
   public Command getAutonomousCommand() {
     return autoOptions.getAutoCommand();
@@ -124,7 +123,7 @@ public class RobotContainer {
   public void traj() {
     SmartDashboard.putData("field", drive.field);
   }
- 
+
   public int isCube(boolean isCube) {
     if (isCube) {
       lights.setColorHSV(253, 224, 25);
