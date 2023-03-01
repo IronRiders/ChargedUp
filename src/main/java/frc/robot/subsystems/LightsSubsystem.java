@@ -21,7 +21,7 @@ public class LightsSubsystem extends SubsystemBase {
     public void periodic() {
       checkerboard(0, 64, 1, 219, 172, 0, 30, offset);
       offset += 1;    
-    }
+    }    
 
     public void rainbow() {
       for (int i = 0; i < ledBuffer.getLength(); i++) {
