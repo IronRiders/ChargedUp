@@ -47,7 +47,6 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-
     // April Tag Tracking
     controller
         .button(29)
