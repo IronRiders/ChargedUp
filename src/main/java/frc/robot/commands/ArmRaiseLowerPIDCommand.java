@@ -32,7 +32,7 @@ public class ArmRaiseLowerPIDCommand extends CommandBase {
 
   @Override
   public void execute() {
-    speed = pidController.calculate(armSubsystem.getBoxClimberEncoderDistance(), setpoint);
+    speed = pidController.calculate(armSubsystem.getArmMotorEncoderDistance(), setpoint);
     armSubsystem.setArmMotor(speed);
   }
 
