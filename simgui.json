@@ -1,0 +1,29 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "window": {
+        "visible": false
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auto Options": "String Chooser",
+      "/SmartDashboard/field": "Field2d"
+    },
+    "windows": {
+      "/SmartDashboard/Auto Options": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/field": {
+        "image": "C:\\Users\\Anish\\Downloads\\ChargedUp.jpg",
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  }
+}
