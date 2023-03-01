@@ -6,17 +6,17 @@ import frc.robot.subsystems.GrabObject;
 
 public class GrabManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
-  private final GrabObject coneGraber;
+  private final GrabObject object;
 
-  public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject coneGraber) {
+  public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject object) {
     this.manipulatorSubsystem = manipulatorSubsystem;
-    this.coneGraber = coneGraber;
+    this.object = object;
     addRequirements(manipulatorSubsystem);
   }
 
   @Override
   public void initialize() {
-    manipulatorSubsystem.grab(coneGraber);
+    manipulatorSubsystem.grab(object);
   }
 
   @Override

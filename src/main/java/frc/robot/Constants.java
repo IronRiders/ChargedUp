@@ -42,7 +42,7 @@ public final class Constants {
 
   // Joystick
   public static final double DEADBAND = 0.06;
-  public static final double EXPONENT = 0.1; // between 0 and 1
+  public static final double EXPONENT = 1; // between 0 and 1
 
   // Drivetrain
   public static final double DRIVE_SPEED_MULT = 1.0;
@@ -56,12 +56,12 @@ public final class Constants {
   public static final double GEARING = 4;
 
   // Ports
-  public static final int WHEEL_PORT_FRONT_LEFT = 1;
-  public static final int WHEEL_PORT_REAR_LEFT = 3;
-  public static final int WHEEL_PORT_FRONT_RIGHT = 2;
+  public static final int WHEEL_PORT_FRONT_LEFT = 2;
+  public static final int WHEEL_PORT_REAR_LEFT = 1;
+  public static final int WHEEL_PORT_FRONT_RIGHT = 3;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
-  public static final int ARM_BOX_CLIMBER_PORT = 5;
-  public static final int ARM_RAISE_LOWER_PORT = 6;
+  public static final int ARM_BOX_CLIMBER_PORT = 6;
+  public static final int ARM_RAISE_LOWER_PORT = 5;
 
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;

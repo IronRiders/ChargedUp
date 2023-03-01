@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.GrabObject;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -34,9 +35,9 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 drive.setChassisSpeeds(
-                    joystickResponse(controller.getRawAxis(0)),
-                    joystickResponse(controller.getRawAxis(1)),
-                    joystickResponse(controller.getRawAxis(2)),
+                    joystickResponse(controller.getRawAxis(0)*0.5),
+                    joystickResponse(controller.getRawAxis(1)*0.5),
+                    joystickResponse(controller.getRawAxis(2)*0.5),
                     false),
             drive));
 
@@ -64,8 +65,8 @@ public class RobotContainer {
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
-    controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
-    controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
+    controller.button(11).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
+    controller.button(12).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
     controller
         .button(1)
         .onTrue(new ArmRaiseLowerPIDCommand(arm, Constants.ARM_RAISE_LOWER_SETPOINT));
@@ -98,14 +99,14 @@ public class RobotContainer {
   }
 
   private double joystickResponse(double raw) {
-    double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);
+    double deadband = Constants.DEADBAND;
     double deadbanded = 0.0;
     if (raw > deadband) {
       deadbanded = (raw - deadband) / (1 - deadband);
     } else if (raw < -deadband) {
       deadbanded = (raw + deadband) / (1 - deadband);
     }
-    double exponent = SmartDashboard.getNumber("exponent", Constants.EXPONENT) + 1;
+    double exponent = Constants.EXPONENT;
     return Math.pow(Math.abs(deadbanded), exponent) * Math.signum(deadbanded);
   }
 }
