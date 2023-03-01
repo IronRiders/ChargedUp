@@ -49,11 +49,10 @@ public class RobotContainer {
     controller
         .button(34)
         .whileTrue(
-            new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get())
-    );
-    
-        // On The Fly Pathing to Every Station
-        controller
+            new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
+
+    // On The Fly Pathing to Every Station
+    controller
         .button(100)
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
     controller
