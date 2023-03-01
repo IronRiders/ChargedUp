@@ -3,15 +3,15 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.RaiseLowerArmSubsystem;
 
 public class ArmRaiseLowerPIDCommand extends CommandBase {
-  private final ArmSubsystem armSubsystem;
+  private final RaiseLowerArmSubsystem armSubsystem;
   private final PIDController pidController;
   private final double setpoint;
   private double speed;
 
-  public ArmRaiseLowerPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
+  public ArmRaiseLowerPIDCommand(RaiseLowerArmSubsystem armSubsystem, double setpoint) {
     this.armSubsystem = armSubsystem;
     this.pidController =
         new PIDController(
