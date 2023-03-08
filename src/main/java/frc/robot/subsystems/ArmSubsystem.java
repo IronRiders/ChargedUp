@@ -4,6 +4,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
+import com.revrobotics.SparkMaxLimitSwitch;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   RelativeEncoder boxClimberMotorEncoder;
   RelativeEncoder armMotorEncoder;
+  SparkMaxLimitSwitch limitSwitch;
 
   public ArmSubsystem() {
     boxClimberMotor = new CANSparkMax(Constants.ARM_BOX_CLIMBER_PORT, MotorType.kBrushless);
@@ -24,6 +27,8 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor = new CANSparkMax(Constants.ARM_RAISE_LOWER_PORT, MotorType.kBrushless);
     armMotor.setIdleMode(IdleMode.kBrake);
     armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT);
+    limitSwitch = armMotor.getReverseLimitSwitch(Type.kNormallyOpen);
+    limitSwitch.enableLimitSwitch(true);
 
     boxClimberMotorEncoder = boxClimberMotor.getEncoder();
     armMotorEncoder = armMotor.getEncoder();
