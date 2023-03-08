@@ -2,8 +2,10 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -13,12 +15,14 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
   private CANSparkMax armMotor;
 
   RelativeEncoder armMotorEncoder;
+  SparkMaxLimitSwitch limitSwitch;
 
   public RaiseLowerArmSubsystem() {
-
     armMotor = new CANSparkMax(Constants.ARM_RAISE_LOWER_PORT, MotorType.kBrushless);
     armMotor.setIdleMode(IdleMode.kBrake);
     armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT);
+    limitSwitch = armMotor.getReverseLimitSwitch(Type.kNormallyOpen);
+    limitSwitch.enableLimitSwitch(true);
 
     armMotorEncoder = armMotor.getEncoder();
   }
