@@ -3,15 +3,15 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ExtendingArmSubsystem;
 
 public class ArmExtendRetractPIDCommand extends CommandBase {
-  private final ArmSubsystem armSubsystem;
+  private final ExtendingArmSubsystem armSubsystem;
   private final PIDController pidController;
   private final double setpoint;
   private double speed;
 
-  public ArmExtendRetractPIDCommand(ArmSubsystem armSubsystem, double setpoint) {
+  public ArmExtendRetractPIDCommand(ExtendingArmSubsystem armSubsystem, double setpoint) {
     this.armSubsystem = armSubsystem;
     this.pidController =
         new PIDController(
@@ -32,7 +32,7 @@ public class ArmExtendRetractPIDCommand extends CommandBase {
 
   @Override
   public void execute() {
-    speed = pidController.calculate(armSubsystem.getArmMotorEncoderDistance(), setpoint);
+    speed = pidController.calculate(armSubsystem.getBoxClimberEncoderDistance(), setpoint);
     armSubsystem.setBoxClimberMotor(speed);
   }
 

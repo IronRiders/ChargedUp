@@ -55,6 +55,8 @@ public class LightsSubsystem extends SubsystemBase {
       ledBuffer.setRGB(
           i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
     }
+    addressableLed.setData(ledBuffer);
+    addressableLed.start();
   }
 
   public void setColorRGB(int r, int g, int b) {
