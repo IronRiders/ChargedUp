@@ -4,6 +4,8 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
 import frc.robot.subsystems.GrabObject;
 
+import org.opencv.video.Video;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -83,11 +85,16 @@ public class RobotContainer {
 
     // Switching Pipelines manually
     controller
-        .button(3)
-        .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(false))));
-    controller
-        .button(4)
-        .onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(isCube(true))));
+      .button(3)
+      .onTrue(new InstantCommand(() -> {
+        if (vision.camera.getPipelineIndex() == 4) {
+          vision.camera.setPipelineIndex(2);
+          lights.setColorHSV(253, 224, 25);
+          return;
+        }
+        vision.camera.setPipelineIndex(4);
+        lights.setColorHSV(259, 100, 70);
+      }));
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
@@ -115,22 +122,13 @@ public class RobotContainer {
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
-
+  
   public Command getAutonomousCommand() {
     return autoOptions.getAutoCommand();
   }
 
   public void traj() {
     SmartDashboard.putData("field", drive.field);
-  }
-
-  public int isCube(boolean isCube) {
-    if (isCube) {
-      lights.setColorHSV(253, 224, 25);
-      return 4;
-    }
-    lights.setColorHSV(259, 100, 70);
-    return 2;
   }
 
   private double joystickResponse(double raw) {
