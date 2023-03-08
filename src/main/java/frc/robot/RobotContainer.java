@@ -4,7 +4,6 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
 import frc.robot.subsystems.GrabObject;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -122,7 +121,7 @@ public class RobotContainer {
     controller
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
-    
+
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
 
