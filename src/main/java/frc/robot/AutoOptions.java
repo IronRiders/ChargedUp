@@ -44,10 +44,11 @@ public class AutoOptions {
         "45 degree turning path",
         new MecanumPathFollower(
             drive, "45 degree turning path", Constants.MediumAutoConstraints, true));
-    autoOptions.addOption("Charge Right",
-        new MecanumPathFollower(drive, "ChargeRight",
-            Constants.MediumAutoConstraints, true));
-    autoOptions.addOption("ON The Fly Path Test",
+    autoOptions.addOption(
+        "Charge Right",
+        new MecanumPathFollower(drive, "ChargeRight", Constants.MediumAutoConstraints, true));
+    autoOptions.addOption(
+        "ON The Fly Path Test",
         new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
 
     // Actual Pathing
