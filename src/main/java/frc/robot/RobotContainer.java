@@ -4,7 +4,6 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
 import frc.robot.subsystems.GrabObject;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -98,10 +97,18 @@ public class RobotContainer {
                   lights.setColorHSV(259, 100, 70);
                 }));
 
-    controller.button(19).whileTrue(Commands.startEnd(() -> armExtend.extend(), () -> armExtend.stop(), armExtend));
-    controller.button(20).whileTrue(Commands.startEnd(() -> armExtend.retract(), () -> armExtend.stop(), armExtend));
-    controller.button(21).whileTrue(Commands.startEnd(() -> armRaise.raise(), () -> armRaise.stop(), armRaise));
-    controller.button(22).whileTrue(Commands.startEnd(() -> armRaise.lower(), () -> armRaise.stop(), armRaise));
+    controller
+        .button(19)
+        .whileTrue(Commands.startEnd(() -> armExtend.extend(), () -> armExtend.stop(), armExtend));
+    controller
+        .button(20)
+        .whileTrue(Commands.startEnd(() -> armExtend.retract(), () -> armExtend.stop(), armExtend));
+    controller
+        .button(21)
+        .whileTrue(Commands.startEnd(() -> armRaise.raise(), () -> armRaise.stop(), armRaise));
+    controller
+        .button(22)
+        .whileTrue(Commands.startEnd(() -> armRaise.lower(), () -> armRaise.stop(), armRaise));
     controller
         .button(1)
         .onTrue(new ArmRaiseLowerPIDCommand(armRaise, Constants.ARM_RAISE_LOWER_SETPOINT));
