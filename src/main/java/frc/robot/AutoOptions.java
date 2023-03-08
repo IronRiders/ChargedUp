@@ -77,7 +77,7 @@ public class AutoOptions {
         new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)),
         new WaitCommand(1),
         new MecanumPathFollower(
-            drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
+            drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, false),
         new WaitCommand(1),
         new MecanumPathFollower(
             drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, false));
@@ -106,7 +106,7 @@ public class AutoOptions {
         new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)),
         new WaitCommand(1),
         new MecanumPathFollower(
-            drive, "FirstPickUpRightSide", Constants.MediumAutoConstraints, true),
+            drive, "FirstPickUpRightSide", Constants.MediumAutoConstraints, false),
         new WaitCommand(1),
         new MecanumPathFollower(
             drive, "FirstDropOffRightSide", Constants.MediumAutoConstraints, false));
