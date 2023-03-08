@@ -4,6 +4,7 @@ import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
 import frc.robot.subsystems.GrabObject;
 
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -24,6 +25,7 @@ public class RobotContainer {
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final DriveSubsytem drive = new DriveSubsytem();
   public final ArmSubsystem arm = new ArmSubsystem();
+  public final LightsSubsystem lights = new LightsSubsystem();
   private final Vision vision = new Vision();
   private final CommandJoystick controller = new CommandJoystick(0);
   private final AutoOptions autoOptions = new AutoOptions(drive);
@@ -81,8 +83,19 @@ public class RobotContainer {
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
     // Switching Pipelines manually
-    controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(2)));
-    controller.button(4).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(4)));
+    controller
+        .button(3)
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  if (vision.camera.getPipelineIndex() == 4) {
+                    vision.camera.setPipelineIndex(2);
+                    lights.setColorHSV(253, 224, 25);
+                    return;
+                  }
+                  vision.camera.setPipelineIndex(4);
+                  lights.setColorHSV(259, 100, 70);
+                }));
 
     controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
     controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
