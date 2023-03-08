@@ -122,6 +122,8 @@ public class RobotContainer {
     controller
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
+    
+    SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
 
   public Command getAutonomousCommand() {
