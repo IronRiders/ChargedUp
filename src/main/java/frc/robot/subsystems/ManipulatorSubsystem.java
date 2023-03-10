@@ -19,6 +19,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor2 = new CANSparkMax(Constants.MANIPULATOR_PORT2, MotorType.kBrushless);
 
     manipulatorMotor1.setIdleMode(IdleMode.kBrake);
+    manipulatorMotor1.setInverted(true);
     manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
 
     manipulatorMotor2.setIdleMode(IdleMode.kBrake);
@@ -44,12 +45,12 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void setManipulatorMotors(double speed) {
-    manipulatorMotor1.set(speed);
+    // manipulatorMotor1.set(speed);
     manipulatorMotor2.set(speed);
   }
 
   public void release() {
-    setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
+    setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
   }
 
   public double getManipulatorMotor1EncoderDistance() {

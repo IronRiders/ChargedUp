@@ -29,15 +29,15 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    drive.setDefaultCommand(
-        new RunCommand(
-            () ->
-                drive.setChassisSpeeds(
-                    joystickResponse(controller.getRawAxis(0)),
-                    joystickResponse(controller.getRawAxis(1)),
-                    joystickResponse(controller.getRawAxis(2)),
-                    false),
-            drive));
+    // drive.setDefaultCommand(
+    //     new RunCommand(
+    //         () ->
+    //             drive.setChassisSpeeds(
+    //                 joystickResponse(controller.getRawAxis(0)),
+    //                 joystickResponse(controller.getRawAxis(1)),
+    //                 joystickResponse(controller.getRawAxis(2)),
+    //                 false),
+    //         drive));
 
     configureBindings();
   }
@@ -119,15 +119,15 @@ public class RobotContainer {
     controller.button(1).whileTrue(new AutoLevelingCommand(drive));
     controller
         .button(10)
-        .onTrue(
+        .whileTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
     controller
         .button(11)
-        .onTrue(
+        .whileTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
     controller
         .button(12)
-        .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
+        .whileTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
 
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
