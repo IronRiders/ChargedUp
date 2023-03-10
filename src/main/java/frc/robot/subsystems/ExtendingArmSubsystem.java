@@ -23,7 +23,7 @@ public class ExtendingArmSubsystem extends SubsystemBase {
     boxClimberMotor = new CANSparkMax(Constants.ARM_BOX_CLIMBER_PORT, MotorType.kBrushless);
     boxClimberMotor.setIdleMode(IdleMode.kBrake);
     boxClimberMotor.setSmartCurrentLimit(Constants.BOX_CLIMBER_MOTOR_CURRENT_LIMIT);
-    extendingPosition = getBoxClimberEncoderDistance()*Constants.ARM_MOTOR_CIRCUMFERENCE;
+    extendingPosition = getBoxClimberEncoderDistance() * Constants.ARM_MOTOR_CIRCUMFERENCE;
 
     boxClimberMotorEncoder = boxClimberMotor.getEncoder();
   }
@@ -41,7 +41,8 @@ public class ExtendingArmSubsystem extends SubsystemBase {
   }
 
   public void extend() {
-    if (extendingPosition <= Constants.EXTENDING_ARM_LIMIT && armRaise.raisePosition <= Constants.RAISE_LOWER_ARM_LIMIT) {
+    if (extendingPosition <= Constants.EXTENDING_ARM_LIMIT
+        && armRaise.raisePosition <= Constants.RAISE_LOWER_ARM_LIMIT) {
       boxClimberMotor.set(Constants.BOX_CLIMBER_MOTOR_POWER);
     }
   }

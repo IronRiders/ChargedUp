@@ -26,7 +26,7 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
     armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT);
     limitSwitch = armMotor.getReverseLimitSwitch(Type.kNormallyOpen);
     limitSwitch.enableLimitSwitch(true);
-    raisePosition = getArmMotorEncoderDistance()*Constants.ARM_MOTOR_CIRCUMFERENCE;
+    raisePosition = getArmMotorEncoderDistance() * Constants.ARM_MOTOR_CIRCUMFERENCE;
 
     armMotorEncoder = armMotor.getEncoder();
   }
@@ -44,7 +44,8 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
   }
 
   public void raise() {
-    if (armExtend.extendingPosition <= Constants.EXTENDING_ARM_LIMIT && raisePosition <= Constants.RAISE_LOWER_ARM_LIMIT) {
+    if (armExtend.extendingPosition <= Constants.EXTENDING_ARM_LIMIT
+        && raisePosition <= Constants.RAISE_LOWER_ARM_LIMIT) {
       armMotor.set(Constants.ARM_MOTOR_POWER);
     }
   }
