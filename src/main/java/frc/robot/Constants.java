@@ -87,6 +87,10 @@ public final class Constants {
   public static final double STRAFE_VELOCITY = .03;
   public static final double ANGLE_TOLERANCE = 1.5;
 
+  // Lights
+  public static final int LED_STRIP_PORT = 9;
+  public static final int LED_STRIP_BUFFER_SIZE = 150; // 30 lights per meter
+
   // Vision Stuff
   public static final Transform3d RobotToCam =
       new Transform3d(

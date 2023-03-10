@@ -24,7 +24,9 @@ public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final DriveSubsytem drive = new DriveSubsytem();
-  public final ArmSubsystem arm = new ArmSubsystem();
+  public final ExtendingArmSubsystem armExtend = new ExtendingArmSubsystem();
+  public final RaiseLowerArmSubsystem armRaise = new RaiseLowerArmSubsystem();
+  public final LightsSubsystem lights = new LightsSubsystem();
   private final Vision vision = new Vision();
   private final CommandJoystick controller = new CommandJoystick(0);
   private final UltrasonicSensorSubsystem ultrasonicSensor = new UltrasonicSensorSubsystem();
@@ -97,19 +99,38 @@ public class RobotContainer {
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
     // Switching Pipelines manually
-    controller.button(3).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(2)));
-    controller.button(4).onTrue(new InstantCommand(() -> vision.camera.setPipelineIndex(4)));
+    controller
+        .button(3)
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  if (vision.camera.getPipelineIndex() == 4) {
+                    vision.camera.setPipelineIndex(2);
+                    lights.setColorHSV(253, 224, 25);
+                    return;
+                  }
+                  vision.camera.setPipelineIndex(4);
+                  lights.setColorHSV(259, 100, 70);
+                }));
 
-    controller.button(19).whileTrue(Commands.startEnd(() -> arm.extend(), () -> arm.stop(), arm));
-    controller.button(20).whileTrue(Commands.startEnd(() -> arm.retract(), () -> arm.stop(), arm));
-    controller.button(21).whileTrue(Commands.startEnd(() -> arm.raise(), () -> arm.stop(), arm));
-    controller.button(22).whileTrue(Commands.startEnd(() -> arm.lower(), () -> arm.stop(), arm));
+    controller
+        .button(19)
+        .whileTrue(Commands.startEnd(() -> armExtend.extend(), () -> armExtend.stop(), armExtend));
+    controller
+        .button(20)
+        .whileTrue(Commands.startEnd(() -> armExtend.retract(), () -> armExtend.stop(), armExtend));
+    controller
+        .button(21)
+        .whileTrue(Commands.startEnd(() -> armRaise.raise(), () -> armRaise.stop(), armRaise));
+    controller
+        .button(22)
+        .whileTrue(Commands.startEnd(() -> armRaise.lower(), () -> armRaise.stop(), armRaise));
     controller
         .button(1)
-        .onTrue(new ArmRaiseLowerPIDCommand(arm, Constants.ARM_RAISE_LOWER_SETPOINT));
+        .onTrue(new ArmRaiseLowerPIDCommand(armRaise, Constants.ARM_RAISE_LOWER_SETPOINT));
     controller
         .button(2)
-        .onTrue(new ArmExtendRetractPIDCommand(arm, Constants.ARM_EXTEND_RETRACT_SETPOINT));
+        .onTrue(new ArmExtendRetractPIDCommand(armExtend, Constants.ARM_EXTEND_RETRACT_SETPOINT));
     controller
         .button(3)
         .onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
@@ -125,6 +146,8 @@ public class RobotContainer {
     controller
         .button(33)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
+
+    SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
 
   public Command getAutonomousCommand() {

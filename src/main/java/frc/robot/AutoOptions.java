@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.MecanumPathFollower;
+import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.util.FieldUtil;
 
 public class AutoOptions {
 
@@ -16,26 +18,45 @@ public class AutoOptions {
 
   public AutoOptions(DriveSubsytem drive) {
     this.drive = drive;
+
+    // Tuning
     autoOptions.setDefaultOption(
         "FirstPickUpLeftSide",
         new MecanumPathFollower(
-            drive, "FirstPickUpLeftSide", Constants.TooFastAutoConstraints, true));
+            drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true));
     autoOptions.addOption(
         "FirstDropOffLeftSide",
         new MecanumPathFollower(
-            drive, "FirstDropOffLeftSide", Constants.TooFastAutoConstraints, true));
+            drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, true));
     autoOptions.addOption(
         "SecondPickUpLeftSide",
         new MecanumPathFollower(
-            drive, "SecondPickUpLeftSide", Constants.TooFastAutoConstraints, true));
+            drive, "SecondPickUpLeftSide", Constants.MediumAutoConstraints, true));
     autoOptions.addOption(
         "SecondDropOffLeftSide",
         new MecanumPathFollower(
-            drive, "SecondDropOffLeftSide", Constants.TooFastAutoConstraints, true));
+            drive, "SecondDropOffLeftSide", Constants.MediumAutoConstraints, true));
     autoOptions.addOption(
-        "Test Path",
-        new MecanumPathFollower(drive, "Test Path", Constants.TooFastAutoConstraints, true));
-    autoOptions.addOption("Three Piece", threePieceAuto());
+        "Straight 180 degree turning path",
+        new MecanumPathFollower(
+            drive, "Straight 180 degree turning path", Constants.MediumAutoConstraints, true));
+    autoOptions.addOption(
+        "45 degree turning path",
+        new MecanumPathFollower(
+            drive, "45 degree turning path", Constants.MediumAutoConstraints, true));
+    autoOptions.addOption(
+        "Charge Right",
+        new MecanumPathFollower(drive, "ChargeRight", Constants.MediumAutoConstraints, true));
+    autoOptions.addOption(
+        "ON The Fly Path Test",
+        new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
+
+    // Actual Pathing
+    autoOptions.addOption("Three Piece Left", threePieceAutoLeft());
+    autoOptions.addOption("Two Piece Left", twoPieceAutoLeft());
+    autoOptions.addOption("Two Piece Left + Charge", twoPieceAutoChargeLeft());
+    autoOptions.addOption("Two Piece Right", twoPieceAutoRight());
+    autoOptions.addOption("Two Piece Right + Charge", twoPieceAutoChargeRight());
 
     submit();
   }
@@ -52,18 +73,51 @@ public class AutoOptions {
     SmartDashboard.putData("Auto Options", autoOptions);
   }
 
-  public SequentialCommandGroup threePieceAuto() {
+  public SequentialCommandGroup twoPieceAutoLeft() {
     return new SequentialCommandGroup(
+        new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)),
+        new WaitCommand(1),
         new MecanumPathFollower(
             drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
-        new WaitCommand(2),
+        new WaitCommand(1),
         new MecanumPathFollower(
-            drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, false),
-        new WaitCommand(2),
+            drive, "FirstDropOffLeftSide", Constants.MediumAutoConstraints, false));
+  }
+
+  public SequentialCommandGroup twoPieceAutoChargeLeft() {
+    return new SequentialCommandGroup(
+        twoPieceAutoLeft(),
+        new WaitCommand(1),
+        new MecanumPathFollower(
+            drive, "2pieceChargingLeft", Constants.MediumAutoConstraints, false));
+  }
+
+  public SequentialCommandGroup threePieceAutoLeft() {
+    return new SequentialCommandGroup(
+        twoPieceAutoLeft(),
         new MecanumPathFollower(
             drive, "SecondPickUpLeftSide", Constants.MediumAutoConstraints, false),
-        new WaitCommand(2),
+        new WaitCommand(1),
         new MecanumPathFollower(
             drive, "SecondDropOffLeftSide", Constants.MediumAutoConstraints, false));
+  }
+
+  public SequentialCommandGroup twoPieceAutoRight() {
+    return new SequentialCommandGroup(
+        new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)),
+        new WaitCommand(1),
+        new MecanumPathFollower(
+            drive, "FirstPickUpRightSide", Constants.MediumAutoConstraints, true),
+        new WaitCommand(1),
+        new MecanumPathFollower(
+            drive, "FirstDropOffRightSide", Constants.MediumAutoConstraints, false));
+  }
+
+  public SequentialCommandGroup twoPieceAutoChargeRight() {
+    return new SequentialCommandGroup(
+        twoPieceAutoRight(),
+        new WaitCommand(1),
+        new MecanumPathFollower(
+            drive, "2pieceChargingRight", Constants.MediumAutoConstraints, false));
   }
 }
