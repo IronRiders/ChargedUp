@@ -38,10 +38,18 @@ public class ManipulatorSubsystem extends SubsystemBase {
         break;
     }
   }
+  
+  public void stop() {
+    setManipulatorMotors(0);
+  }
+  
+  public void setManipulatorMotors(double speed) {
+    manipulatorMotor1.set(speed);
+    manipulatorMotor2.set(speed);
+  }
 
   public void release() {
-    manipulatorMotor1.set(-Constants.MANIPULATOR_SPEED_CONE);
-    manipulatorMotor2.set(Constants.MANIPULATOR_SPEED_CONE);
+    setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
   }
 
   public double getManipulatorMotor1EncoderDistance() {
@@ -50,16 +58,5 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
   public void resetManipulatorMotor1EncoderDistance() {
     manipulatorMotor1Encoder.setPosition(0);
-  }
-
-  public void setManipulatorMotors(double speed) {
-    manipulatorMotor1.set(speed);
-    manipulatorMotor2.set(-speed);
-  }
-
-  // Create a method that stops the climbers from moving
-  public void stop() {
-    manipulatorMotor1.set(0);
-    manipulatorMotor2.set(0);
-  }
+  }  
 }
