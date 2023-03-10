@@ -10,11 +10,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import frc.robot.commands.ArmExtendRetractPIDCommand;
-import frc.robot.commands.ArmRaiseLowerPIDCommand;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
-import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.*;
@@ -84,7 +81,7 @@ public class RobotContainer {
 
     // Switching Pipelines manually
     controller
-        .button(3)
+        .button(9)
         .onTrue(
             new InstantCommand(
                 () -> {
@@ -98,18 +95,18 @@ public class RobotContainer {
                 }));
 
     controller
-        .button(19)
+        .button(3)
         .whileTrue(Commands.startEnd(() -> armExtend.extend(), () -> armExtend.stop(), armExtend));
     controller
-        .button(20)
+        .button(5)
         .whileTrue(Commands.startEnd(() -> armExtend.retract(), () -> armExtend.stop(), armExtend));
     controller
-        .button(21)
+        .button(4)
         .whileTrue(Commands.startEnd(() -> armRaise.raise(), () -> armRaise.stop(), armRaise));
     controller
-        .button(22)
+        .button(6)
         .whileTrue(Commands.startEnd(() -> armRaise.lower(), () -> armRaise.stop(), armRaise));
-    controller
+    /* controller
         .button(1)
         .onTrue(new ArmRaiseLowerPIDCommand(armRaise, Constants.ARM_RAISE_LOWER_SETPOINT));
     controller
@@ -118,17 +115,18 @@ public class RobotContainer {
     controller
         .button(3)
         .onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
-    controller.button(4).whileTrue(new AutoLevelingCommand(drive));
+    */
+    controller.button(1).whileTrue(new AutoLevelingCommand(drive));
     controller
-        .button(31)
+        .button(10)
         .onTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
     controller
-        .button(32)
+        .button(11)
         .onTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
     controller
-        .button(33)
+        .button(12)
         .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
 
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
