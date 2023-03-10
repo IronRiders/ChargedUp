@@ -13,9 +13,12 @@ import frc.robot.Constants;
 
 public class RaiseLowerArmSubsystem extends SubsystemBase {
   private CANSparkMax armMotor;
+  public double raisePosition;
 
   RelativeEncoder armMotorEncoder;
   SparkMaxLimitSwitch limitSwitch;
+
+  public final ExtendingArmSubsystem armExtend = new ExtendingArmSubsystem();
 
   public RaiseLowerArmSubsystem() {
     armMotor = new CANSparkMax(Constants.ARM_RAISE_LOWER_PORT, MotorType.kBrushless);
@@ -23,6 +26,7 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
     armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT);
     limitSwitch = armMotor.getReverseLimitSwitch(Type.kNormallyOpen);
     limitSwitch.enableLimitSwitch(true);
+    raisePosition = getArmMotorEncoderDistance()*Constants.ARM_MOTOR_CIRCUMFERENCE;
 
     armMotorEncoder = armMotor.getEncoder();
   }
@@ -40,7 +44,9 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
   }
 
   public void raise() {
-    armMotor.set(Constants.ARM_MOTOR_POWER);
+    if (armExtend.extendingPosition <= Constants.EXTENDING_ARM_LIMIT && raisePosition <= Constants.RAISE_LOWER_ARM_LIMIT) {
+      armMotor.set(Constants.ARM_MOTOR_POWER);
+    }
   }
 
   public void lower() {

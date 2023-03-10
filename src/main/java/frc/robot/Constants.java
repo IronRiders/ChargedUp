@@ -31,11 +31,14 @@ public final class Constants {
   public static final double ARM_EXTEND_RETRACT_PID_KD = 0.0;
   public static final double ARM_EXTEND_RETRACT_PID_TOLERANCE = 0.3;
   public static final double ARM_EXTEND_RETRACT_SETPOINT = 0.0;
+  public static final int EXTENDING_ARM_LIMIT = 33;
   public static final double ARM_RAISE_LOWER_PID_KP = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KI = 0.0;
   public static final double ARM_RAISE_LOWER_PID_KD = 0.0;
   public static final double ARM_RAISE_LOWER_PID_TOLERANCE = 0.3;
   public static final double ARM_RAISE_LOWER_SETPOINT = 0.0;
+  public static final int RAISE_LOWER_ARM_LIMIT = 21;
+  public static final double ARM_MOTOR_CIRCUMFERENCE = 2.35619449;
 
   // Joystick
   public static final double DEADBAND = 0.06;

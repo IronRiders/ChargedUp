@@ -12,14 +12,18 @@ import frc.robot.Constants;
 
 public class ExtendingArmSubsystem extends SubsystemBase {
   private CANSparkMax boxClimberMotor;
+  public double extendingPosition;
 
   RelativeEncoder boxClimberMotorEncoder;
   SparkMaxLimitSwitch limitSwitch;
+
+  public final RaiseLowerArmSubsystem armRaise = new RaiseLowerArmSubsystem();
 
   public ExtendingArmSubsystem() {
     boxClimberMotor = new CANSparkMax(Constants.ARM_BOX_CLIMBER_PORT, MotorType.kBrushless);
     boxClimberMotor.setIdleMode(IdleMode.kBrake);
     boxClimberMotor.setSmartCurrentLimit(Constants.BOX_CLIMBER_MOTOR_CURRENT_LIMIT);
+    extendingPosition = getBoxClimberEncoderDistance()*Constants.ARM_MOTOR_CIRCUMFERENCE;
 
     boxClimberMotorEncoder = boxClimberMotor.getEncoder();
   }
@@ -37,7 +41,9 @@ public class ExtendingArmSubsystem extends SubsystemBase {
   }
 
   public void extend() {
-    boxClimberMotor.set(Constants.BOX_CLIMBER_MOTOR_POWER);
+    if (extendingPosition <= Constants.EXTENDING_ARM_LIMIT && armRaise.raisePosition <= Constants.RAISE_LOWER_ARM_LIMIT) {
+      boxClimberMotor.set(Constants.BOX_CLIMBER_MOTOR_POWER);
+    }
   }
 
   public void retract() {
