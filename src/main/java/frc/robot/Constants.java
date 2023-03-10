@@ -9,7 +9,7 @@ import edu.wpi.first.math.util.Units;
 
 public final class Constants {
   // Manipulator
-  public static final int MANIPULATOR_CURRENT_LIMIT = 20;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
   public static final double MANIPULATOR_SPEED_CONE = 0.7;
   public static final double MANIPULATOR_SPEED_BOX = 0.6;
 

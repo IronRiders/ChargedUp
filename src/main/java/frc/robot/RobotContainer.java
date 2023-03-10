@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
@@ -29,15 +28,15 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    drive.setDefaultCommand(
-        new RunCommand(
-            () ->
-                drive.setChassisSpeeds(
-                    joystickResponse(controller.getRawAxis(0)),
-                    joystickResponse(controller.getRawAxis(1)),
-                    joystickResponse(controller.getRawAxis(2)),
-                    false),
-            drive));
+    // drive.setDefaultCommand(
+    //     new RunCommand(
+    //         () ->
+    //             drive.setChassisSpeeds(
+    //                 joystickResponse(controller.getRawAxis(0)),
+    //                 joystickResponse(controller.getRawAxis(1)),
+    //                 joystickResponse(controller.getRawAxis(2)),
+    //                 false),
+    //         drive));
 
     configureBindings();
   }
@@ -119,15 +118,15 @@ public class RobotContainer {
     controller.button(1).whileTrue(new AutoLevelingCommand(drive));
     controller
         .button(10)
-        .onTrue(
+        .whileTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
     controller
         .button(11)
-        .onTrue(
+        .whileTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
     controller
         .button(12)
-        .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
+        .whileTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
 
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
