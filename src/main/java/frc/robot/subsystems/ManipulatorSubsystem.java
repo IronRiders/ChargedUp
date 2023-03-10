@@ -38,11 +38,11 @@ public class ManipulatorSubsystem extends SubsystemBase {
         break;
     }
   }
-  
+
   public void stop() {
     setManipulatorMotors(0);
   }
-  
+
   public void setManipulatorMotors(double speed) {
     manipulatorMotor1.set(speed);
     manipulatorMotor2.set(speed);
@@ -58,5 +58,5 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
   public void resetManipulatorMotor1EncoderDistance() {
     manipulatorMotor1Encoder.setPosition(0);
-  }  
+  }
 }
