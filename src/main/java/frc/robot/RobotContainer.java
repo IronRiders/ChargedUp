@@ -16,6 +16,7 @@ import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.UltrasonicSensorCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.*;
 
@@ -28,6 +29,7 @@ public class RobotContainer {
   public final LightsSubsystem lights = new LightsSubsystem();
   private final Vision vision = new Vision();
   private final CommandJoystick controller = new CommandJoystick(0);
+  private final UltrasonicSensorSubsystem ultrasonicSensor = new UltrasonicSensorSubsystem();
   private final AutoOptions autoOptions = new AutoOptions(drive);
 
   public RobotContainer() {
@@ -46,6 +48,20 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+
+    // April Tag Tracking
+    controller
+        .button(29)
+        .whileTrue(new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.BOX));
+    controller
+        .button(30)
+        .onTrue(new UltrasonicSensorCommand(ultrasonicSensor, manipulator, GrabObject.CONE));
+    controller
+        .button(13)
+        .onTrue(
+            new PathToPose(
+                drive,
+                () -> vision.tagLocalization(30 + 36 / 2, 0.0, Math.PI, drive.getPose2d()).get()));
 
     // Game Piece Tracking
     controller
