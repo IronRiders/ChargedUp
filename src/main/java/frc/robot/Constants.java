@@ -9,8 +9,6 @@ import edu.wpi.first.math.util.Units;
 
 public final class Constants {
   // Manipulator
-  public static final int MANIPULATOR_PORT1 = 9;
-  public static final int MANIPULATOR_PORT2 = 10;
   public static final int MANIPULATOR_CURRENT_LIMIT = 20;
   public static final double MANIPULATOR_SPEED_CONE = 0.7;
   public static final double MANIPULATOR_SPEED_BOX = 0.6;
@@ -53,12 +51,14 @@ public final class Constants {
   public static final double GEARING = 11.314285714;
 
   // Ports
-  public static final int WHEEL_PORT_FRONT_LEFT = 1;
-  public static final int WHEEL_PORT_REAR_LEFT = 3;
-  public static final int WHEEL_PORT_FRONT_RIGHT = 2;
+  public static final int WHEEL_PORT_FRONT_LEFT = 2;
+  public static final int WHEEL_PORT_REAR_LEFT = 1;
+  public static final int WHEEL_PORT_FRONT_RIGHT = 3;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
-  public static final int ARM_BOX_CLIMBER_PORT = 5;
-  public static final int ARM_RAISE_LOWER_PORT = 6;
+  public static final int ARM_RAISE_LOWER_PORT = 5;
+  public static final int ARM_BOX_CLIMBER_PORT = 6;
+  public static final int MANIPULATOR_PORT1 = 7;
+  public static final int MANIPULATOR_PORT2 = 8;
 
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
