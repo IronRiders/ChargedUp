@@ -2,12 +2,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class StraightenRobotCommand extends CommandBase {
-  private final DriveSubsytem driveSubsytem;
+  private final DriveSubsystem driveSubsytem;
 
-  public StraightenRobotCommand(DriveSubsytem driveSubsytem) {
+  public StraightenRobotCommand(DriveSubsystem driveSubsytem) {
     this.driveSubsytem = driveSubsytem;
 
     addRequirements(driveSubsytem);

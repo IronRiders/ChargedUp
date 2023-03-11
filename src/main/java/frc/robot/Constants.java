@@ -5,6 +5,7 @@ import com.pathplanner.lib.PathConstraints;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
@@ -66,25 +67,24 @@ public final class Constants {
         // Arm
         public static final int ARM_CURRENT_LIMIT = 10;
         public static final double Arm_POWER = 1;
-        public static final float MAXIMUM_EXTENSION_HEIGHT = 24;
-        public static final float MINIMUM_EXTENSION_HEIGHT = 0.0f; // inches
         public static final double ARM_KP = 0.6;
         public static final double Arm_GEAR_RATIO = 48;
+        public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(55, 75);
 
         // Pivot Stuff
         public static final int PIVOT_CURRENT_LIMIT = 12;
-        public static final double Pivot_KP = 10;
+        public static final double Pivot_KP = 24;
         public static final double Pivot_KI = 0;
         public static final double Pivot_KD = 0;
-        public static final double SHOULDER_VELOCITY_DEG = 75;
-        public static final double SHOULDER_ACCELERATION_DEG = 90;
-        public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(15);
+        public static final double SHOULDER_VELOCITY_DEG = 70;
+        public static final double SHOULDER_ACCELERATION_DEG = 150;
+        public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(45);
         public static final double PIVOT_GEAR_RATIO = 528.57;
         public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
         // Angles
         public static final double L2ANGLE = 60;
-        public static final double L3ANGLE = 90;
+        public static final double L3ANGLE = 80;
 
         // Feedforward for Pivot
         public static final double PIVOT_KS = 0;

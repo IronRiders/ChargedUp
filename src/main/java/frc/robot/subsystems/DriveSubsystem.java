@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Vision;
 
-public class DriveSubsytem extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
 
   private boolean inverted;
   private ChassisSpeeds ActualChassisSpeeds;
@@ -51,7 +51,7 @@ public class DriveSubsytem extends SubsystemBase {
   private static PIDController xController = new PIDController(Constants.AUTO_XCONTROLLER_KP, 0, 0);
   private static PIDController yController = new PIDController(Constants.AUTO_YCONTROLLER_KP, 0, 0);
 
-  public DriveSubsytem() {
+  public DriveSubsystem() {
     frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
     frontRightMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_RIGHT, false);
     rearRightMotor = new MecanumWheel(Constants.WHEEL_PORT_REAR_LEFT, true);

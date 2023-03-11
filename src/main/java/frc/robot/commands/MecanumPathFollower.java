@@ -7,11 +7,11 @@ import com.pathplanner.lib.commands.PPMecanumControllerCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class MecanumPathFollower extends CommandBase {
 
-  private final DriveSubsytem drive;
+  private final DriveSubsystem drive;
   private String pathName;
   private PathConstraints constraints;
   private boolean resetOdom = false;
@@ -21,7 +21,7 @@ public class MecanumPathFollower extends CommandBase {
 
   // Pre-Planned Autonomous Pathing
   public MecanumPathFollower(
-      DriveSubsytem drive, String pathName, PathConstraints constraints, boolean resetOdom) {
+      DriveSubsystem drive, String pathName, PathConstraints constraints, boolean resetOdom) {
     this.drive = drive;
     this.pathName = pathName;
     this.constraints = constraints;
@@ -31,7 +31,7 @@ public class MecanumPathFollower extends CommandBase {
   }
 
   // On the Fly Pathing
-  public MecanumPathFollower(DriveSubsytem drive, PathPlannerTrajectory trajectory) {
+  public MecanumPathFollower(DriveSubsystem drive, PathPlannerTrajectory trajectory) {
     this.trajectory = trajectory;
     this.drive = drive;
 

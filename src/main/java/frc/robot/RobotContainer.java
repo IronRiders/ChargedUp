@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.AutoLevelingCommand;
@@ -20,7 +19,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
 
         public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
-        public final DriveSubsytem drive = new DriveSubsytem();
+        public final DriveSubsystem drive = new DriveSubsystem();
         private final Vision vision = new Vision();
         public final PivotSubsystem pivot = new PivotSubsystem();
         public final ArmSubsystem arm = new ArmSubsystem();
@@ -33,12 +32,12 @@ public class RobotContainer {
         }
 
         private void configureBindings() {
-                drive.setDefaultCommand(
+              /*   drive.setDefaultCommand(
                                 new RunCommand(() -> drive.setChassisSpeeds(
                                                 joystickResponse(controller.getRawAxis(0)),
                                                 joystickResponse(controller.getRawAxis(1)),
                                                 joystickResponse(controller.getRawAxis(2)),
-                                                false), drive));
+                                                false), drive));*/
                 // Game Piece Tracking
                 controller.button(34).whileTrue(
                                 new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
@@ -88,7 +87,7 @@ public class RobotContainer {
 
                 controller.button(4).onTrue(Commands.runOnce(
                                 () -> {
-                                        pivot.setGoal(Units.degreesToRadians(Constants.L2ANGLE));
+                                        pivot.setGoal(Units.degreesToRadians(110));
                                         pivot.enable();
                                 }, pivot));
 
@@ -99,8 +98,8 @@ public class RobotContainer {
                                 },
                                 pivot));
 
-                controller.button(11).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
-                controller.button(10).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
+                 controller.button(11).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
+                 controller.button(12).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
                 SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
         }

@@ -31,6 +31,7 @@ public class PivotSubsystem extends ProfiledPIDSubsystem {
         motor = new CANSparkMax(Constants.PIVOT_PORT, MotorType.kBrushless);
         motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(Constants.PIVOT_CURRENT_LIMIT);
+        motor.enableVoltageCompensation(12);
 
         motor.getEncoder().setPositionConversionFactor(Units.degreesToRadians(360.0) / Constants.PIVOT_GEAR_RATIO); // In Degrees
                                                                                                                   
