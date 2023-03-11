@@ -9,33 +9,24 @@ public class BurnFlashCommand extends CommandBase {
   private final ExtendingArmSubsystem extendingArmSubsystem;
   private final RaiseLowerArmSubsystem raiseLowerArmSubsystem;
 
-  public BurnFlashCommand(
-      DriveSubsystem driveSubsystem,
-      ExtendingArmSubsystem extendingArmSubsystem,
-      RaiseLowerArmSubsystem raiseLowerArmSubsystem,
-      ManipulatorSubsystem manipulatorSubsystem) {
-    this.manipulatorSubsystem = manipulatorSubsystem;
-    this.driveSubsystem = driveSubsystem;
-    this.extendingArmSubsystem = extendingArmSubsystem;
-    this.raiseLowerArmSubsystem = raiseLowerArmSubsystem;
-    addRequirements(
-        driveSubsyste,
-        manipulatorSubsystem,
-        extendingArmSubsystem,
-        raiseLowerArmSubsystem,
-        manipulatorSubsystem);
+  public BurnFlashCommand(DriveSubsystem driveSubsystem, ExtendingArmSubsystem extendingArmSubsystem, RaiseLowerArmSubsystem raiseLowerArmSubsystem, ManipulatorSubsystem manipulatorSubsystem) {
+	this.manipulatorSubsystem = manipulatorSubsystem;
+	this.driveSubsystem = driveSubsystem;
+	this.extendingArmSubsystem = extendingArmSubsystem;
+	this.raiseLowerArmSubsystem = raiseLowerArmSubsystem;
+	addRequirements(driveSubsystem, manipulatorSubsystem, extendingArmSubsystem, raiseLowerArmSubsystem, manipulatorSubsystem);
   }
 
   @Override
   public void initialize() {
-    manipulatorSubsystem.burnFlash();
-    driveSubsystem.burnFlash();
-    extendingArmSubsystem.burnFlash();
-    raiseLowerArmSubsystem.burnFlash();
+	manipulatorSubsystem.burnFlash();
+	driveSubsystem.burnFlash();
+	extendingArmSubsystem.burnFlash();
+	raiseLowerArmSubsystem.burnFlash();
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+	return true;
   }
 }
