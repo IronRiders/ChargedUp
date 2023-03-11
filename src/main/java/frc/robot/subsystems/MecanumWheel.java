@@ -53,7 +53,7 @@ public class MecanumWheel extends SubsystemBase {
   public double getWheelPostions() {
     return encoder.getPosition();
   }
-  
+
   public void burnFlash() {
     motor.burnFlash();
   }

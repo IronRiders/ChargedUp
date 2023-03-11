@@ -127,10 +127,11 @@ public class RobotContainer {
     controller
         .button(12)
         .whileTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
-    
+
     // Set up shuffleboard
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
-    SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, armExtend, armRaise, manipulator));
+    SmartDashboard.putData(
+        "Burn Flash", new BurnFlashCommand(drive, armExtend, armRaise, manipulator));
   }
 
   public Command getAutonomousCommand() {
