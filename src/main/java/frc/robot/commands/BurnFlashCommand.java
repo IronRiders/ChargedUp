@@ -9,11 +9,11 @@ public class BurnFlashCommand extends CommandBase {
   private final ExtendingArmSubsystem extendingArmSubsystem;
   private final RaiseLowerArmSubsystem raiseLowerArmSubsystem;
 
-  public GrabManipulatorCommand(DriveSubsystem driveSubsystem, ExtendingArmSubsystem extendingArmSubsystem, RaiseLowerArmSubsystem raiseLowerArmSubsystem, ManipulatorSubsystem manipulatorSubsystem) {
+  public BurnFlashCommand(DriveSubsystem driveSubsystem, ExtendingArmSubsystem extendingArmSubsystem, RaiseLowerArmSubsystem raiseLowerArmSubsystem, ManipulatorSubsystem manipulatorSubsystem) {
 	this.manipulatorSubsystem = manipulatorSubsystem;
-	this.driveSubsystem = driveSubsystem
-	this.extendingArmSubsystem = extendingArmSubsystem
-	this.raiseLowerArmSubsystem = raiseLowerArmSubsystem
+	this.driveSubsystem = driveSubsystem;
+	this.extendingArmSubsystem = extendingArmSubsystem;
+	this.raiseLowerArmSubsystem = raiseLowerArmSubsystem;
 	addRequirements(driveSubsyste, manipulatorSubsystem, extendingArmSubsystem, raiseLowerArmSubsystem, manipulatorSubsystem);
   }
 
