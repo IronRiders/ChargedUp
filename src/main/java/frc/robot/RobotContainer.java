@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.*;
 

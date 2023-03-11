@@ -8,12 +8,12 @@ import frc.robot.subsystems.RaiseLowerArmSubsystem;
 
 public class BurnFlashCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
-  private final DriveSubsystem driveSubsystem;
+  private final DriveSubsytem driveSubsystem;
   private final ExtendingArmSubsystem extendingArmSubsystem;
   private final RaiseLowerArmSubsystem raiseLowerArmSubsystem;
 
   public BurnFlashCommand(
-      DriveSubsystem driveSubsystem,
+      DriveSubsytem driveSubsystem,
       ExtendingArmSubsystem extendingArmSubsystem,
       RaiseLowerArmSubsystem raiseLowerArmSubsystem,
       ManipulatorSubsystem manipulatorSubsystem) {
