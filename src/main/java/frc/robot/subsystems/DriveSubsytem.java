@@ -221,4 +221,11 @@ public class DriveSubsytem extends SubsystemBase {
   public ChassisSpeeds getChasssisSpeeds() {
     return kinematics.toChassisSpeeds(getWheelSpeeds());
   }
+
+  public void burnFlash() {
+    frontLeftMotor.burnFlash();
+    frontRightMotor.burnFlash();
+    rearRightMotor.burnFlash();
+    rearLeftMotor.burnFlash();
+  }
 }

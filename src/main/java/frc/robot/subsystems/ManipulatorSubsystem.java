@@ -60,4 +60,9 @@ public class ManipulatorSubsystem extends SubsystemBase {
   public void resetManipulatorMotor1EncoderDistance() {
     manipulatorMotor1Encoder.setPosition(0);
   }
+
+  public void burnFlash() {
+    manipulatorMotor1.burnFlash();
+    manipulatorMotor2.burnFlash();
+  }
 }

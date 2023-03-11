@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.*;
 
@@ -128,7 +129,10 @@ public class RobotContainer {
         .button(12)
         .whileTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
 
+    // Set up shuffleboard
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    SmartDashboard.putData(
+        "Burn Flash", new BurnFlashCommand(drive, armExtend, armRaise, manipulator));
   }
 
   public Command getAutonomousCommand() {

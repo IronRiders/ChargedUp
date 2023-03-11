@@ -50,4 +50,8 @@ public class RaiseLowerArmSubsystem extends SubsystemBase {
   public void stop() {
     armMotor.set(0);
   }
+
+  public void burnFlash() {
+    armMotor.burnFlash();
+  }
 }
