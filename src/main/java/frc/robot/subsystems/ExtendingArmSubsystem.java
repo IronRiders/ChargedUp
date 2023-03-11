@@ -47,7 +47,7 @@ public class ExtendingArmSubsystem extends SubsystemBase {
   public void stop() {
     boxClimberMotor.set(0);
   }
-  
+
   public void burnFlash() {
     boxClimberMotor.burnFlash();
   }
