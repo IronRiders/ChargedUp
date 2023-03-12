@@ -25,9 +25,9 @@ public final class Constants {
   public static final double GEARING = 11.314285714;
 
   // Ports
-  public static final int WHEEL_PORT_FRONT_LEFT = 1;
-  public static final int WHEEL_PORT_REAR_LEFT = 3;
-  public static final int WHEEL_PORT_FRONT_RIGHT = 2;
+  public static final int WHEEL_PORT_FRONT_LEFT = 2;
+  public static final int WHEEL_PORT_REAR_LEFT = 1;
+  public static final int WHEEL_PORT_FRONT_RIGHT = 3;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
   public static final int ARM_CLIMBER_PORT = 6;
   public static final int PIVOT_PORT = 5;

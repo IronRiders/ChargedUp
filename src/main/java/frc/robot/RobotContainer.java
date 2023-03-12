@@ -95,9 +95,9 @@ public class RobotContainer {
                   lights.setColorHSV(259, 100, 70);
                 }));
     controller.button(54).whileTrue(new AutoLevelingCommand(drive));
-    controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator));
+    controller.button(31).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
+    controller.button(32).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    controller.button(33).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
         .button(3)
@@ -136,7 +136,7 @@ public class RobotContainer {
         .button(122)
         .whileTrue(
             new SequentialCommandGroup(
-                new PreLevelingCommand(drive), new AutoLevelingCommand(drive)));
+                new PreLevelingCommand(drive), new AutoLevelingCommand(drive))); // going onto the ramp and the balancing
 
     controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
     controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
