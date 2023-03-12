@@ -72,7 +72,7 @@ public final class Constants {
   public static final double ARM_KP = 0.6;
   public static final double Arm_GEAR_RATIO = 48;
   public static final TrapezoidProfile.Constraints kConstraints =
-      new TrapezoidProfile.Constraints(55, 75);
+      new TrapezoidProfile.Constraints(55, 120);
 
   // Pivot Stuff
   public static final int PIVOT_CURRENT_LIMIT = 12;
