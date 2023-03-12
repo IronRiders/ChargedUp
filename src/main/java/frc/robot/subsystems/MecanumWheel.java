@@ -16,7 +16,7 @@ public class MecanumWheel extends SubsystemBase {
   private RelativeEncoder encoder;
   private PIDController pidController;
   private static SimpleMotorFeedforward feedForward =
-      new SimpleMotorFeedforward(0.13888, 2.2504, 0.45863);
+      new SimpleMotorFeedforward(0.148, 2.2504, 0.68);
 
   public MecanumWheel(int motorId, boolean inverted) {
     motor = new CANSparkMax(motorId, MotorType.kBrushless);
@@ -39,11 +39,11 @@ public class MecanumWheel extends SubsystemBase {
   }
 
   public void setVelocity(double mps, boolean needPID) {
-    if (needPID) {
+   // if (needPID) {
       motor.setVoltage(feedForward.calculate(mps) + pidController.calculate(getVelocity(), mps));
-    } else {
-      motor.setVoltage(feedForward.calculate(mps));
-    }
+   // } else {
+    //  motor.setVoltage(feedForward.calculate(mps));
+   // }
   }
 
   public static double getMaxLinearVelocity() {

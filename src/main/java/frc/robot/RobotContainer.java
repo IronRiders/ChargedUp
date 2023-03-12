@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
@@ -28,6 +30,7 @@ public class RobotContainer {
   public final ArmSubsystem arm = new ArmSubsystem();
   public final LightsSubsystem lights = new LightsSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
+  private final CommandXboxController xboxController = new CommandXboxController(1);
   private final AutoOptions autoOptions = new AutoOptions(drive);
 
   public RobotContainer() {
@@ -39,9 +42,9 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 drive.setChassisSpeeds(
-                    joystickResponse(controller.getRawAxis(0)),
-                    joystickResponse(controller.getRawAxis(1)),
-                    joystickResponse(controller.getRawAxis(2)),
+                    ScaledDeadBand(xboxController.getLeftX(), 1),
+                    ScaledDeadBand(xboxController.getLeftY(), 1),
+                    -ScaledDeadBand(xboxController.getRightX(), 1),
                     false),
             drive));
 
@@ -168,5 +171,11 @@ public class RobotContainer {
     }
     double exponent = SmartDashboard.getNumber("exponent", Constants.EXPONENT) + 1;
     return Math.pow(Math.abs(deadbanded), exponent) * Math.signum(deadbanded);
+  }
+
+  private double ScaledDeadBand(double value, double exp) {
+    double value1 = MathUtil.applyDeadband(value, Constants.DEADBAND);
+    double test =  Math.signum(value1) * Math.pow(Math.abs(value1), exp);
+    return test;
   }
 }
