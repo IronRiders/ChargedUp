@@ -33,10 +33,13 @@ public class PivotSubsystem extends ProfiledPIDSubsystem {
         motor.setSmartCurrentLimit(Constants.PIVOT_CURRENT_LIMIT);
         motor.enableVoltageCompensation(12);
 
-        motor.getEncoder().setPositionConversionFactor(Units.degreesToRadians(360.0) / Constants.PIVOT_GEAR_RATIO); // In Degrees
-                                                                                                                  
+        motor.getEncoder().setPositionConversionFactor(Units.degreesToRadians(360.0) / Constants.PIVOT_GEAR_RATIO); // In
+                                                                                                                    // Degrees
+
         motor.getEncoder()
-                .setVelocityConversionFactor((Units.degreesToRadians(360.0) / Constants.PIVOT_GEAR_RATIO) / 60.0); // Degrees Per Second
+                .setVelocityConversionFactor((Units.degreesToRadians(360.0) / Constants.PIVOT_GEAR_RATIO) / 60.0); // Degrees
+                                                                                                                   // Per
+                                                                                                                   // Second
 
         setGoal(Constants.ARM_OFF_SET_RADS);
 
@@ -53,4 +56,7 @@ public class PivotSubsystem extends ProfiledPIDSubsystem {
         return motor.getEncoder().getPosition() + Constants.ARM_OFF_SET_RADS;
     }
 
+    public void burnFlash() {
+        motor.burnFlash();
+    }
 }

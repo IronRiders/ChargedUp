@@ -17,7 +17,6 @@ import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.PreLevelingCommand;
-import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -77,7 +76,6 @@ public class RobotContainer {
                                         vision.camera.setPipelineIndex(4);
                                         lights.setColorHSV(259, 100, 70);
                                 }));
-                controller.button(53).onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
                 controller.button(54).whileTrue(new AutoLevelingCommand(drive));
                 controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
                 controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
@@ -129,7 +127,7 @@ public class RobotContainer {
 
     // Set up shuffleboard
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
-    SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, armExtend, armRaise, manipulator));
+    SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, pivot, arm, manipulator));
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
 }
 
