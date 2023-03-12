@@ -72,8 +72,11 @@ public class ArmSubsystem extends SubsystemBase {
   public void stop() {
     motor.set(0);
   }
+<<<<<<< HEAD
 
   public void burnFlash() {
     motor.burnFlash();
   }
+=======
+>>>>>>> af71b99b7a39e8885987bfc594d4a9725aa38e49
 }
