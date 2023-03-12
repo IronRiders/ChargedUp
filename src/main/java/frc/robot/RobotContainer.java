@@ -136,7 +136,8 @@ public class RobotContainer {
         .button(122)
         .whileTrue(
             new SequentialCommandGroup(
-                new PreLevelingCommand(drive), new AutoLevelingCommand(drive))); // going onto the ramp and the balancing
+                new PreLevelingCommand(drive),
+                new AutoLevelingCommand(drive))); // going onto the ramp and the balancing
 
     controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
     controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
