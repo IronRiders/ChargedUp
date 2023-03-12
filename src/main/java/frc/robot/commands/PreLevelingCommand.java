@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class PreLevelingCommand extends CommandBase {
+  private final double speed = 0.1;
   DriveSubsystem drive;
 
   private final double targetPitch = 3.0;
@@ -13,7 +14,7 @@ public class PreLevelingCommand extends CommandBase {
   }
 
   public void execute() {
-    drive.setChassisSpeeds(0, 0.1, 0, true);
+    drive.setChassisSpeeds(0, speed, 0, true);
   }
 
   @Override
