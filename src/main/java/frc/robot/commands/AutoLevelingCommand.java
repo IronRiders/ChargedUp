@@ -4,14 +4,14 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoLevelingCommand extends CommandBase {
-  private final DriveSubsytem drive;
+  private final DriveSubsystem drive;
   private final WPI_Pigeon2 pigeon;
   private double[] gyroData;
 
-  public AutoLevelingCommand(DriveSubsytem drive) {
+  public AutoLevelingCommand(DriveSubsystem drive) {
     this.drive = drive;
     pigeon = drive.pigeon;
     gyroData = new double[3];
@@ -38,7 +38,7 @@ public class AutoLevelingCommand extends CommandBase {
     if (gyroData[1] < Constants.ANGLE_TOLERANCE) {
       forward *= -1;
     }
-    if (gyroData[2] > Constants.ANGLE_TOLERANCE) {
+    if (gyroData[2] < Constants.ANGLE_TOLERANCE) {
       strafe *= -1;
     }
     drive.setChassisSpeeds(strafe, forward, 0, true);

@@ -10,6 +10,7 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto Options": "String Chooser",
+      "/SmartDashboard/Reset Gyro": "Command",
       "/SmartDashboard/field": "Field2d"
     },
     "windows": {

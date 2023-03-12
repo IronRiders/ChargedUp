@@ -11,17 +11,17 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class PathToPose extends CommandBase {
 
   PathPlannerTrajectory trajectory;
   CommandBase mecanumPathFollower = Commands.none();
-  private final DriveSubsytem drive;
+  private final DriveSubsystem drive;
   private final Supplier<Pose2d> targetPoseSupplier;
 
   // Pose2d targetPose
-  public PathToPose(DriveSubsytem drive, Supplier<Pose2d> targetPoseSupplier) {
+  public PathToPose(DriveSubsystem drive, Supplier<Pose2d> targetPoseSupplier) {
     this.drive = drive;
     this.targetPoseSupplier = targetPoseSupplier;
 

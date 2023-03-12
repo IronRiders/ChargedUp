@@ -5,36 +5,10 @@ import com.pathplanner.lib.PathConstraints;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-  // Manipulator
-  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
-  public static final double MANIPULATOR_SPEED_CONE = 0.7;
-  public static final double MANIPULATOR_SPEED_BOX = 0.6;
-
-  public static final double MANIPULATOR_PID_KP = 0.0;
-  public static final double MANIPULATOR_PID_KI = 0.0;
-  public static final double MANIPULATOR_PID_KD = 0.0;
-  public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
-  public static final double MANIPULATOR_SETPOINT = 0.0;
-
-  // Arm
-  public static final double BOX_CLIMBER_MOTOR_POWER = 1.0;
-  public static final int BOX_CLIMBER_MOTOR_CURRENT_LIMIT = 10;
-  public static final double ARM_MOTOR_POWER = 1.0;
-  public static final int ARM_MOTOR_CURRENT_LIMIT = 10;
-  public static final double ARM_EXTEND_RETRACT_PID_KP = 0.0;
-  public static final double ARM_EXTEND_RETRACT_PID_KI = 0.0;
-  public static final double ARM_EXTEND_RETRACT_PID_KD = 0.0;
-  public static final double ARM_EXTEND_RETRACT_PID_TOLERANCE = 0.3;
-  public static final double ARM_EXTEND_RETRACT_SETPOINT = 0.0;
-  public static final double ARM_RAISE_LOWER_PID_KP = 0.0;
-  public static final double ARM_RAISE_LOWER_PID_KI = 0.0;
-  public static final double ARM_RAISE_LOWER_PID_KD = 0.0;
-  public static final double ARM_RAISE_LOWER_PID_TOLERANCE = 0.3;
-  public static final double ARM_RAISE_LOWER_SETPOINT = 0.0;
-
   // Joystick
   public static final double DEADBAND = 0.06;
   public static final double EXPONENT = 0.1; // between 0 and 1
@@ -55,8 +29,8 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_LEFT = 1;
   public static final int WHEEL_PORT_FRONT_RIGHT = 3;
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
-  public static final int ARM_RAISE_LOWER_PORT = 5;
-  public static final int ARM_BOX_CLIMBER_PORT = 6;
+  public static final int ARM_CLIMBER_PORT = 6;
+  public static final int PIVOT_PORT = 5;
   public static final int MANIPULATOR_PORT1 = 7;
   public static final int MANIPULATOR_PORT2 = 8;
 
@@ -73,7 +47,7 @@ public final class Constants {
   public static final PathConstraints SlowAutoConstraints = new PathConstraints(2, 2);
   public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
   public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
-  public static final PathConstraints TooFastAutoConstraints = new PathConstraints(4.5, 4.5);
+  public static final PathConstraints TooFastAutoConstraints = new PathConstraints(5, 5);
   public static final double ANGLETOLERANCE = 1;
 
   // Auto Leveling
@@ -91,4 +65,43 @@ public final class Constants {
           new Translation3d(
               -Units.inchesToMeters(16), -Units.inchesToMeters(18.68), Units.inchesToMeters(18.5)),
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
+
+  // Arm
+  public static final int ARM_CURRENT_LIMIT = 10;
+  public static final double Arm_POWER = 1;
+  public static final double ARM_KP = 0.6;
+  public static final double Arm_GEAR_RATIO = 48;
+  public static final TrapezoidProfile.Constraints kConstraints =
+      new TrapezoidProfile.Constraints(55, 75);
+
+  // Pivot Stuff
+  public static final int PIVOT_CURRENT_LIMIT = 12;
+  public static final double Pivot_KP = 24;
+  public static final double Pivot_KI = 0;
+  public static final double Pivot_KD = 0;
+  public static final double SHOULDER_VELOCITY_DEG = 70;
+  public static final double SHOULDER_ACCELERATION_DEG = 150;
+  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(45);
+  public static final double PIVOT_GEAR_RATIO = 528.57;
+  public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
+
+  // Angles
+  public static final double L2ANGLE = 60;
+  public static final double L3ANGLE = 80;
+
+  // Feedforward for Pivot
+  public static final double PIVOT_KS = 0;
+  public static final double PIVOT_KGR = 0;
+  public static final double PIVOT_KV = 0;
+  public static final double PIVOT_KA = 0;
+
+  // Manipulator
+  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
+  public static final double MANIPULATOR_SPEED_CONE = 0.7;
+  public static final double MANIPULATOR_SPEED_BOX = 0.6;
+  public static final double MANIPULATOR_PID_KP = 0.0;
+  public static final double MANIPULATOR_PID_KI = 0.0;
+  public static final double MANIPULATOR_PID_KD = 0.0;
+  public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
+  public static final double MANIPULATOR_SETPOINT = 0.0;
 }

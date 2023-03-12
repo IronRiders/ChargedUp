@@ -8,15 +8,15 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.commands.PathToPose;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.FieldUtil;
 
 public class AutoOptions {
 
   private SendableChooser<CommandBase> autoOptions = new SendableChooser<>();
-  private DriveSubsytem drive;
+  private DriveSubsystem drive;
 
-  public AutoOptions(DriveSubsytem drive) {
+  public AutoOptions(DriveSubsystem drive) {
     this.drive = drive;
 
     // Tuning
