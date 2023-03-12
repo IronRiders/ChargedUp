@@ -53,24 +53,23 @@ import frc.robot.Constants;
 }*/
 
 public class ArmSubsystem extends SubsystemBase {
-    private CANSparkMax motor;
-  
-    public ArmSubsystem() {
-      motor = new CANSparkMax(Constants.ARM_CLIMBER_PORT, MotorType.kBrushless);
-      motor.setIdleMode(IdleMode.kBrake);
-      motor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
-    }
-  
-    public void extend() {
-      motor.set(Constants.Arm_POWER);
-    }
-  
-    public void retract() {
-      motor.set(-Constants.Arm_POWER);
-    }
-  
-    public void stop() {
-      motor.set(0);
-    }
+  private CANSparkMax motor;
+
+  public ArmSubsystem() {
+    motor = new CANSparkMax(Constants.ARM_CLIMBER_PORT, MotorType.kBrushless);
+    motor.setIdleMode(IdleMode.kBrake);
+    motor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
   }
-  
+
+  public void extend() {
+    motor.set(Constants.Arm_POWER);
+  }
+
+  public void retract() {
+    motor.set(-Constants.Arm_POWER);
+  }
+
+  public void stop() {
+    motor.set(0);
+  }
+}
