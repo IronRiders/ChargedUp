@@ -71,21 +71,24 @@ public class RobotContainer {
     controller.button(108)
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
-        // Switching Pipelines manually
-                controller.button(39).onTrue(new InstantCommand(
-                                () -> {
-                                        if (vision.camera.getPipelineIndex() == 4) {
-                                                vision.camera.setPipelineIndex(2);
-                                                lights.setColorHSV(253, 224, 25);
-                                                return;
-                                        }
-                                        vision.camera.setPipelineIndex(4);
-                                        lights.setColorHSV(259, 100, 70);
-                                }));
-                controller.button(54).whileTrue(new AutoLevelingCommand(drive));
-                controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-                controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-                controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator));
+    // Switching Pipelines manually
+    controller
+        .button(39)
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  if (vision.camera.getPipelineIndex() == 4) {
+                    vision.camera.setPipelineIndex(2);
+                    lights.setColorHSV(253, 224, 25);
+                    return;
+                  }
+                  vision.camera.setPipelineIndex(4);
+                  lights.setColorHSV(259, 100, 70);
+                }));
+    controller.button(54).whileTrue(new AutoLevelingCommand(drive));
+    controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
+    controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller.button(3).onTrue(
             Commands.runOnce(
