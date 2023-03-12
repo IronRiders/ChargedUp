@@ -136,8 +136,9 @@ public class RobotContainer {
         .button(122)
         .whileTrue(
             new SequentialCommandGroup(
-                new PreLevelingCommand(drive),  // Move towards the ramp until pitch changes
-                new AutoLevelingCommand(drive))); // Once pitch changes, we're on the ramp, time to auto balance
+                new PreLevelingCommand(drive), // Move towards the ramp until pitch changes
+                new AutoLevelingCommand(
+                    drive))); // Once pitch changes, we're on the ramp, time to auto balance
 
     controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
     controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
