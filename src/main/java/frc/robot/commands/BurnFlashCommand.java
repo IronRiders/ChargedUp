@@ -22,11 +22,7 @@ public class BurnFlashCommand extends CommandBase {
     this.pivotSubsystem = pivotSubsystem;
     this.armSubsystem = armSubsystem;
     addRequirements(
-        driveSubsystem,
-        manipulatorSubsystem,
-        pivotSubsystem,
-        armSubsystem,
-        manipulatorSubsystem);
+        driveSubsystem, manipulatorSubsystem, pivotSubsystem, armSubsystem, manipulatorSubsystem);
   }
 
   @Override
