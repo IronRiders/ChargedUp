@@ -9,7 +9,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-        // Joystick
+// Joystick
         public static final double DEADBAND = 0.06;
         public static final double EXPONENT = 0.1; // between 0 and 1
 
@@ -31,6 +31,8 @@ public final class Constants {
         public static final int WHEEL_PORT_REAR_RIGHT = 4;
         public static final int ARM_CLIMBER_PORT = 6;
         public static final int PIVOT_PORT = 5;
+        public static final int MANIPULATOR_PORT1 = 7;
+        public static final int MANIPULATOR_PORT2 = 8;
 
         // Straighten Robot
         public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
@@ -52,6 +54,7 @@ public final class Constants {
         public static final double FORWARD_VELOCITY = .05;
         public static final double STRAFE_VELOCITY = .03;
         public static final double ANGLE_TOLERANCE = 1.5;
+
 
         // Lights
         public static final int LED_STRIP_PORT = 9;
@@ -93,11 +96,9 @@ public final class Constants {
         public static final double PIVOT_KA = 0;
 
         // Manipulator
-        public static final int MANIPULATOR_PORT1 = 9;
-        public static final int MANIPULATOR_PORT2 = 10;
-        public static final int MANIPULATOR_CURRENT_LIMIT = 20;
-        public static final double MANIPULATOR_SPEED_CONE = 0.7;
-        public static final double MANIPULATOR_SPEED_BOX = 0.6;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
+  public static final double MANIPULATOR_SPEED_CONE = 0.7;
+  public static final double MANIPULATOR_SPEED_BOX = 0.6;
 
         public static final double MANIPULATOR_PID_KP = 0.0;
         public static final double MANIPULATOR_PID_KI = 0.0;

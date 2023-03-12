@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
-import frc.robot.commands.ManipulatorPIDCommand;
+import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.PreLevelingCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
@@ -93,7 +94,6 @@ public class RobotContainer {
                                         pivot.setGoal(Units.degreesToRadians(110));
                                         pivot.enable();
                                 }, pivot));
-
                 controller.button(5).onTrue(Commands.runOnce(
                                 () -> {
                                         pivot.setGoal(Constants.ARM_OFF_SET_RADS);
@@ -108,8 +108,30 @@ public class RobotContainer {
                         new PreLevelingCommand(drive),
                         new AutoLevelingCommand(drive)));
 
-                SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
-        }
+    // Switching Pipelines manually
+    controller
+        .button(9)
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  if (vision.camera.getPipelineIndex() == 4) {
+                    vision.camera.setPipelineIndex(2);
+                    lights.setColorHSV(253, 224, 25);
+                    return;
+                  }
+                  vision.camera.setPipelineIndex(4);
+                  lights.setColorHSV(259, 100, 70);
+                }));
+
+    controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
+    controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
+    controller.button(12).whileTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
+
+    // Set up shuffleboard
+    SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, armExtend, armRaise, manipulator));
+    SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
+}
 
         public Command getAutonomousCommand() {
                 return autoOptions.getAutoCommand();

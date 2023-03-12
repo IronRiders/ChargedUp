@@ -19,6 +19,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor2 = new CANSparkMax(Constants.MANIPULATOR_PORT2, MotorType.kBrushless);
 
     manipulatorMotor1.setIdleMode(IdleMode.kBrake);
+    manipulatorMotor1.setInverted(true);
     manipulatorMotor1.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
 
     manipulatorMotor2.setIdleMode(IdleMode.kBrake);
@@ -39,9 +40,17 @@ public class ManipulatorSubsystem extends SubsystemBase {
     }
   }
 
+  public void stop() {
+    setManipulatorMotors(0);
+  }
+
+  public void setManipulatorMotors(double speed) {
+    // manipulatorMotor1.set(speed);
+    manipulatorMotor2.set(speed);
+  }
+
   public void release() {
-    manipulatorMotor1.set(-Constants.MANIPULATOR_SPEED_CONE);
-    manipulatorMotor2.set(Constants.MANIPULATOR_SPEED_CONE);
+    setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
   }
 
   public double getManipulatorMotor1EncoderDistance() {
@@ -52,14 +61,8 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor1Encoder.setPosition(0);
   }
 
-  public void setManipulatorMotors(double speed) {
-    manipulatorMotor1.set(speed);
-    manipulatorMotor2.set(-speed);
-  }
-
-  // Create a method that stops the climbers from moving
-  public void stop() {
-    manipulatorMotor1.set(0);
-    manipulatorMotor2.set(0);
+  public void burnFlash() {
+    manipulatorMotor1.burnFlash();
+    manipulatorMotor2.burnFlash();
   }
 }
