@@ -45,7 +45,7 @@ public final class Constants {
         public static final PathConstraints SlowAutoConstraints = new PathConstraints(2, 2);
         public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
         public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
-        public static final PathConstraints TooFastAutoConstraints = new PathConstraints(4.5, 4.5);
+        public static final PathConstraints TooFastAutoConstraints = new PathConstraints(5, 5);
         public static final double ANGLETOLERANCE = 1;
 
         // Auto Leveling

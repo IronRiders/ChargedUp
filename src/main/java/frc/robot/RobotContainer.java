@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ManipulatorPIDCommand;
 import frc.robot.commands.PathToPose;
+import frc.robot.commands.PreLevelingCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.subsystems.*;
 
@@ -101,6 +103,10 @@ public class RobotContainer {
 
                  controller.button(11).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
                  controller.button(12).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
+
+                 controller.button(122).whileTrue(new SequentialCommandGroup(
+                        new PreLevelingCommand(drive),
+                        new AutoLevelingCommand(drive)));
 
                 SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
         }
