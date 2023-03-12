@@ -10,7 +10,7 @@ import edu.wpi.first.math.util.Units;
 
 public final class Constants {
   // Joystick
-  public static final double DEADBAND = 0.1;
+  public static final double DEADBAND = 0.07;
   public static final double EXPONENT = 0.1; // between 0 and 1
 
   // Drivetrain
@@ -51,9 +51,9 @@ public final class Constants {
   public static final double ANGLETOLERANCE = 1;
 
   // Auto Leveling
-  public static final double FORWARD_VELOCITY = .05;
-  public static final double STRAFE_VELOCITY = .03;
-  public static final double ANGLE_TOLERANCE = 1.5;
+  public static final double FORWARD_VELOCITY = .1;
+  public static final double STRAFE_VELOCITY = .01;
+  public static final double ANGLE_TOLERANCE = 1.3;
 
   // Lights
   public static final int LED_STRIP_PORT = 9;

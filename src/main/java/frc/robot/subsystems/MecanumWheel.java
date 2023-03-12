@@ -16,14 +16,14 @@ public class MecanumWheel extends SubsystemBase {
   private RelativeEncoder encoder;
   private PIDController pidController;
   private static SimpleMotorFeedforward feedForward =
-      new SimpleMotorFeedforward(0.148, 2.2504, 0.68);
+      new SimpleMotorFeedforward(0.148, 2.0004, 0.48);
 
   public MecanumWheel(int motorId, boolean inverted) {
     motor = new CANSparkMax(motorId, MotorType.kBrushless);
     motor.setInverted(inverted);
     motor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     motor.setIdleMode(IdleMode.kBrake);
-    pidController = new PIDController(0, 0, 0);
+    pidController = new PIDController(0.00003, 0, 0);
     encoder = motor.getEncoder();
     encoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.GEARING);
   }
@@ -39,11 +39,11 @@ public class MecanumWheel extends SubsystemBase {
   }
 
   public void setVelocity(double mps, boolean needPID) {
-   // if (needPID) {
+    if (needPID) {
       motor.setVoltage(feedForward.calculate(mps) + pidController.calculate(getVelocity(), mps));
-   // } else {
-    //  motor.setVoltage(feedForward.calculate(mps));
-   // }
+    } else {
+      motor.setVoltage(feedForward.calculate(mps));
+    }
   }
 
   public static double getMaxLinearVelocity() {

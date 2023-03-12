@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -44,7 +43,7 @@ public class RobotContainer {
                 drive.setChassisSpeeds(
                     ScaledDeadBand(xboxController.getLeftX(), 1),
                     ScaledDeadBand(xboxController.getLeftY(), 1),
-                    -ScaledDeadBand(xboxController.getRightX(), 1),
+                   -ScaledDeadBand(xboxController.getRightX(), 1),
                     false),
             drive));
 
@@ -135,13 +134,8 @@ public class RobotContainer {
     controller.button(11).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(12).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
-    controller
-        .button(122)
-        .whileTrue(
-            new SequentialCommandGroup(
-                new PreLevelingCommand(drive), // Move towards the ramp until pitch changes
-                new AutoLevelingCommand(
-                    drive))); // Once pitch changes, we're on the ramp, time to auto balance
+    xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
+    xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
 
     controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
     controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
@@ -159,18 +153,6 @@ public class RobotContainer {
 
   public void traj() {
     SmartDashboard.putData("field", drive.field);
-  }
-
-  private double joystickResponse(double raw) {
-    double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);
-    double deadbanded = 0.0;
-    if (raw > deadband) {
-      deadbanded = (raw - deadband) / (1 - deadband);
-    } else if (raw < -deadband) {
-      deadbanded = (raw + deadband) / (1 - deadband);
-    }
-    double exponent = SmartDashboard.getNumber("exponent", Constants.EXPONENT) + 1;
-    return Math.pow(Math.abs(deadbanded), exponent) * Math.signum(deadbanded);
   }
 
   private double ScaledDeadBand(double value, double exp) {
