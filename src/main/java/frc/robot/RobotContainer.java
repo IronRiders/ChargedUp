@@ -79,8 +79,7 @@ public class RobotContainer {
         .button(108)
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
 
-<<<<<<< HEAD
-                // Switching Pipelines manually
+        // Switching Pipelines manually
                 controller.button(39).onTrue(new InstantCommand(
                                 () -> {
                                         if (vision.camera.getPipelineIndex() == 4) {
@@ -95,29 +94,6 @@ public class RobotContainer {
                 controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
                 controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
                 controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator));
-=======
-    // Switching Pipelines manually
-    controller
-        .button(39)
-        .onTrue(
-            new InstantCommand(
-                () -> {
-                  if (vision.camera.getPipelineIndex() == 4) {
-                    vision.camera.setPipelineIndex(2);
-                    lights.setColorHSV(253, 224, 25);
-                    return;
-                  }
-                  vision.camera.setPipelineIndex(4);
-                  lights.setColorHSV(259, 100, 70);
-                }));
-    controller
-        .button(53)
-        .onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
-    controller.button(54).whileTrue(new AutoLevelingCommand(drive));
-    controller.button(31).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    controller.button(32).onTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    controller.button(33).onTrue(new ReleaseManipulatorCommand(manipulator));
->>>>>>> af71b99b7a39e8885987bfc594d4a9725aa38e49
 
     controller
         .button(3)
@@ -186,12 +162,7 @@ public class RobotContainer {
 
     // Set up shuffleboard
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
-<<<<<<< HEAD
     SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, pivot, arm, manipulator));
-=======
-    SmartDashboard.putData(
-        "Burn Flash", new BurnFlashCommand(drive, armExtend, armRaise, manipulator));
->>>>>>> af71b99b7a39e8885987bfc594d4a9725aa38e49
     SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
 
