@@ -14,8 +14,9 @@ import frc.robot.Constants;
 
 public class PivotSubsystem extends ProfiledPIDSubsystem {
   private CANSparkMax motor;
-  private final ArmFeedforward armFeedforward = new ArmFeedforward(
-      Constants.PIVOT_KS, Constants.PIVOT_KGR, Constants.PIVOT_KV, Constants.PIVOT_KA);
+  private final ArmFeedforward armFeedforward =
+      new ArmFeedforward(
+          Constants.PIVOT_KS, Constants.PIVOT_KGR, Constants.PIVOT_KV, Constants.PIVOT_KA);
 
   public PivotSubsystem() {
     super(

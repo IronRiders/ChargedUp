@@ -43,7 +43,7 @@ public class RobotContainer {
                 drive.setChassisSpeeds(
                     ScaledDeadBand(xboxController.getLeftX(), 1),
                     ScaledDeadBand(xboxController.getLeftY(), 1),
-                   -ScaledDeadBand(xboxController.getRightX(), 1),
+                    -ScaledDeadBand(xboxController.getRightX(), 1),
                     false),
             drive));
 
@@ -157,7 +157,7 @@ public class RobotContainer {
 
   private double ScaledDeadBand(double value, double exp) {
     double value1 = MathUtil.applyDeadband(value, Constants.DEADBAND);
-    double test =  Math.signum(value1) * Math.pow(Math.abs(value1), exp);
+    double test = Math.signum(value1) * Math.pow(Math.abs(value1), exp);
     return test;
   }
 }
