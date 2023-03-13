@@ -155,7 +155,7 @@ public class RobotContainer {
     SmartDashboard.putData("field", drive.field);
   }
 
-  private double ScaledDeadBand(double value, double exp) {
+  private double scaledDeadBand(double value, double exp) {
     double value1 = MathUtil.applyDeadband(value, Constants.DEADBAND);
     double test = Math.signum(value1) * Math.pow(Math.abs(value1), exp);
     return test;
