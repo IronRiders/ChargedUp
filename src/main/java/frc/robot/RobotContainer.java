@@ -41,9 +41,9 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 drive.setChassisSpeeds(
-                    ScaledDeadBand(xboxController.getLeftX(), 1),
-                    ScaledDeadBand(xboxController.getLeftY(), 1),
-                    -ScaledDeadBand(xboxController.getRightX(), 1),
+                    scaledDeadBand(xboxController.getLeftX(), 1),
+                    scaledDeadBand(xboxController.getLeftY(), 1),
+                    -scaledDeadBand(xboxController.getRightX(), 1),
                     false),
             drive));
 
