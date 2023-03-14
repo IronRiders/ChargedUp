@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class PreLevelingCommand extends CommandBase {
-  private final double speed = 0.1;
+  private final double speed = 0.4;
   DriveSubsystem drive;
 
-  private final double targetPitch = 3.0;
+  private final double targetPitch = 5.0;
 
   public PreLevelingCommand(DriveSubsystem drive) {
     this.drive = drive;

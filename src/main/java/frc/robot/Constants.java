@@ -10,7 +10,7 @@ import edu.wpi.first.math.util.Units;
 
 public final class Constants {
   // Joystick
-  public static final double DEADBAND = 0.06;
+  public static final double DEADBAND = 0.07;
   public static final double EXPONENT = 0.1; // between 0 and 1
 
   // Drivetrain
@@ -51,9 +51,9 @@ public final class Constants {
   public static final double ANGLETOLERANCE = 1;
 
   // Auto Leveling
-  public static final double FORWARD_VELOCITY = .05;
-  public static final double STRAFE_VELOCITY = .03;
-  public static final double ANGLE_TOLERANCE = 1.5;
+  public static final double FORWARD_VELOCITY = .1;
+  public static final double STRAFE_VELOCITY = .01;
+  public static final double ANGLE_TOLERANCE = 1.3;
 
   // Lights
   public static final int LED_STRIP_PORT = 9;
@@ -63,7 +63,7 @@ public final class Constants {
   public static final Transform3d RobotToCam =
       new Transform3d(
           new Translation3d(
-              -Units.inchesToMeters(16), -Units.inchesToMeters(18.68), Units.inchesToMeters(18.5)),
+              -Units.inchesToMeters(33.6), -Units.inchesToMeters(22.25), Units.inchesToMeters(13)),
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 
   // Arm
@@ -72,7 +72,7 @@ public final class Constants {
   public static final double ARM_KP = 0.6;
   public static final double Arm_GEAR_RATIO = 48;
   public static final TrapezoidProfile.Constraints kConstraints =
-      new TrapezoidProfile.Constraints(55, 75);
+      new TrapezoidProfile.Constraints(55, 120);
 
   // Pivot Stuff
   public static final int PIVOT_CURRENT_LIMIT = 12;

@@ -141,6 +141,8 @@ public class DriveSubsystem extends SubsystemBase {
         "Drive/Target Omega Degrees",
         Units.radiansToDegrees(targetChassisSpeeds.omegaRadiansPerSecond));
     SmartDashboard.putNumber("Gyro Angle", pigeon.getAngle());
+
+    SmartDashboard.putNumber("Pitch", pigeon.getPitch());
   }
 
   public Pose2d getPose2d() {
