@@ -16,14 +16,14 @@ public class MecanumWheel extends SubsystemBase {
   private RelativeEncoder encoder;
   private PIDController pidController;
   private static SimpleMotorFeedforward feedForward =
-      new SimpleMotorFeedforward(0.13888, 2.2504, 0.45863);
+      new SimpleMotorFeedforward(0.148, 2.0004, 0.48);
 
   public MecanumWheel(int motorId, boolean inverted) {
     motor = new CANSparkMax(motorId, MotorType.kBrushless);
     motor.setInverted(inverted);
     motor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     motor.setIdleMode(IdleMode.kBrake);
-    pidController = new PIDController(0, 0, 0);
+    pidController = new PIDController(0.00003, 0, 0);
     encoder = motor.getEncoder();
     encoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.GEARING);
   }

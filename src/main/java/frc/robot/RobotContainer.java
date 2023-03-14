@@ -2,15 +2,16 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
@@ -28,6 +29,7 @@ public class RobotContainer {
   public final ArmSubsystem arm = new ArmSubsystem();
   public final LightsSubsystem lights = new LightsSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
+  private final CommandXboxController xboxController = new CommandXboxController(1);
   private final AutoOptions autoOptions = new AutoOptions(drive);
 
   public RobotContainer() {
@@ -39,9 +41,9 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 drive.setChassisSpeeds(
-                    joystickResponse(controller.getRawAxis(0)),
-                    joystickResponse(controller.getRawAxis(1)),
-                    joystickResponse(controller.getRawAxis(2)),
+                    scaledDeadBand(xboxController.getLeftX(), 1),
+                    scaledDeadBand(xboxController.getLeftY(), 1),
+                    -scaledDeadBand(xboxController.getRightX(), 1),
                     false),
             drive));
 
@@ -132,13 +134,8 @@ public class RobotContainer {
     controller.button(11).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(12).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
-    controller
-        .button(122)
-        .whileTrue(
-            new SequentialCommandGroup(
-                new PreLevelingCommand(drive), // Move towards the ramp until pitch changes
-                new AutoLevelingCommand(
-                    drive))); // Once pitch changes, we're on the ramp, time to auto balance
+    xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
+    xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
 
     controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
     controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
@@ -158,15 +155,9 @@ public class RobotContainer {
     SmartDashboard.putData("field", drive.field);
   }
 
-  private double joystickResponse(double raw) {
-    double deadband = SmartDashboard.getNumber("deadband", Constants.DEADBAND);
-    double deadbanded = 0.0;
-    if (raw > deadband) {
-      deadbanded = (raw - deadband) / (1 - deadband);
-    } else if (raw < -deadband) {
-      deadbanded = (raw + deadband) / (1 - deadband);
-    }
-    double exponent = SmartDashboard.getNumber("exponent", Constants.EXPONENT) + 1;
-    return Math.pow(Math.abs(deadbanded), exponent) * Math.signum(deadbanded);
+  private double scaledDeadBand(double value, double exp) {
+    double value1 = MathUtil.applyDeadband(value, Constants.DEADBAND);
+    double test = Math.signum(value1) * Math.pow(Math.abs(value1), exp);
+    return test;
   }
 }
