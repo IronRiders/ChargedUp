@@ -51,7 +51,7 @@ public final class Constants {
   public static final double ANGLETOLERANCE = 1;
 
   // Auto Leveling
-  public static final double FORWARD_VELOCITY = .1;
+  public static final double FORWARD_VELOCITY = 0.065;
   public static final double STRAFE_VELOCITY = .01;
   public static final double ANGLE_TOLERANCE = 1.3;
 
