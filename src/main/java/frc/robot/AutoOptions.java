@@ -39,7 +39,7 @@ public class AutoOptions {
     autoOptions.addOption(
         "Straight 180 degree turning path",
         new MecanumPathFollower(
-            drive, "Straight 180 degree turning path", Constants.MediumAutoConstraints, true));
+            drive, "Straight 180 degree turning path", Constants.SlowAutoConstraints, true));
     autoOptions.addOption(
         "45 degree turning path",
         new MecanumPathFollower(
@@ -50,6 +50,9 @@ public class AutoOptions {
     autoOptions.addOption(
         "ON The Fly Path Test",
         new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
+    autoOptions.addOption("Straight Path", new MecanumPathFollower(drive, "Straight Path", Constants.SlowAutoConstraints, true));
+    autoOptions.addOption("Turn 180 Degrees", new MecanumPathFollower(drive, "Turn 180 Degrees", Constants.SlowAutoConstraints, true));
+
 
     // Actual Pathing
     autoOptions.addOption("Three Piece Left", threePieceAutoLeft());
