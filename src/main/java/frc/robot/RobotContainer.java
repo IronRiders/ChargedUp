@@ -143,7 +143,7 @@ public class RobotContainer {
     // controller.button(12).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     // Set up shuffleboard
-    controller.button(9).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
     // controller.button(9).onTrue(new BurnFlashCommand(drive, pivot, arm, manipulator).andThen(new PrintCommand("headsfasdfasdfasdf")));
     // SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
     // SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, pivot, arm, manipulator));

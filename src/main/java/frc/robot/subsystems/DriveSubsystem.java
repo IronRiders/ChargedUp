@@ -38,7 +38,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final Vision vision = new Vision();
   private static ProfiledPIDController profiledThetaController =
       new ProfiledPIDController(
-          1.1,
+          0.4,
           0,
           0,
           new TrapezoidProfile.Constraints(
@@ -48,8 +48,8 @@ public class DriveSubsystem extends SubsystemBase {
           profiledThetaController.getP(),
           profiledThetaController.getI(),
           profiledThetaController.getD());
-  private static PIDController xController = new PIDController(0.3, 0, 0);
-  private static PIDController yController = new PIDController(0.3, 0, 0);
+  private static PIDController xController = new PIDController(0, 0, 0);
+  private static PIDController yController = new PIDController(0, 0, 0);
 
   public DriveSubsystem() {
     frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
@@ -98,7 +98,7 @@ public class DriveSubsystem extends SubsystemBase {
     // Update pose estimator with drivetrain sensors
     poseEstimator.updateWithTime(
         Timer.getFPGATimestamp(), pigeon.getRotation2d(), getWheelPositions());
-
+        SmartDashboard.putNumber("auto yaw", pigeon.getYaw());
     vision
         .getEstimatedGlobalPose(getPose2d())
         .ifPresent(

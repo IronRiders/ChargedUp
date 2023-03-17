@@ -39,11 +39,11 @@ public class MecanumWheel extends SubsystemBase {
   }
 
   public void setVelocity(double mps, boolean needPID) {
-   // if (needPID) {
+    if (needPID) {
       motor.setVoltage(feedForward.calculate(-mps) + pidController.calculate(getVelocity(), -mps));
-   // } else {
-   //   motor.setVoltage(feedForward.calculate(mps));
-   // }
+    } else {
+      motor.setVoltage(feedForward.calculate(mps));
+    }
   }
 
   public static double getMaxLinearVelocity() {
