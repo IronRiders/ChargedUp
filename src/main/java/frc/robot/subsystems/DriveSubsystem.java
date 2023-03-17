@@ -38,7 +38,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final Vision vision = new Vision();
   private static ProfiledPIDController profiledThetaController =
       new ProfiledPIDController(
-          0,
+          1.1,
           0,
           0,
           new TrapezoidProfile.Constraints(
@@ -48,8 +48,8 @@ public class DriveSubsystem extends SubsystemBase {
           profiledThetaController.getP(),
           profiledThetaController.getI(),
           profiledThetaController.getD());
-  private static PIDController xController = new PIDController(0, 0, 0);
-  private static PIDController yController = new PIDController(0, 0, 0);
+  private static PIDController xController = new PIDController(0.3, 0, 0);
+  private static PIDController yController = new PIDController(0.3, 0, 0);
 
   public DriveSubsystem() {
     frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
@@ -172,7 +172,6 @@ public class DriveSubsystem extends SubsystemBase {
     double turnSpeed = turn * -getMaxRotationalVelocity();
 
     ChassisSpeeds chassisSpeeds;
-    System.out.println(needPID);
 
     if (!needPID)
       chassisSpeeds =
