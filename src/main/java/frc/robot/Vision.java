@@ -45,9 +45,9 @@ public class Vision {
 
   public void periodic() {
     SmartDashboard.putNumber(
-        "Ground Distance to target", Units.metersToInches(estimateDistance(camera)));
+        "Ground Distance to target for Limelight", Units.metersToInches(estimateDistance(camera)));
     SmartDashboard.putNumber(
-        "Ground Distance to target", Units.metersToInches(estimateDistance(piCam)));
+        "Ground Distance to target for PiCam", Units.metersToInches(estimateDistance(piCam)));
   }
 
   public double getYaw(PhotonCamera cam) {
