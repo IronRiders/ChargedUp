@@ -6,8 +6,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.BackwardsTwoMetersCommand;
+import frc.robot.commands.ForwardTwoMetersCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.commands.PathToPose;
+import frc.robot.commands.Rotate180Command;
+import frc.robot.commands.StraightenRobotCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.FieldUtil;
 
@@ -65,10 +69,16 @@ public class AutoOptions {
   }
 
   public CommandBase getAutoCommand() {
-    var cmd = autoOptions.getSelected();
-    if (cmd == null) {
-      cmd = Commands.none();
-    }
+    var cmd = new SequentialCommandGroup(
+        new ForwardTwoMetersCommand(drive),
+        new Rotate180Command(drive),
+        new BackwardsTwoMetersCommand(drive),
+        new Rotate180Command(drive),
+        new StraightenRobotCommand(drive)
+    );
+    // if (cmd == null) {
+    //   cmd = Commands.none();
+    // }
     return cmd;
   }
 

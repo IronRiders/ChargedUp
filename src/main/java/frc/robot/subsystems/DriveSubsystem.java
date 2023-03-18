@@ -74,16 +74,40 @@ public class DriveSubsystem extends SubsystemBase {
             getKinematics(), pigeon.getRotation2d(), getWheelPositions(), new Pose2d());
   }
 
+  public void log() {
+    this.frontLeftMotor.log();
+    this.frontRightMotor.log();
+    this.rearLeftMotor.log();
+    this.rearRightMotor.log();
+
+    SmartDashboard.putNumber("pose/degrees", getPose2d().getRotation().getDegrees());
+    SmartDashboard.putNumber("pose/rotations", getPose2d().getRotation().getRotations());
+    SmartDashboard.putNumber("pose/x", getPose2d().getX());
+    SmartDashboard.putNumber("pose/y", getPose2d().getY());
+  }
+
   public void invertDrive() {
     inverted = !inverted;
   }
 
+  public double getYaw() {
+    return pigeon.getYaw();
+  }
+
+  public double getRoll() {
+    return pigeon.getRoll();
+  }
+
+  public double getPitch() {
+    return pigeon.getPitch();
+  }
+
   public MecanumDriveWheelPositions getWheelPositions() {
     return new MecanumDriveWheelPositions(
-        frontLeftMotor.getWheelPostions(),
-        frontRightMotor.getWheelPostions(),
-        rearLeftMotor.getWheelPostions(),
-        rearRightMotor.getWheelPostions());
+        frontLeftMotor.getWheelPostion(),
+        frontRightMotor.getWheelPostion(),
+        rearLeftMotor.getWheelPostion(),
+        rearRightMotor.getWheelPostion());
   }
 
   public MecanumDriveWheelSpeeds getWheelSpeeds() {
@@ -95,10 +119,12 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void periodic() {
+    this.log();
+    
     // Update pose estimator with drivetrain sensors
     poseEstimator.updateWithTime(
         Timer.getFPGATimestamp(), pigeon.getRotation2d(), getWheelPositions());
-        SmartDashboard.putNumber("auto yaw", pigeon.getYaw());
+        
     vision
         .getEstimatedGlobalPose(getPose2d())
         .ifPresent(
@@ -108,14 +134,14 @@ public class DriveSubsystem extends SubsystemBase {
             });
 
     // Simple Simulation
-    field.setRobotPose(getPose2d());
-    field
-        .getObject("Target")
-        .setPose(
-            new Pose2d(
-                xController.getSetpoint(),
-                yController.getSetpoint(),
-                new Rotation2d(getThetaController().getSetpoint())));
+    // field.setRobotPose(getPose2d());
+    // field
+    //     .getObject("Target")
+    //     .setPose(
+    //         new Pose2d(
+    //             xController.getSetpoint(),
+    //             yController.getSetpoint(),
+    //             new Rotation2d(getThetaController().getSetpoint())));
 
     // Tuning
     NetworkTableInstance.getDefault().flush();

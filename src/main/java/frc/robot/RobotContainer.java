@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.Rotate180Command;
 import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.PreLevelingCommand;
@@ -150,7 +152,12 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+    // return new Rotate180Command(false, drive);
     return autoOptions.getAutoCommand();
+  }
+
+  public void resetPose() {
+    drive.resetOdometry(new Pose2d());
   }
 
   public void traj() {

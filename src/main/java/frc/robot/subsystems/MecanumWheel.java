@@ -29,9 +29,10 @@ public class MecanumWheel extends SubsystemBase {
   }
 
   public void log() {
-    SmartDashboard.putNumber("MecanumWheel/Max Linear Velocity", getMaxLinearVelocity());
-    SmartDashboard.putNumber("MecanumWheel/Velocity", getVelocity());
-    SmartDashboard.putNumber("Target Velocity", pidController.getSetpoint());
+    SmartDashboard.putNumber("MecanumWheel" + this.motor.getDeviceId() + "/Max Linear Velocity", getMaxLinearVelocity());
+    SmartDashboard.putNumber("MecanumWheel" + this.motor.getDeviceId() + "/Velocity", getVelocity());
+    SmartDashboard.putNumber("MecanumWheel" + this.motor.getDeviceId() + "/Target Velocity", pidController.getSetpoint());
+    SmartDashboard.putNumber("MecanumWheel" + this.motor.getDeviceId() + "/Position", getWheelPostion());
   }
 
   public double getVelocity() {
@@ -47,10 +48,10 @@ public class MecanumWheel extends SubsystemBase {
   }
 
   public static double getMaxLinearVelocity() {
-    return feedForward.maxAchievableVelocity(12.0, 0);
+    return feedForward.maxAchievableVelocity(12.0, 4);
   }
 
-  public double getWheelPostions() {
+  public double getWheelPostion() {
     return encoder.getPosition();
   }
 

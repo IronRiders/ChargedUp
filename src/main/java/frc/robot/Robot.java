@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    robotContainer.resetPose();
     if (autoCommand != null) {
       autoCommand.cancel();
     }

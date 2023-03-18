@@ -26,6 +26,6 @@ public class StraightenRobotCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return (Math.abs(driveSubsytem.pigeon.getRotation2d().getDegrees() % 360)
-        < Constants.STRAIGHTEN_TALORANCE_ANGLE);
+        < Constants.STRAIGHTEN_TOLERANCE_ANGLE);
   }
 }

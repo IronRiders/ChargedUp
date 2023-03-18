@@ -5,6 +5,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPMecanumControllerCommand;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.DriveSubsystem;
@@ -66,6 +67,8 @@ public class MecanumPathFollower extends CommandBase {
   }
 
   public void execute() {
+    SmartDashboard.putNumber("MCP/degrees", drive.getPose2d().getRotation().getDegrees());
+    drive.log();
     controllerCommand.execute();
   }
 
@@ -74,6 +77,10 @@ public class MecanumPathFollower extends CommandBase {
   }
 
   public boolean isFinished() {
+    if (controllerCommand.isFinished()) {
+      drive.stop();
+    }
+
     return controllerCommand.isFinished();
   }
 }
