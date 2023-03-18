@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Vision {
   public final PhotonCamera camera = new PhotonCamera("Anish");
+  public final PhotonCamera piCam = new PhotonCamera("CalvinAnish");
   public AprilTagFieldLayout tagLayout;
   public PhotonPipelineResult previousPipelineResult = null;
   public Transform3d camToTarget = new Transform3d();
@@ -34,7 +35,7 @@ public class Vision {
       tagLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
       photonPoseEstimator =
           new PhotonPoseEstimator(
-              tagLayout, PoseStrategy.MULTI_TAG_PNP, camera, Constants.RobotToCam);
+              tagLayout, PoseStrategy.MULTI_TAG_PNP, piCam, Constants.RobotToCam);
       photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
     } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
@@ -43,25 +44,27 @@ public class Vision {
   }
 
   public void periodic() {
-    SmartDashboard.putNumber("Ground Distance to target", Units.metersToInches(estimateDistance()));
+    SmartDashboard.putNumber("Ground Distance to target", Units.metersToInches(estimateDistance(camera)));
+    SmartDashboard.putNumber("Ground Distance to target", Units.metersToInches(estimateDistance(piCam)));
+
   }
 
-  public double getYaw() {
-    if (hasTarget()) return camera.getLatestResult().getBestTarget().getYaw();
+  public double getYaw(PhotonCamera cam) {
+    if (hasTarget(cam)) return cam.getLatestResult().getBestTarget().getYaw();
 
     return 0;
   }
 
-  public boolean hasTarget() {
-    var result = camera.getLatestResult();
+  public boolean hasTarget(PhotonCamera cam) {
+    var result = cam.getLatestResult();
     return result.hasTargets();
   }
 
-  public double estimateDistance() {
-    if (hasTarget())
+  public double estimateDistance(PhotonCamera cam) {
+    if (hasTarget(cam))
       return Units.metersToInches(
           new Pose3d()
-              .plus(camera.getLatestResult().getBestTarget().getBestCameraToTarget())
+              .plus(cam.getLatestResult().getBestTarget().getBestCameraToTarget())
               .toPose2d()
               .getTranslation()
               .getNorm());
@@ -75,9 +78,9 @@ public class Vision {
   }
 
   public Optional<Pose2d> tagLocalization(
-      double xDistance, double yDistance, double angleRadians, Pose2d robotPos) {
-    if (!hasTarget()) return Optional.empty();
-    var target = camera.getLatestResult().getBestTarget();
+      double xDistance, double yDistance, double angleRadians, Pose2d robotPos, PhotonCamera cam) {
+    if (!hasTarget(cam)) return Optional.empty();
+    var target = cam.getLatestResult().getBestTarget();
     return Optional.of(
         new Pose3d(robotPos)
             .plus(Constants.RobotToCam)
@@ -90,11 +93,11 @@ public class Vision {
                     new Rotation2d(angleRadians))));
   }
 
-  public Optional<Pose2d> fieldElementTracking(Pose2d robotPose) {
+  public Optional<Pose2d> fieldElementTracking(Pose2d robotPose, PhotonCamera cam) {
     double targetHeight =
         Units.inchesToMeters(4.5); // Change based on cone orientation and cubes game pieces
-    if (!hasTarget()) return Optional.empty();
-    var target = camera.getLatestResult().getBestTarget();
+    if (!hasTarget(cam)) return Optional.empty();
+    var target = cam.getLatestResult().getBestTarget();
     Translation3d camToTargetTrl =
         frc.robot.util.PhotonUtils.estimateCamToTargetTrl(
             Constants.RobotToCam,
