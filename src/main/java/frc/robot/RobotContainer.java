@@ -51,7 +51,8 @@ public class RobotContainer {
     controller
         .button(34)
         .whileTrue(
-            new PathToPose(drive, () -> vision.fieldElementTracking(drive.getPose2d()).get()));
+            new PathToPose(
+                drive, () -> vision.fieldElementTracking(drive.getPose2d(), vision.camera).get()));
 
     // On The Fly Pathing to Every Station
     controller
