@@ -3,6 +3,11 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -52,21 +57,29 @@ import frc.robot.Constants;
     }
 }*/
 
-public class ArmSubsystem extends SubsystemBase {
+public class ArmSubsystem extends PIDSubsystem {
   private CANSparkMax motor;
+  private final SimpleMotorFeedforward simpleMotorFeedforward = new SimpleMotorFeedforward(0, 1);
 
   public ArmSubsystem() {
+    super(new PIDController(0, 0, 0), 0);
     motor = new CANSparkMax(Constants.ARM_CLIMBER_PORT, MotorType.kBrushless);
     motor.setIdleMode(IdleMode.kBrake);
     motor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
   }
 
+  @Override
+  protected void useOutput(double output, double setpoint) {
+    double feedforward = simpleMotorFeedforward.calculate(8, 0);
+   motor.setVoltage(output + feedforward);
+  }
+  
   public void extend() {
-    motor.set(Constants.Arm_POWER);
+    motor.set(0.2);
   }
 
   public void retract() {
-    motor.set(-Constants.Arm_POWER);
+    motor.set(-0.2);
   }
 
   public void stop() {
@@ -75,5 +88,11 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void burnFlash() {
     motor.burnFlash();
+  }
+
+  @Override
+  protected double getMeasurement() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 }

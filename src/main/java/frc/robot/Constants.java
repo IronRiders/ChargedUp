@@ -66,7 +66,7 @@ public final class Constants {
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 
   // Arm
-  public static final int ARM_CURRENT_LIMIT = 10;
+  public static final int ARM_CURRENT_LIMIT = 2;
   public static final double Arm_POWER = 1;
   public static final double ARM_KP = 0.6;
   public static final double Arm_GEAR_RATIO = 48;
