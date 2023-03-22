@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -13,6 +14,11 @@ public class ManipulatorSubsystem extends SubsystemBase {
   private CANSparkMax manipulatorMotor2;
 
   RelativeEncoder manipulatorMotor1Encoder;
+  PowerDistribution pdh = new PowerDistribution();
+  Boolean has_Hit = false;
+  boolean motorRunning = false;
+  
+  
 
   public ManipulatorSubsystem() {
     manipulatorMotor1 = new CANSparkMax(Constants.MANIPULATOR_PORT1, MotorType.kBrushless);
@@ -29,6 +35,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void grab(GrabObject grabObject) {
+    has_Hit = false;
     switch (grabObject) {
       case CONE:
         setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
@@ -38,6 +45,18 @@ public class ManipulatorSubsystem extends SubsystemBase {
         setManipulatorMotors(Constants.MANIPULATOR_SPEED_BOX);
         break;
     }
+    
+
+  }
+
+  @Override
+  public void periodic(){
+    if (motorRunning) {
+      if (pdh.getCurrent(16)>Constants.STALL_CURRENT){
+        stop();
+        motorRunning = false;
+      }
+    }
   }
 
   public void stop() {
@@ -45,12 +64,13 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void setManipulatorMotors(double speed) {
-    // manipulatorMotor1.set(speed);
+    motorRunning = true;
+    manipulatorMotor1.set(speed);
     manipulatorMotor2.set(speed);
   }
 
   public void release() {
-    setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
+    has_Hit = false;    setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
   }
 
   public double getManipulatorMotor1EncoderDistance() {
@@ -61,6 +81,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor1Encoder.setPosition(0);
   }
 
+  
   public void burnFlash() {
     manipulatorMotor1.burnFlash();
     manipulatorMotor2.burnFlash();

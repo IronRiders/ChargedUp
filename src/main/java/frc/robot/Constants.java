@@ -97,11 +97,12 @@ public final class Constants {
 
   // Manipulator
   public static final int MANIPULATOR_CURRENT_LIMIT = 10;
-  public static final double MANIPULATOR_SPEED_CONE = 0.7;
-  public static final double MANIPULATOR_SPEED_BOX = 0.6;
+  public static final double MANIPULATOR_SPEED_CONE = 0.3;
+  public static final double MANIPULATOR_SPEED_BOX = 0.2;
   public static final double MANIPULATOR_PID_KP = 0.0;
   public static final double MANIPULATOR_PID_KI = 0.0;
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
   public static final double MANIPULATOR_SETPOINT = 0.0;
+  public static final int STALL_CURRENT = 10;
 }

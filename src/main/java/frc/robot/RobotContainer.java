@@ -132,8 +132,8 @@ public class RobotContainer {
                 },
                 pivot));
 
-    controller.button(11).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
-    controller.button(12).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
+    controller.button(7).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
+    controller.button(8).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
     xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
