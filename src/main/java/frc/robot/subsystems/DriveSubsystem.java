@@ -48,8 +48,8 @@ public class DriveSubsystem extends SubsystemBase {
           profiledThetaController.getP(),
           profiledThetaController.getI(),
           profiledThetaController.getD());
-  private static PIDController xController = new PIDController(0, 0, 0);
-  private static PIDController yController = new PIDController(0, 0, 0);
+  private static PIDController xController = new PIDController(0.15, 0, 0);
+  private static PIDController yController = new PIDController(0.15, 0, 0);
 
   public DriveSubsystem() {
     frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);

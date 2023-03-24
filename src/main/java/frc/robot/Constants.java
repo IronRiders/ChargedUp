@@ -63,7 +63,7 @@ public final class Constants {
   public static final Transform3d RobotToCam =
       new Transform3d(
           new Translation3d(
-              -Units.inchesToMeters(33.6), -Units.inchesToMeters(22.25), Units.inchesToMeters(13)),
+              Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 
   // Arm
