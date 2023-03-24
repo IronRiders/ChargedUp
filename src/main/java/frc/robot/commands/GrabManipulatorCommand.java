@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.PowerDistribution;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.Constants;
@@ -14,9 +14,7 @@ public class GrabManipulatorCommand extends CommandBase {
     this.manipulatorSubsystem = manipulatorSubsystem;
     this.coneGraber = coneGraber;
     addRequirements(manipulatorSubsystem);
-    
   }
-  PowerDistribution pdh = new PowerDistribution();
 
   @Override
   public void initialize() {

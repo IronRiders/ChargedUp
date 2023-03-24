@@ -104,5 +104,5 @@ public final class Constants {
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
   public static final double MANIPULATOR_SETPOINT = 0.0;
-  public static final int STALL_CURRENT = 10;
+  public static final double STALL_CURRENT = 2.5;
 }

@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -14,7 +15,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
   private CANSparkMax manipulatorMotor2;
 
   RelativeEncoder manipulatorMotor1Encoder;
-  PowerDistribution pdh = new PowerDistribution();
+  PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
   Boolean has_Hit = false;
   boolean motorRunning = false;
   
@@ -61,6 +62,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
   public void stop() {
     setManipulatorMotors(0);
+    motorRunning = false;
   }
 
   public void setManipulatorMotors(double speed) {
