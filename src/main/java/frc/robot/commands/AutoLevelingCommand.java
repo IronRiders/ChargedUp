@@ -20,12 +20,18 @@ public class AutoLevelingCommand extends CommandBase {
   public void execute() {
     double forward = 0;
 
-    if (Math.abs(pigeon.getPitch()) > 4) {
+    if (Math.abs(pigeon.getPitch()) > 5) {
       forward = Constants.FORWARD_VELOCITY;
     }
-    if (pigeon.getPitch() < 4) {
+    // if (Math.abs(pigeon.getRoll()) > 5) {
+    //    strafe = Constants.FORWARD_VELOCITY;
+    //   }
+    if (pigeon.getPitch() < 5) {
       forward *= -1;
     }
+    //   if (pigeon.getRoll() < 5) {
+    //   strafe *= -1;
+    // }
     drive.setChassisSpeeds(0, forward, 0, true);
   }
 

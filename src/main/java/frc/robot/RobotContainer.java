@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
@@ -31,6 +30,7 @@ public class RobotContainer {
   private final CommandJoystick controller = new CommandJoystick(0);
   private final CommandXboxController xboxController = new CommandXboxController(1);
   private final AutoOptions autoOptions = new AutoOptions(drive);
+  private GrabObject grabRequest = GrabObject.CONE;
 
   public RobotContainer() {
     configureBindings();
@@ -82,25 +82,39 @@ public class RobotContainer {
     controller
         .button(108)
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
-
-    // Switching Pipelines manually
     controller
-        .button(39)
+        .button(12)
         .onTrue(
             new InstantCommand(
                 () -> {
-                  if (vision.camera.getPipelineIndex() == 4) {
-                    vision.camera.setPipelineIndex(2);
-                    lights.setColorHSV(253, 224, 25);
-                    return;
+                  if (grabRequest == GrabObject.CONE) {
+                    // Switch to Cube
+                    grabRequest = GrabObject.BOX;
+                  } else {
+                    // Switch to Cone
+                    grabRequest = GrabObject.CONE;
                   }
-                  vision.camera.setPipelineIndex(4);
-                  lights.setColorHSV(259, 100, 70);
-                }));
-    controller.button(54).whileTrue(new AutoLevelingCommand(drive));
-    controller.button(31).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    controller.button(32).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    controller.button(33).whileTrue(new ReleaseManipulatorCommand(manipulator));
+                  lights.setColorGrabObject(grabRequest);
+                },
+                lights));
+    lights.setColorGrabObject(grabRequest);
+    // .onTrue(new InstantCommand(() -> {lights.setColorRGB(0, 255, 0);;return;}));
+    // Switching Pipelines manually
+    // controller
+    //     .button(39)
+    //     .onTrue(
+    //         new InstantCommand(
+    //             () -> {
+    //               if (vision.camera.getPipelineIndex() == 4) {
+    //                 vision.camera.setPipelineIndex(2);
+    //                 lights.setColorHSV(253, 224, 25);
+    //                 return;
+    //               }
+    //               vision.camera.setPipelineIndex(4);
+    //               lights.setColorHSV(259, 100, 70);
+    //             }));
+    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
+    controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
         .button(3)
@@ -117,7 +131,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  pivot.setGoal(Units.degreesToRadians(110));
+                  pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
                   pivot.enable();
                 },
                 pivot));
@@ -138,14 +152,12 @@ public class RobotContainer {
     xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
 
-    controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    controller.button(12).whileTrue(new ReleaseManipulatorCommand(manipulator));
+    // controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
+    // controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    // controller.button(12).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     // Set up shuffleboard
-    SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
-    SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, pivot, arm, manipulator));
-    SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }
 
   public Command getAutonomousCommand() {

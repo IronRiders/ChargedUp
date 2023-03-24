@@ -18,8 +18,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
   PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
   Boolean has_Hit = false;
   boolean motorRunning = false;
-  
-  
 
   public ManipulatorSubsystem() {
     manipulatorMotor1 = new CANSparkMax(Constants.MANIPULATOR_PORT1, MotorType.kBrushless);
@@ -51,9 +49,9 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic(){
+  public void periodic() {
     if (motorRunning) {
-      if (pdh.getCurrent(16)>Constants.STALL_CURRENT){
+      if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
         stop();
         motorRunning = false;
       }
@@ -72,7 +70,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void release() {
-    has_Hit = false;    setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
+    setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
   }
 
   public double getManipulatorMotor1EncoderDistance() {

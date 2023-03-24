@@ -44,26 +44,26 @@ public final class Constants {
   public static final double AUTO_XCONTROLLER_KP = 0;
   public static final double AUTO_YCONTROLLER_KP = 0;
   public static final double DRIVE_ACCELERATION_AUTO = 1;
-  public static final PathConstraints SlowAutoConstraints = new PathConstraints(2, 2);
+  public static final PathConstraints SlowAutoConstraints = new PathConstraints(0.25, 0.25);
   public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
   public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
   public static final PathConstraints TooFastAutoConstraints = new PathConstraints(5, 5);
   public static final double ANGLETOLERANCE = 1;
 
   // Auto Leveling
-  public static final double FORWARD_VELOCITY = .1;
+  public static final double FORWARD_VELOCITY = 0.065;
   public static final double STRAFE_VELOCITY = .01;
   public static final double ANGLE_TOLERANCE = 1.3;
 
   // Lights
-  public static final int LED_STRIP_PORT = 9;
-  public static final int LED_STRIP_BUFFER_SIZE = 150; // 30 lights per meter
+  public static final int LED_STRIP_PORT = 0;
+  public static final int LED_STRIP_BUFFER_SIZE = 18; // 30 lights per meter
 
   // Vision Stuff
   public static final Transform3d RobotToCam =
       new Transform3d(
           new Translation3d(
-              -Units.inchesToMeters(33.6), -Units.inchesToMeters(22.25), Units.inchesToMeters(13)),
+              Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 
   // Arm
@@ -80,14 +80,14 @@ public final class Constants {
   public static final double Pivot_KI = 0;
   public static final double Pivot_KD = 0;
   public static final double SHOULDER_VELOCITY_DEG = 70;
-  public static final double SHOULDER_ACCELERATION_DEG = 150;
-  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(45);
+  public static final double SHOULDER_ACCELERATION_DEG = 250;
+  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(15);
   public static final double PIVOT_GEAR_RATIO = 528.57;
   public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
   // Angles
   public static final double L2ANGLE = 60;
-  public static final double L3ANGLE = 80;
+  public static final double L3ANGLE = 110;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;

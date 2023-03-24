@@ -23,7 +23,7 @@ public class MecanumWheel extends SubsystemBase {
     motor.setInverted(inverted);
     motor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     motor.setIdleMode(IdleMode.kBrake);
-    pidController = new PIDController(0.00003, 0, 0);
+    pidController = new PIDController(0.000003, 0, 0);
     encoder = motor.getEncoder();
     encoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.GEARING);
   }
@@ -40,7 +40,7 @@ public class MecanumWheel extends SubsystemBase {
 
   public void setVelocity(double mps, boolean needPID) {
     if (needPID) {
-      motor.setVoltage(feedForward.calculate(mps) + pidController.calculate(getVelocity(), mps));
+      motor.setVoltage(feedForward.calculate(-mps) + pidController.calculate(getVelocity(), -mps));
     } else {
       motor.setVoltage(feedForward.calculate(mps));
     }
