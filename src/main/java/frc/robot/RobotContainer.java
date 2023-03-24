@@ -29,7 +29,7 @@ public class RobotContainer {
   public final LightsSubsystem lights = new LightsSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
   private final CommandXboxController xboxController = new CommandXboxController(1);
-  private final AutoOptions autoOptions = new AutoOptions(drive);
+  private final AutoOptions autoOptions = new AutoOptions(drive, pivot);
 
   public RobotContainer() {
     configureBindings();
@@ -38,12 +38,11 @@ public class RobotContainer {
   private void configureBindings() {
     drive.setDefaultCommand(
         new RunCommand(
-            () ->
-                drive.setChassisSpeeds(
-                    scaledDeadBand(xboxController.getLeftX(), 1),
-                    scaledDeadBand(xboxController.getLeftY(), 1),
-                    -scaledDeadBand(xboxController.getRightX(), 1),
-                    false),
+            () -> drive.setChassisSpeeds(
+                scaledDeadBand(xboxController.getLeftX(), 1),
+                scaledDeadBand(xboxController.getLeftY(), 1),
+                -scaledDeadBand(xboxController.getRightX(), 1),
+                false),
             drive));
 
     // Game Piece Tracking
@@ -101,6 +100,7 @@ public class RobotContainer {
     controller.button(32).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(33).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
+    // L2 angle
     controller
         .button(3)
         .onTrue(
@@ -111,6 +111,7 @@ public class RobotContainer {
                 },
                 pivot));
 
+    // L3 Angle
     controller
         .button(4)
         .onTrue(
@@ -121,6 +122,7 @@ public class RobotContainer {
                 },
                 pivot));
 
+    // Starting position
     controller
         .button(5)
         .onTrue(
@@ -131,14 +133,37 @@ public class RobotContainer {
                 },
                 pivot));
 
+    // Ground Angle
+    controller
+        .button(10)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  pivot.setGoal(Units.degreesToRadians(35));
+                  pivot.enable();
+                },
+                pivot));
+    // human substation pickup
+    controller
+        .button(11)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  pivot.setGoal(Units.degreesToRadians(95));
+                  pivot.enable();
+                },
+                pivot));            
+
     controller.button(7).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(8).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
     xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
 
-    // controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    // controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    // controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator,
+    // GrabObject.CONE));
+    // controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator,
+    // GrabObject.BOX));
     // controller.button(12).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     // Set up shuffleboard
