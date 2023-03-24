@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.Random;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -36,7 +35,8 @@ public class LightsSubsystem extends SubsystemBase {
   //   addressableLed.start();
   // }
 
-  // public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int offset) {
+  // public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int
+  // offset) {
   //   for (int i = 0; i < ledBuffer.getLength(); i++) {
   //     boolean isColorOne =
   //         ((i + offset + (ledBuffer.getLength() / 4))
@@ -61,13 +61,13 @@ public class LightsSubsystem extends SubsystemBase {
   //   addressableLed.start();
   // }
 
-public void setColorGrabObject(GrabObject object) {
-  if (object == GrabObject.CONE) {
-    setColorCone();
-  } else {
-    setColorCube();
+  public void setColorGrabObject(GrabObject object) {
+    if (object == GrabObject.CONE) {
+      setColorCone();
+    } else {
+      setColorCube();
+    }
   }
-}
 
   public void setColorCube() {
     setColorRGB(255, 0, 255);
@@ -79,7 +79,7 @@ public void setColorGrabObject(GrabObject object) {
 
   public void setColorRGB(int r, int g, int b) {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
-      ledBuffer.setRGB(i, r, b, g);  // BUG ON WPILIB: MIXES BLUE AND GREEN
+      ledBuffer.setRGB(i, r, b, g); // BUG ON WPILIB: MIXES BLUE AND GREEN
     }
     addressableLed.setData(ledBuffer);
   }
