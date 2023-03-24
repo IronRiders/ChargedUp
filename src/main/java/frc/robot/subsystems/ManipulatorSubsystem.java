@@ -16,7 +16,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
   RelativeEncoder manipulatorMotor1Encoder;
   PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
-  Boolean has_Hit = false;
+
   boolean motorRunning = false;
 
   public ManipulatorSubsystem() {
@@ -34,7 +34,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void grab(GrabObject grabObject) {
-    has_Hit = false;
     switch (grabObject) {
       case CONE:
         setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
@@ -44,8 +43,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
         setManipulatorMotors(Constants.MANIPULATOR_SPEED_BOX);
         break;
     }
-    
-
   }
 
   @Override
