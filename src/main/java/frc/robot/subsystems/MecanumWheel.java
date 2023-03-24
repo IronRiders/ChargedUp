@@ -23,7 +23,7 @@ public class MecanumWheel extends SubsystemBase {
     motor.setInverted(inverted);
     motor.setSmartCurrentLimit(Constants.DRIVE_CURRENT_LIMIT);
     motor.setIdleMode(IdleMode.kBrake);
-    pidController = new PIDController(0.0025, 0, 0);
+    pidController = new PIDController(0.000003, 0, 0);
     encoder = motor.getEncoder();
     encoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.GEARING);
   }
