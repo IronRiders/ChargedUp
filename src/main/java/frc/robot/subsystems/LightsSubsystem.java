@@ -16,6 +16,8 @@ public class LightsSubsystem extends SubsystemBase {
 
   public LightsSubsystem() {
     addressableLed.setLength(ledBuffer.getLength());
+    addressableLed.setData(ledBuffer);
+    addressableLed.start();
   }
 
   // public void periodic() {
@@ -59,12 +61,27 @@ public class LightsSubsystem extends SubsystemBase {
   //   addressableLed.start();
   // }
 
+public void setColorGrabObject(GrabObject object) {
+  if (object == GrabObject.CONE) {
+    setColorCone();
+  } else {
+    setColorCube();
+  }
+}
+
+  public void setColorCube() {
+    setColorRGB(255, 0, 255);
+  }
+
+  public void setColorCone() {
+    setColorRGB(255, 255, 0);
+  }
+
   public void setColorRGB(int r, int g, int b) {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
-      ledBuffer.setRGB(i, r, g, b);
+      ledBuffer.setRGB(i, r, b, g);  // BUG ON WPILIB: MIXES BLUE AND GREEN
     }
     addressableLed.setData(ledBuffer);
-    addressableLed.start();
   }
 
   public void setColorHSV(int h, int s, int v) {
@@ -73,6 +90,5 @@ public class LightsSubsystem extends SubsystemBase {
       ledBuffer.setHSV(i, h, s, v);
     }
     addressableLed.setData(ledBuffer);
-    addressableLed.start();
   }
 }

@@ -31,6 +31,7 @@ public class RobotContainer {
   private final CommandJoystick controller = new CommandJoystick(0);
   private final CommandXboxController xboxController = new CommandXboxController(1);
   private final AutoOptions autoOptions = new AutoOptions(drive);
+  private GrabObject grabRequest = GrabObject.CONE;
 
   public RobotContainer() {
     configureBindings();
@@ -84,7 +85,17 @@ public class RobotContainer {
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
     controller
     .button(12)
-    .onTrue(new InstantCommand(() -> {lights.setColorRGB(0, 254, 0);}, lights));
+    .onTrue(new InstantCommand(() -> {
+      if (grabRequest == GrabObject.CONE) {
+        // Switch to Cube
+        grabRequest = GrabObject.BOX;
+      } else {
+        // Switch to Cone
+        grabRequest = GrabObject.CONE;
+      }
+      lights.setColorGrabObject(grabRequest);
+    }, lights));
+    lights.setColorGrabObject(grabRequest);
     // .onTrue(new InstantCommand(() -> {lights.setColorRGB(0, 255, 0);;return;}));
     // Switching Pipelines manually
     // controller

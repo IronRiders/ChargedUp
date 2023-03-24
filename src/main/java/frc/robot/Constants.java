@@ -56,7 +56,7 @@ public final class Constants {
   public static final double ANGLE_TOLERANCE = 1.3;
 
   // Lights
-  public static final int LED_STRIP_PORT = 9;
+  public static final int LED_STRIP_PORT = 0;
   public static final int LED_STRIP_BUFFER_SIZE = 18; // 30 lights per meter
 
   // Vision Stuff
