@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -32,6 +33,7 @@ public class PivotSubsystem extends ProfiledPIDSubsystem {
     motor.setIdleMode(IdleMode.kBrake);
     motor.setSmartCurrentLimit(Constants.PIVOT_CURRENT_LIMIT);
     motor.enableVoltageCompensation(12);
+    motor.setSoftLimit(SoftLimitDirection.kForward, 2.0f);
 
     motor
         .getEncoder()
