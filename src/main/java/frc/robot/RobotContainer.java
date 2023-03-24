@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.BurnFlashCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
@@ -38,9 +36,9 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-     drive.setDefaultCommand(
-         new RunCommand(
-             () ->
+    drive.setDefaultCommand(
+        new RunCommand(
+            () ->
                 drive.setChassisSpeeds(
                     scaledDeadBand(xboxController.getLeftX(), 1),
                     scaledDeadBand(xboxController.getLeftY(), 1),
@@ -144,7 +142,8 @@ public class RobotContainer {
 
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
-    // controller.button(9).onTrue(new BurnFlashCommand(drive, pivot, arm, manipulator).andThen(new PrintCommand("headsfasdfasdfasdf")));
+    // controller.button(9).onTrue(new BurnFlashCommand(drive, pivot, arm, manipulator).andThen(new
+    // PrintCommand("headsfasdfasdfasdf")));
     // SmartDashboard.putData("Reset Gyro", Commands.runOnce(() -> drive.pigeon.reset(), drive));
     // SmartDashboard.putData("Burn Flash", new BurnFlashCommand(drive, pivot, arm, manipulator));
   }

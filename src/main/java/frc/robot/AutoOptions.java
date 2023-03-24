@@ -50,9 +50,12 @@ public class AutoOptions {
     autoOptions.addOption(
         "ON The Fly Path Test",
         new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
-    autoOptions.addOption("Straight Path", new MecanumPathFollower(drive, "Straight Path", Constants.FastAutoConstraints, true));
-    autoOptions.addOption("Turn 180 Degrees", new MecanumPathFollower(drive, "Turn 180 Degrees", Constants.SlowAutoConstraints, true));
-
+    autoOptions.addOption(
+        "Straight Path",
+        new MecanumPathFollower(drive, "Straight Path", Constants.FastAutoConstraints, true));
+    autoOptions.addOption(
+        "Turn 180 Degrees",
+        new MecanumPathFollower(drive, "Turn 180 Degrees", Constants.SlowAutoConstraints, true));
 
     // Actual Pathing
     autoOptions.addOption("Three Piece Left", threePieceAutoLeft());
@@ -78,8 +81,8 @@ public class AutoOptions {
 
   public SequentialCommandGroup twoPieceAutoLeft() {
     return new SequentialCommandGroup(
-       // new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)),
-      //  new WaitCommand(1),
+        // new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)),
+        //  new WaitCommand(1),
         new MecanumPathFollower(
             drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
         new WaitCommand(1),

@@ -98,7 +98,7 @@ public class DriveSubsystem extends SubsystemBase {
     // Update pose estimator with drivetrain sensors
     poseEstimator.updateWithTime(
         Timer.getFPGATimestamp(), pigeon.getRotation2d(), getWheelPositions());
-        SmartDashboard.putNumber("auto yaw", pigeon.getYaw());
+    SmartDashboard.putNumber("auto yaw", pigeon.getYaw());
     vision
         .getEstimatedGlobalPose(getPose2d())
         .ifPresent(
