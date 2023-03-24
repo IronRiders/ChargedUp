@@ -57,7 +57,7 @@ public final class Constants {
 
   // Lights
   public static final int LED_STRIP_PORT = 9;
-  public static final int LED_STRIP_BUFFER_SIZE = 150; // 30 lights per meter
+  public static final int LED_STRIP_BUFFER_SIZE = 18; // 30 lights per meter
 
   // Vision Stuff
   public static final Transform3d RobotToCam =

@@ -18,46 +18,46 @@ public class LightsSubsystem extends SubsystemBase {
     addressableLed.setLength(ledBuffer.getLength());
   }
 
-  public void periodic() {
-    checkerboard(0, 64, 1, 219, 172, 0, 30, offset);
-    offset += 1;
-  }
+  // public void periodic() {
+  //   checkerboard(0, 64, 1, 219, 172, 0, 30, offset);
+  //   offset += 1;
+  // }
 
-  public void rainbow() {
-    for (int i = 0; i < ledBuffer.getLength(); i++) {
-      final int hue = (ranbowFirstLedHue + (i * 180 / ledBuffer.getLength())) % 180;
-      ledBuffer.setHSV(i, hue, 255, 128);
-    }
-    ranbowFirstLedHue += 3;
-    ranbowFirstLedHue %= 180;
-    addressableLed.setData(ledBuffer);
-    addressableLed.start();
-  }
+  // public void rainbow() {
+  //   for (int i = 0; i < ledBuffer.getLength(); i++) {
+  //     final int hue = (ranbowFirstLedHue + (i * 180 / ledBuffer.getLength())) % 180;
+  //     ledBuffer.setHSV(i, hue, 255, 128);
+  //   }
+  //   ranbowFirstLedHue += 3;
+  //   ranbowFirstLedHue %= 180;
+  //   addressableLed.setData(ledBuffer);
+  //   addressableLed.start();
+  // }
 
-  public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int offset) {
-    for (int i = 0; i < ledBuffer.getLength(); i++) {
-      boolean isColorOne =
-          ((i + offset + (ledBuffer.getLength() / 4))
-                      / (Double.valueOf(ledBuffer.getLength()) / Double.valueOf(blocks - 1)))
-                  % 2
-              == 0;
-      int r = (isColorOne ? r1 : r2);
-      int g = (isColorOne ? g1 : g2);
-      int b = (isColorOne ? b1 : b2);
-      ledBuffer.setRGB(i, r, g, b);
-    }
-    addressableLed.setData(ledBuffer);
-    addressableLed.start();
-  }
+  // public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int offset) {
+  //   for (int i = 0; i < ledBuffer.getLength(); i++) {
+  //     boolean isColorOne =
+  //         ((i + offset + (ledBuffer.getLength() / 4))
+  //                     / (Double.valueOf(ledBuffer.getLength()) / Double.valueOf(blocks - 1)))
+  //                 % 2
+  //             == 0;
+  //     int r = (isColorOne ? r1 : r2);
+  //     int g = (isColorOne ? g1 : g2);
+  //     int b = (isColorOne ? b1 : b2);
+  //     ledBuffer.setRGB(i, r, g, b);
+  //   }
+  //   addressableLed.setData(ledBuffer);
+  //   addressableLed.start();
+  // }
 
-  public void noise() {
-    for (int i = 0; i < ledBuffer.getLength(); i++) {
-      ledBuffer.setRGB(
-          i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
-    }
-    addressableLed.setData(ledBuffer);
-    addressableLed.start();
-  }
+  // public void noise() {
+  //   for (int i = 0; i < ledBuffer.getLength(); i++) {
+  //     ledBuffer.setRGB(
+  //         i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
+  //   }
+  //   addressableLed.setData(ledBuffer);
+  //   addressableLed.start();
+  // }
 
   public void setColorRGB(int r, int g, int b) {
     for (var i = 0; i < ledBuffer.getLength(); i++) {

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -81,25 +82,26 @@ public class RobotContainer {
     controller
         .button(108)
         .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
-
-    // Switching Pipelines manually
     controller
-        .button(39)
-        .onTrue(
-            new InstantCommand(
-                () -> {
-                  if (vision.camera.getPipelineIndex() == 4) {
-                    vision.camera.setPipelineIndex(2);
-                    lights.setColorHSV(253, 224, 25);
-                    return;
-                  }
-                  vision.camera.setPipelineIndex(4);
-                  lights.setColorHSV(259, 100, 70);
-                }));
-    controller.button(54).whileTrue(new AutoLevelingCommand(drive));
-    controller.button(31).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    controller.button(32).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    controller.button(33).whileTrue(new ReleaseManipulatorCommand(manipulator));
+    .button(12)
+    .onTrue(new InstantCommand(() -> {lights.setColorRGB(0, 254, 0);}, lights));
+    // .onTrue(new InstantCommand(() -> {lights.setColorRGB(0, 255, 0);;return;}));
+    // Switching Pipelines manually
+    // controller
+    //     .button(39)
+    //     .onTrue(
+    //         new InstantCommand(
+    //             () -> {
+    //               if (vision.camera.getPipelineIndex() == 4) {
+    //                 vision.camera.setPipelineIndex(2);
+    //                 lights.setColorHSV(253, 224, 25);
+    //                 return;
+    //               }
+    //               vision.camera.setPipelineIndex(4);
+    //               lights.setColorHSV(259, 100, 70);
+    //             }));
+    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
+    controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
         .button(3)
