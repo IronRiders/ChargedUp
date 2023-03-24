@@ -38,11 +38,12 @@ public class RobotContainer {
   private void configureBindings() {
     drive.setDefaultCommand(
         new RunCommand(
-            () -> drive.setChassisSpeeds(
-                scaledDeadBand(xboxController.getLeftX(), 1),
-                scaledDeadBand(xboxController.getLeftY(), 1),
-                -scaledDeadBand(xboxController.getRightX(), 1),
-                false),
+            () ->
+                drive.setChassisSpeeds(
+                    scaledDeadBand(xboxController.getLeftX(), 1),
+                    scaledDeadBand(xboxController.getLeftY(), 1),
+                    -scaledDeadBand(xboxController.getRightX(), 1),
+                    false),
             drive));
 
     // Game Piece Tracking
@@ -152,7 +153,7 @@ public class RobotContainer {
                   pivot.setGoal(Units.degreesToRadians(95));
                   pivot.enable();
                 },
-                pivot));            
+                pivot));
 
     controller.button(7).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(8).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));

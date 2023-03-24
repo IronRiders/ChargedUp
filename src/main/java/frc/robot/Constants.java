@@ -105,7 +105,7 @@ public final class Constants {
   public static final double MANIPULATOR_SETPOINT = 0.0;
   public static final double STALL_CURRENT = 2.5;
 
-    // Straighten Robot
-    public static final double STRAIGHTEN_TOLERANCE_ANGLE = 1;
-    public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
+  // Straighten Robot
+  public static final double STRAIGHTEN_TOLERANCE_ANGLE = 1;
+  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
 }

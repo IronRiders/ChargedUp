@@ -5,32 +5,28 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class ForwardTwoMetersCommand extends CommandBase {
-    private final DriveSubsystem driveSubsytem;
-    private double initialX;
+  private final DriveSubsystem driveSubsytem;
+  private double initialX;
 
-    public ForwardTwoMetersCommand(DriveSubsystem driveSubsytem) {
-        this.driveSubsytem = driveSubsytem;
-  
-        addRequirements(driveSubsytem);
-    }
+  public ForwardTwoMetersCommand(DriveSubsystem driveSubsytem) {
+    this.driveSubsytem = driveSubsytem;
 
-    @Override()
-    public void initialize() {
-        initialX = driveSubsytem.getPose2d().getX();
-        SmartDashboard.putNumber("Initial X", driveSubsytem.getPose2d().getX());
-    }
+    addRequirements(driveSubsytem);
+  }
 
-    @Override
-    public void execute() {
-      driveSubsytem.setChassisSpeeds(
-          0.0,
-          -0.1,
-          0.,
-          false);
-    }
+  @Override()
+  public void initialize() {
+    initialX = driveSubsytem.getPose2d().getX();
+    SmartDashboard.putNumber("Initial X", driveSubsytem.getPose2d().getX());
+  }
 
-    public boolean isFinished() {
-        double positionDelta = Math.abs(driveSubsytem.getPose2d().getX() - initialX);
-        return positionDelta >= 2;
-    }
+  @Override
+  public void execute() {
+    driveSubsytem.setChassisSpeeds(0.0, -0.1, 0., false);
+  }
+
+  public boolean isFinished() {
+    double positionDelta = Math.abs(driveSubsytem.getPose2d().getX() - initialX);
+    return positionDelta >= 2;
+  }
 }
