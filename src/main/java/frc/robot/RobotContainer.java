@@ -139,7 +139,7 @@ public class RobotContainer {
                 },
                 pivot));
     controller
-        .button(10)
+        .button(11)
         .onTrue(
             Commands.runOnce(
                 () -> {
