@@ -1,7 +1,6 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
-import frc.robot.util.FieldUtil;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.PathToPose;
 import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
 
@@ -34,6 +32,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+    lights.setColorGrabObject(grabRequest);
   }
 
   private void configureBindings() {
@@ -48,40 +47,50 @@ public class RobotContainer {
             drive));
 
     // Game Piece Tracking
-    controller
-        .button(34)
-        .whileTrue(
-            new PathToPose(
-                drive, () -> vision.fieldElementTracking(drive.getPose2d(), vision.camera).get()));
+    // controller
+    //     .button(34)
+    //     .whileTrue(
+    //         new PathToPose(
+    //             drive, () -> vision.fieldElementTracking(drive.getPose2d(),
+    // vision.camera).get()));
 
     // On The Fly Pathing to Every Station
-    controller
-        .button(100)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
-    controller
-        .button(101)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
-    controller
-        .button(102)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
-    controller
-        .button(103)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
-    controller
-        .button(104)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
-    controller
-        .button(105)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
-    controller
-        .button(106)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
-    controller
-        .button(107)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
-    controller
-        .button(108)
-        .onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
+    // controller
+    //     .button(100)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
+    // controller
+    //     .button(101)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
+    // controller
+    //     .button(102)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
+    // controller
+    //     .button(103)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
+    // controller
+    //     .button(104)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
+    // controller
+    //     .button(105)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
+    // controller
+    //     .button(106)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
+    // controller
+    //     .button(107)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
+    // controller
+    //     .button(108)
+    //     .onTrue(new PathToPose(drive, () ->
+    // FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
     controller
         .button(12)
         .onTrue(
@@ -97,23 +106,8 @@ public class RobotContainer {
                   lights.setColorGrabObject(grabRequest);
                 },
                 lights));
-    lights.setColorGrabObject(grabRequest);
-    // .onTrue(new InstantCommand(() -> {lights.setColorRGB(0, 255, 0);;return;}));
-    // Switching Pipelines manually
-    // controller
-    //     .button(39)
-    //     .onTrue(
-    //         new InstantCommand(
-    //             () -> {
-    //               if (vision.camera.getPipelineIndex() == 4) {
-    //                 vision.camera.setPipelineIndex(2);
-    //                 lights.setColorHSV(253, 224, 25);
-    //                 return;
-    //               }
-    //               vision.camera.setPipelineIndex(4);
-    //               lights.setColorHSV(259, 100, 70);
-    //             }));
-    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
+
+    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
@@ -145,17 +139,31 @@ public class RobotContainer {
                   pivot.enable();
                 },
                 pivot));
+    controller
+        .button(10)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
+                  pivot.enable();
+                },
+                pivot));
+    // human substation pickup
+    controller
+        .button(11)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
+                  pivot.enable();
+                },
+                pivot));
 
     controller.button(7).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(8).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
     xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
-
-    // controller.button(10).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.CONE));
-    // controller.button(11).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    // controller.button(12).whileTrue(new ReleaseManipulatorCommand(manipulator));
-
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
   }

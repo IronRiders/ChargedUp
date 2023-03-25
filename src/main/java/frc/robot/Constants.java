@@ -88,6 +88,8 @@ public final class Constants {
   // Angles
   public static final double L2ANGLE = 60;
   public static final double L3ANGLE = 110;
+  public static final double LGROUND = 35;
+  public static final double LHUMAN = 95;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;
@@ -104,5 +106,5 @@ public final class Constants {
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
   public static final double MANIPULATOR_SETPOINT = 0.0;
-  public static final double STALL_CURRENT = 2.5;
+  public static final double STALL_CURRENT = .5;
 }
