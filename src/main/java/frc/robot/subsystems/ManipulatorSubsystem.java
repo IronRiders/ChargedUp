@@ -16,9 +16,11 @@ public class ManipulatorSubsystem extends SubsystemBase {
   private CANSparkMax manipulatorMotor2;
 
   RelativeEncoder manipulatorMotor1Encoder;
+  RelativeEncoder manipulatorMotor2Encoder;
   PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
-  Boolean has_Hit = false;
   boolean motorRunning = false;
+  boolean motorBackwards = false;
+  boolean hasHit = false;
 
   public ManipulatorSubsystem() {
     manipulatorMotor1 = new CANSparkMax(Constants.MANIPULATOR_PORT1, MotorType.kBrushless);
@@ -32,10 +34,10 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
 
     manipulatorMotor1Encoder = manipulatorMotor1.getEncoder();
+    manipulatorMotor2Encoder = manipulatorMotor2.getEncoder();
   }
 
   public void grab(GrabObject grabObject) {
-    has_Hit = false;
     switch (grabObject) {
       case CONE:
         setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
@@ -50,16 +52,29 @@ public class ManipulatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("17:", pdh.getCurrent(16));
-    if (motorRunning) {
-      if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
-        stop();
-        motorRunning = false;
+    if (motorRunning && !motorBackwards) {
+      // if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
+      //   stop();
+      //   motorRunning = false;
+      // }
+      double motor1Velocity = manipulatorMotor1Encoder.getVelocity();
+      double motor2Velocity = manipulatorMotor2Encoder.getVelocity();
+      // if ((Math.abs(motor1Velocity) >= Constants.STALL_SPEED) || (Math.abs(motor2Velocity) >= Constants.STALL_SPEED)) {
+        if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
+        // The motor is stalled
+        if (hasHit) {
+          stop();
+          hasHit = false;
+        } else {
+          hasHit = true;
+        }
       }
     }
   }
 
   public void stop() {
     setManipulatorMotors(0);
+    motorBackwards = false;
     motorRunning = false;
   }
 
@@ -70,7 +85,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void release() {
-    has_Hit = false;
+    motorBackwards = true;
     setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
   }
 

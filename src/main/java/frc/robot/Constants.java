@@ -98,7 +98,7 @@ public final class Constants {
   public static final double PIVOT_KA = 0;
 
   // Manipulator
-  public static final int MANIPULATOR_CURRENT_LIMIT = 3;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 6;
   public static final double MANIPULATOR_SPEED_CONE = 0.3;
   public static final double MANIPULATOR_SPEED_BOX = 0.2;
   public static final double MANIPULATOR_PID_KP = 0.0;
@@ -106,6 +106,6 @@ public final class Constants {
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
   public static final double MANIPULATOR_SETPOINT = 0.0;
-  public static final double STALL_CURRENT = .5;
-  public static final double STALL_SPEED = 0.05;
+  public static final double STALL_CURRENT = 1.2;
+  public static final double STALL_SPEED = 0.0005;
 }
