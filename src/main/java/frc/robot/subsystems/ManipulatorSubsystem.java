@@ -15,8 +15,8 @@ public class ManipulatorSubsystem extends SubsystemBase {
   private CANSparkMax manipulatorMotor2;
 
   RelativeEncoder manipulatorMotor1Encoder;
-  PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
-  Boolean has_Hit = false;
+  RelativeEncoder manipulatorMotor2Encoder;
+
   boolean motorRunning = false;
 
   public ManipulatorSubsystem() {
@@ -31,10 +31,10 @@ public class ManipulatorSubsystem extends SubsystemBase {
     manipulatorMotor2.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
 
     manipulatorMotor1Encoder = manipulatorMotor1.getEncoder();
+    manipulatorMotor2Encoder = manipulatorMotor2.getEncoder();
   }
 
   public void grab(GrabObject grabObject) {
-    has_Hit = false;
     switch (grabObject) {
       case CONE:
         setManipulatorMotors(Constants.MANIPULATOR_SPEED_CONE);
@@ -49,9 +49,11 @@ public class ManipulatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if (motorRunning) {
-      if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
+      double motor1Velocity = manipulatorMotor1Encoder.getVelocity();
+      double motor2Velocity = manipulatorMotor2Encoder.getVelocity();
+      if ((Math.abs(motor1Velocity) >= Constants.STALL_SPEED) || (Math.abs(motor2Velocity) >= Constants.STALL_SPEED)) {
+        // The motor is stalled
         stop();
-        motorRunning = false;
       }
     }
   }
@@ -62,13 +64,12 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void setManipulatorMotors(double speed) {
-    motorRunning = true;
     manipulatorMotor1.set(speed);
     manipulatorMotor2.set(speed);
+    motorRunning = true;
   }
 
   public void release() {
-    has_Hit = false;
     setManipulatorMotors(-Constants.MANIPULATOR_SPEED_CONE);
   }
 
