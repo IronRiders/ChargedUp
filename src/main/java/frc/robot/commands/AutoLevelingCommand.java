@@ -7,28 +7,28 @@ public class AutoLevelingCommand extends CommandBase {
 
   public final DriveSubsystem drive;
 
-  //Robot is balanced at 0 degrees at charge station
+  // Robot is balanced at 0 degrees at charge station
   double balanceSetpoint = 0;
 
   double kP = 0.008;
 
   double balanceEffort;
 
-  // Robot aligns to 0 degrees 
+  // Robot aligns to 0 degrees
   double angleSetpoint = 0;
 
   double kTurn = 0.009;
 
   double turningEffort;
 
-  public AutoLevelingCommand(DriveSubsystem drive){
+  public AutoLevelingCommand(DriveSubsystem drive) {
     this.drive = drive;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+
     turningEffort = (angleSetpoint - (drive.pigeon.getAngle() % 360)) * kTurn;
     balanceEffort = (balanceSetpoint - drive.pigeon.getPitch()) * kP;
 
