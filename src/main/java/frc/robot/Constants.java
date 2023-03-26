@@ -89,7 +89,7 @@ public final class Constants {
   public static final double L2ANGLE = 90;
   public static final double L3ANGLE = 100;
   public static final double LGROUND = 30;
-  public static final double LHUMAN = 85;
+  public static final double LHUMAN = 90;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;

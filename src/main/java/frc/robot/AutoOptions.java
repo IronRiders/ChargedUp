@@ -146,7 +146,6 @@ public class AutoOptions {
         new MecanumPathFollower(
             drive, "2pieceChargingRight", Constants.MediumAutoConstraints, false));
   }
-
   public SequentialCommandGroup place() {
     return new SequentialCommandGroup(
         new InstantCommand(
@@ -155,20 +154,16 @@ public class AutoOptions {
               pivot.enable();
             },
             pivot),
-           // extend(),
+            new WaitCommand(3),
+            new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(3),
         new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.1));
-  }
-
-  public SequentialCommandGroup extend() {
-    return new SequentialCommandGroup(
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(3));
   }
 
   public SequentialCommandGroup PlaceAndbalance() {
     return new SequentialCommandGroup(
         place(),
         new Rotate180Command(drive),
-        new ForwardCommand(drive, 2.0), // In Meters
+        new ForwardCommand(drive, 0.5), // In Meters
         new AutoLevelingCommand(drive));
   }
 }

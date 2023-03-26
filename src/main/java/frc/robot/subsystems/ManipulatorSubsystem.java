@@ -74,7 +74,7 @@ public class ManipulatorSubsystem extends SubsystemBase {
   }
 
   public void stop() {
-    setManipulatorMotors(0);
+    setManipulatorMotors(0.01);
     motorBackwards = false;
     motorRunning = false;
   }

@@ -24,7 +24,7 @@ public class ForwardCommand extends CommandBase {
 
   @Override
   public void execute() {
-    driveSubsytem.setChassisSpeeds(0.0, -0.1, 0., false);
+    driveSubsytem.setChassisSpeeds(0.0, 0.1, 0., false);
   }
 
   public boolean isFinished() {
