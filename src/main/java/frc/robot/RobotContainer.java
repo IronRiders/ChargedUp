@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
+import frc.robot.commands.ForwardTwoMetersCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.PreLevelingCommand;
@@ -168,7 +169,8 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autoOptions.getAutoCommand();
+    return new ForwardTwoMetersCommand(drive);
+    //return Commands.runOnce(() -> {}, drive);
   }
 
   public void traj() {
