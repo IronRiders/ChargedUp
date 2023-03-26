@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoLevelingCommand;
-import frc.robot.commands.ForwardTwoMetersCommand;
+import frc.robot.commands.ForwardCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.Rotate180Command;
@@ -150,7 +150,7 @@ public class AutoOptions {
         }, pivot),
         new RunCommand(() -> {
         arm.extend();
-         }, arm).withTimeout(2.5),
+         }, arm).withTimeout(3),
          new InstantCommand(manipulator::release));
   }
 
@@ -158,7 +158,7 @@ public class AutoOptions {
     return new SequentialCommandGroup(
         place(),
         new Rotate180Command(drive),
-        new ForwardTwoMetersCommand(drive),
+        new ForwardCommand(drive, 2.0), // In Meters
         new AutoLevelingCommand(drive)
     );
   }

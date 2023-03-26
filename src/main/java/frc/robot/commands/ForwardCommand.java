@@ -4,12 +4,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class ForwardTwoMetersCommand extends CommandBase {
+public class ForwardCommand extends CommandBase {
     private final DriveSubsystem driveSubsytem;
     private double initialX;
+    private double distance;
 
-    public ForwardTwoMetersCommand(DriveSubsystem driveSubsytem) {
+    public ForwardCommand(DriveSubsystem driveSubsytem, double distance) {
         this.driveSubsytem = driveSubsytem;
+        this.distance = distance;
   
         addRequirements(driveSubsytem);
     }
@@ -31,6 +33,6 @@ public class ForwardTwoMetersCommand extends CommandBase {
 
     public boolean isFinished() {
         double positionDelta = Math.abs(driveSubsytem.getPose2d().getX() - initialX);
-        return positionDelta >= 2;
+        return positionDelta >= distance;
     }
 }
