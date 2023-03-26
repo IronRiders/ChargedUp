@@ -164,7 +164,7 @@ public class AutoOptions {
     return new SequentialCommandGroup(
     //    place(),
       //  new Rotate180Command(drive),
-        new PreLevelingCommand(drive), // In Meters
+        new ForwardCommand(drive, Units.feetToMeters(2)),
        new AutoLevelingCommand(drive));
   }
 }
