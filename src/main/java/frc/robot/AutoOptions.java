@@ -13,8 +13,6 @@ import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.ForwardCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.commands.PathToPose;
-import frc.robot.commands.PreLevelingCommand;
-import frc.robot.commands.Rotate180Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ManipulatorSubsystem;
@@ -162,9 +160,8 @@ public class AutoOptions {
 
   public SequentialCommandGroup PlaceAndbalance() {
     return new SequentialCommandGroup(
-    //    place(),
-      //  new Rotate180Command(drive),
-        new ForwardCommand(drive, Units.feetToMeters(2)),
-       new AutoLevelingCommand(drive));
+        //    place(),
+        //  new Rotate180Command(drive),
+        new ForwardCommand(drive, Units.feetToMeters(2)), new AutoLevelingCommand(drive));
   }
 }

@@ -32,7 +32,7 @@ public class AutoLevelingCommand extends CommandBase {
     // turningEffort = (angleSetpoint - (drive.pigeon.getAngle() % 360)) * kTurn;
     balanceEffort = (balanceSetpoint - drive.pigeon.getPitch()) * kP;
 
-    drive.setChassisSpeeds(0,-balanceEffort, 0, true);
+    drive.setChassisSpeeds(0, -balanceEffort, 0, true);
   }
 
   @Override
