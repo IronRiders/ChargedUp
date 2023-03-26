@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.ForwardCommand;
@@ -154,13 +155,13 @@ public class AutoOptions {
               pivot.enable();
             },
             pivot),
-        new RunCommand(
-                () -> {
-                  arm.extend();
-                },
-                arm)
-            .withTimeout(3),
-        new InstantCommand(manipulator::release));
+           // extend(),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.1));
+  }
+
+  public SequentialCommandGroup extend() {
+    return new SequentialCommandGroup(
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(3));
   }
 
   public SequentialCommandGroup PlaceAndbalance() {

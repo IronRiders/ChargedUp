@@ -169,7 +169,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new ForwardTwoMetersCommand(drive);
+    return autoOptions.PlaceAndbalance();
     // return Commands.runOnce(() -> {}, drive);
   }
 
