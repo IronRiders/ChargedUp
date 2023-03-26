@@ -6,41 +6,41 @@ import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class Rotate180Command extends CommandBase {
-    public static final double STRAIGHTEN_TOLERANCE_ANGLE = 1;
+  public static final double STRAIGHTEN_TOLERANCE_ANGLE = 1;
 
-    private final DriveSubsystem driveSubsytem;
-    private double initialHeading;
-    private boolean clockwise;
+  private final DriveSubsystem driveSubsytem;
+  private double initialHeading;
+  private boolean clockwise;
 
-    public Rotate180Command(DriveSubsystem driveSubsystem) {
-        this(true, driveSubsystem);
-    }
+  public Rotate180Command(DriveSubsystem driveSubsystem) {
+    this(true, driveSubsystem);
+  }
 
-    public Rotate180Command(boolean clockwise, DriveSubsystem driveSubsytem) {
-        this.clockwise = clockwise;
-        this.driveSubsytem = driveSubsytem;
-  
-        addRequirements(driveSubsytem);
-    }
+  public Rotate180Command(boolean clockwise, DriveSubsystem driveSubsytem) {
+    this.clockwise = clockwise;
+    this.driveSubsytem = driveSubsytem;
 
-    @Override()
-    public void initialize() {
-        this.initialHeading = driveSubsytem.pigeon.getYaw();
-        SmartDashboard.putNumber("Initial Yaw", driveSubsytem.pigeon.getYaw());
-        SmartDashboard.putNumber("Initial Pose", driveSubsytem.getPose2d().getRotation().getDegrees());
-    }
+    addRequirements(driveSubsytem);
+  }
 
-    @Override
-    public void execute() {
-      driveSubsytem.setChassisSpeeds(
-          0,
-          0,
-          clockwise ? -Constants.STRAIGHTEN_ROBOT_TURN_SPEED : Constants.STRAIGHTEN_ROBOT_TURN_SPEED, 
-          true);
-    }
+  @Override()
+  public void initialize() {
+    this.initialHeading = driveSubsytem.pigeon.getYaw();
+    SmartDashboard.putNumber("Initial Yaw", driveSubsytem.pigeon.getYaw());
+    SmartDashboard.putNumber("Initial Pose", driveSubsytem.getPose2d().getRotation().getDegrees());
+  }
 
-    public boolean isFinished() {
-        double yaw = Math.abs(driveSubsytem.pigeon.getYaw() - initialHeading);
-        return 180 - STRAIGHTEN_TOLERANCE_ANGLE <= yaw && yaw <= 180 + STRAIGHTEN_TOLERANCE_ANGLE;
-    }
+  @Override
+  public void execute() {
+    driveSubsytem.setChassisSpeeds(
+        0,
+        0,
+        clockwise ? -Constants.STRAIGHTEN_ROBOT_TURN_SPEED : Constants.STRAIGHTEN_ROBOT_TURN_SPEED,
+        true);
+  }
+
+  public boolean isFinished() {
+    double yaw = Math.abs(driveSubsytem.pigeon.getYaw() - initialHeading);
+    return 180 - STRAIGHTEN_TOLERANCE_ANGLE <= yaw && yaw <= 180 + STRAIGHTEN_TOLERANCE_ANGLE;
+  }
 }

@@ -28,7 +28,11 @@ public class AutoOptions {
   private ArmSubsystem arm;
   private ManipulatorSubsystem manipulator;
 
-  public AutoOptions(DriveSubsystem drive, PivotSubsystem pivot, ArmSubsystem arm, ManipulatorSubsystem manipulator) {
+  public AutoOptions(
+      DriveSubsystem drive,
+      PivotSubsystem pivot,
+      ArmSubsystem arm,
+      ManipulatorSubsystem manipulator) {
     this.drive = drive;
     this.pivot = pivot;
     this.arm = arm;
@@ -144,14 +148,19 @@ public class AutoOptions {
 
   public SequentialCommandGroup place() {
     return new SequentialCommandGroup(
-        new InstantCommand(() -> {
-            pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
-            pivot.enable();
-        }, pivot),
-        new RunCommand(() -> {
-        arm.extend();
-         }, arm).withTimeout(3),
-         new InstantCommand(manipulator::release));
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
+              pivot.enable();
+            },
+            pivot),
+        new RunCommand(
+                () -> {
+                  arm.extend();
+                },
+                arm)
+            .withTimeout(3),
+        new InstantCommand(manipulator::release));
   }
 
   public SequentialCommandGroup PlaceAndbalance() {
@@ -159,7 +168,6 @@ public class AutoOptions {
         place(),
         new Rotate180Command(drive),
         new ForwardCommand(drive, 2.0), // In Meters
-        new AutoLevelingCommand(drive)
-    );
+        new AutoLevelingCommand(drive));
   }
 }
