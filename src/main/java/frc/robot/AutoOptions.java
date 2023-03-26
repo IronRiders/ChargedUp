@@ -83,11 +83,11 @@ public class AutoOptions {
   }
 
   public CommandBase getAutoCommand() {
-    var cmd = autoOptions.getSelected();
-    if (cmd == null) {
-      cmd = Commands.none();
-    }
-    return cmd;
+    // var cmd = autoOptions.getSelected();
+    // if (cmd == null) {
+    //   cmd = Commands.none();
+    // }
+    return Commands.none();
   }
 
   public void submit() {

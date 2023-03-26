@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
+import frc.robot.commands.ForwardTwoMetersCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.PreLevelingCommand;
@@ -80,7 +81,6 @@ public class RobotContainer {
     //     .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
     // controller
-    //     .button(106)
     //     .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
     // controller
@@ -92,7 +92,7 @@ public class RobotContainer {
     //     .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
     controller
-        .button(12)
+        .button(7)
         .onTrue(
             new InstantCommand(
                 () -> {
@@ -111,7 +111,7 @@ public class RobotContainer {
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
-        .button(3)
+        .button(9)
         .onTrue(
             Commands.runOnce(
                 () -> {
@@ -121,7 +121,7 @@ public class RobotContainer {
                 pivot));
 
     controller
-        .button(4)
+        .button(10)
         .onTrue(
             Commands.runOnce(
                 () -> {
@@ -131,7 +131,7 @@ public class RobotContainer {
                 pivot));
 
     controller
-        .button(5)
+        .button(8)
         .onTrue(
             Commands.runOnce(
                 () -> {
@@ -140,7 +140,7 @@ public class RobotContainer {
                 },
                 pivot));
     controller
-        .button(10)
+        .button(11)
         .onTrue(
             Commands.runOnce(
                 () -> {
@@ -150,7 +150,7 @@ public class RobotContainer {
                 pivot));
     // human substation pickup
     controller
-        .button(11)
+        .button(12)
         .onTrue(
             Commands.runOnce(
                 () -> {
@@ -159,8 +159,8 @@ public class RobotContainer {
                 },
                 pivot));
 
-    controller.button(7).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
-    controller.button(8).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
+    controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
+    controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
     xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
@@ -169,7 +169,8 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autoOptions.getAutoCommand();
+    return new ForwardTwoMetersCommand(drive);
+    // return Commands.runOnce(() -> {}, drive);
   }
 
   public void traj() {
