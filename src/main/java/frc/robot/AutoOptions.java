@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.ctre.phoenix.sensors.Pigeon2Configuration;
-
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +16,6 @@ import frc.robot.commands.PathToPose;
 import frc.robot.commands.Rotate180Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.GrabObject;
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.util.FieldUtil;
