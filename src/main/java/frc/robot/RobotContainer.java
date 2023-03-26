@@ -168,7 +168,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autoOptions.place();
+    return autoOptions.PlaceAndbalance();
     // return Commands.runOnce(() -> {}, drive);
   }
 

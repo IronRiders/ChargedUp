@@ -17,7 +17,7 @@ public class AutoLevelingCommand extends CommandBase {
   // Robot aligns to 0 degrees
   double angleSetpoint = 0;
 
-  double kTurn = 0.009;
+  double kTurn = 0.00009;
 
   double turningEffort;
 
@@ -29,10 +29,11 @@ public class AutoLevelingCommand extends CommandBase {
   @Override
   public void execute() {
 
-    turningEffort = (angleSetpoint - (drive.pigeon.getAngle() % 360)) * kTurn;
+   //  turningEffort = (angleSetpoint - (drive.pigeon.getAngle() % 360)) * kTurn;
+    turningEffort = 0;
     balanceEffort = (balanceSetpoint - drive.pigeon.getPitch()) * kP;
 
-    drive.setChassisSpeeds(0, balanceEffort, turningEffort, true);
+    drive.setChassisSpeeds(0,-balanceEffort, 0, true);
   }
 
   @Override
