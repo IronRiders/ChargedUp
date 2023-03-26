@@ -59,8 +59,9 @@ public class ManipulatorSubsystem extends SubsystemBase {
       // }
       double motor1Velocity = manipulatorMotor1Encoder.getVelocity();
       double motor2Velocity = manipulatorMotor2Encoder.getVelocity();
-      // if ((Math.abs(motor1Velocity) >= Constants.STALL_SPEED) || (Math.abs(motor2Velocity) >= Constants.STALL_SPEED)) {
-        if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
+      // if ((Math.abs(motor1Velocity) >= Constants.STALL_SPEED) || (Math.abs(motor2Velocity) >=
+      // Constants.STALL_SPEED)) {
+      if (pdh.getCurrent(16) > Constants.STALL_CURRENT) {
         // The motor is stalled
         if (hasHit) {
           stop();
