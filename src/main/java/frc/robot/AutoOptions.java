@@ -1,23 +1,41 @@
 package frc.robot;
 
+import com.ctre.phoenix.sensors.Pigeon2Configuration;
+
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutoLevelingCommand;
+import frc.robot.commands.ForwardTwoMetersCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.commands.PathToPose;
+import frc.robot.commands.Rotate180Command;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.GrabObject;
+import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.util.FieldUtil;
 
 public class AutoOptions {
 
   private SendableChooser<CommandBase> autoOptions = new SendableChooser<>();
   private DriveSubsystem drive;
+  private PivotSubsystem pivot;
+  private ArmSubsystem arm;
+  private ManipulatorSubsystem manipulator;
 
-  public AutoOptions(DriveSubsystem drive) {
+  public AutoOptions(DriveSubsystem drive, PivotSubsystem pivot, ArmSubsystem arm, ManipulatorSubsystem manipulator) {
     this.drive = drive;
+    this.pivot = pivot;
+    this.arm = arm;
+    this.manipulator = manipulator;
 
     // Tuning
     autoOptions.setDefaultOption(
@@ -125,5 +143,26 @@ public class AutoOptions {
         new WaitCommand(1),
         new MecanumPathFollower(
             drive, "2pieceChargingRight", Constants.MediumAutoConstraints, false));
+  }
+
+  public SequentialCommandGroup place() {
+    return new SequentialCommandGroup(
+        new InstantCommand(() -> {
+            pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
+            pivot.enable();
+        }, pivot),
+        new RunCommand(() -> {
+        arm.extend();
+         }, arm).withTimeout(2.5),
+         new InstantCommand(manipulator::release));
+  }
+
+  public SequentialCommandGroup PlaceAndbalance() {
+    return new SequentialCommandGroup(
+        place(),
+        new Rotate180Command(drive),
+        new ForwardTwoMetersCommand(drive),
+        new AutoLevelingCommand(drive)
+    );
   }
 }

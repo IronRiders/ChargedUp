@@ -36,7 +36,7 @@ public final class Constants {
 
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
-  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
+  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
 
   // Auto
   public static final double AUTO_POSITION_KP = 0;

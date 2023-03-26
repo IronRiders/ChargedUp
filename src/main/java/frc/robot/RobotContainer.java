@@ -27,7 +27,7 @@ public class RobotContainer {
   public final LightsSubsystem lights = new LightsSubsystem();
   private final CommandJoystick controller = new CommandJoystick(0);
   private final CommandXboxController xboxController = new CommandXboxController(1);
-  private final AutoOptions autoOptions = new AutoOptions(drive);
+  private final AutoOptions autoOptions = new AutoOptions(drive, pivot, arm, manipulator);
   private GrabObject grabRequest = GrabObject.CONE;
 
   public RobotContainer() {
