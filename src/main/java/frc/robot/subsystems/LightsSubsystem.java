@@ -36,20 +36,27 @@ public class LightsSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     switch (lightPattern) {
-      case CONE: 
-        setColorRGB(255, 0, 255); break;
-      case CUBE: 
-        setColorRGB(255, 255, 0); break;
-      case RAINBOW: 
-        rainbow(); break;
-      case GREEN_YELLOW: 
-        checkerboard(0, 255, 0, 255, 0, 255, 6, 1); break;
+      case CONE:
+        setColorRGB(255, 0, 255);
+        break;
+      case CUBE:
+        setColorRGB(255, 255, 0);
+        break;
+      case RAINBOW:
+        rainbow();
+        break;
+      case GREEN_YELLOW:
+        checkerboard(0, 255, 0, 255, 0, 255, 6, 1);
+        break;
       case CONE_CUBE:
-        checkerboard(255, 0, 255, 255, 255, 0, 6, 1); break;
-      case BLACK_WHITE: 
-        checkerboard(0, 0, 0, 255, 255, 255, 6, 1); break;
-      case NOISE: 
-        noise(); break;
+        checkerboard(255, 0, 255, 255, 255, 0, 6, 1);
+        break;
+      case BLACK_WHITE:
+        checkerboard(0, 0, 0, 255, 255, 255, 6, 1);
+        break;
+      case NOISE:
+        noise();
+        break;
     }
   }
 
@@ -67,10 +74,10 @@ public class LightsSubsystem extends SubsystemBase {
   public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int speed) {
     for (int i = 0; i < ledBuffer.getLength(); i++) {
       boolean isColorOne =
-        ((i + checkerboardOffset + (ledBuffer.getLength() / 4))
-              / (Double.valueOf(ledBuffer.getLength()) / Double.valueOf(blocks - 1)))
-            % 2
-          == 0;
+          ((i + checkerboardOffset + (ledBuffer.getLength() / 4))
+                      / (Double.valueOf(ledBuffer.getLength()) / Double.valueOf(blocks - 1)))
+                  % 2
+              == 0;
       int r = (isColorOne ? r1 : r2);
       int g = (isColorOne ? g1 : g2);
       int b = (isColorOne ? b1 : b2);
