@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class PreLevelingCommand extends CommandBase {
-  private final double speed = 0.4;
+  private final double speed = -0.5;
   DriveSubsystem drive;
 
   private final double targetPitch = 5.0;
@@ -19,7 +19,7 @@ public class PreLevelingCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return drive.pigeon.getPitch() < targetPitch ? true : false;
+    return drive.pigeon.getPitch() < targetPitch ? false : true;
   }
 
   @Override

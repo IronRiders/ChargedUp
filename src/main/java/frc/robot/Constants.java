@@ -36,7 +36,7 @@ public final class Constants {
 
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
-  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
+  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
 
   // Auto
   public static final double AUTO_POSITION_KP = 0;
@@ -72,7 +72,7 @@ public final class Constants {
   public static final double ARM_KP = 0.6;
   public static final double Arm_GEAR_RATIO = 48;
   public static final TrapezoidProfile.Constraints kConstraints =
-      new TrapezoidProfile.Constraints(55, 120);
+      new TrapezoidProfile.Constraints(75, 120);
 
   // Pivot Stuff
   public static final int PIVOT_CURRENT_LIMIT = 12;
@@ -86,10 +86,10 @@ public final class Constants {
   public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
   // Angles
-  public static final double L2ANGLE = 95;
-  public static final double L3ANGLE = 110;
-  public static final double LGROUND = 35;
-  public static final double LHUMAN = 95;
+  public static final double L2ANGLE = 90;
+  public static final double L3ANGLE = 100;
+  public static final double LGROUND = 30;
+  public static final double LHUMAN = 90;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;
