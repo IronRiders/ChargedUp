@@ -1,23 +1,41 @@
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutoLevelingCommand;
+import frc.robot.commands.ForwardCommand;
 import frc.robot.commands.MecanumPathFollower;
 import frc.robot.commands.PathToPose;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.util.FieldUtil;
 
 public class AutoOptions {
 
   private SendableChooser<CommandBase> autoOptions = new SendableChooser<>();
   private DriveSubsystem drive;
+  private PivotSubsystem pivot;
+  private ArmSubsystem arm;
+  private ManipulatorSubsystem manipulator;
 
-  public AutoOptions(DriveSubsystem drive) {
+  public AutoOptions(
+      DriveSubsystem drive,
+      PivotSubsystem pivot,
+      ArmSubsystem arm,
+      ManipulatorSubsystem manipulator) {
     this.drive = drive;
+    this.pivot = pivot;
+    this.arm = arm;
+    this.manipulator = manipulator;
 
     // Tuning
     autoOptions.setDefaultOption(
@@ -68,11 +86,11 @@ public class AutoOptions {
   }
 
   public CommandBase getAutoCommand() {
-    var cmd = autoOptions.getSelected();
-    if (cmd == null) {
-      cmd = Commands.none();
-    }
-    return cmd;
+    // var cmd = autoOptions.getSelected();
+    // if (cmd == null) {
+    //   cmd = Commands.none();
+    // }
+    return Commands.none();
   }
 
   public void submit() {
@@ -125,5 +143,25 @@ public class AutoOptions {
         new WaitCommand(1),
         new MecanumPathFollower(
             drive, "2pieceChargingRight", Constants.MediumAutoConstraints, false));
+  }
+
+  public SequentialCommandGroup place() {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
+              pivot.enable();
+            },
+            pivot),
+        new WaitCommand(3),
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(3),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.1));
+  }
+
+  public SequentialCommandGroup PlaceAndbalance() {
+    return new SequentialCommandGroup(
+        //    place(),
+        //  new Rotate180Command(drive),
+        new ForwardCommand(drive, Units.feetToMeters(2)), new AutoLevelingCommand(drive));
   }
 }

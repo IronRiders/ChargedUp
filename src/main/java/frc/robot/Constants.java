@@ -36,7 +36,7 @@ public final class Constants {
 
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
-  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 1;
+  public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
 
   // Auto
   public static final double AUTO_POSITION_KP = 0;
@@ -68,11 +68,11 @@ public final class Constants {
 
   // Arm
   public static final int ARM_CURRENT_LIMIT = 10;
-  public static final double Arm_POWER = 1;
+  public static final double Arm_POWER = 0.9;
   public static final double ARM_KP = 0.6;
   public static final double Arm_GEAR_RATIO = 48;
   public static final TrapezoidProfile.Constraints kConstraints =
-      new TrapezoidProfile.Constraints(55, 120);
+      new TrapezoidProfile.Constraints(75, 120);
 
   // Pivot Stuff
   public static final int PIVOT_CURRENT_LIMIT = 12;
@@ -86,8 +86,10 @@ public final class Constants {
   public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
   // Angles
-  public static final double L2ANGLE = 60;
-  public static final double L3ANGLE = 110;
+  public static final double L2ANGLE = 90;
+  public static final double L3ANGLE = 100;
+  public static final double LGROUND = 30;
+  public static final double LHUMAN = 90;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;
@@ -96,7 +98,7 @@ public final class Constants {
   public static final double PIVOT_KA = 0;
 
   // Manipulator
-  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 6;
   public static final double MANIPULATOR_SPEED_CONE = 0.3;
   public static final double MANIPULATOR_SPEED_BOX = 0.2;
   public static final double MANIPULATOR_PID_KP = 0.0;
@@ -104,5 +106,6 @@ public final class Constants {
   public static final double MANIPULATOR_PID_KD = 0.0;
   public static final double MANIPULATOR_PID_TOLERANCE = 0.5;
   public static final double MANIPULATOR_SETPOINT = 0.0;
-  public static final double STALL_CURRENT = 2.5;
+  public static final double STALL_CURRENT = 1.2;
+  public static final double STALL_SPEED = 0.0005;
 }
