@@ -85,11 +85,13 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void extend() {
+    hasHit = false;
     clockCounter = 0;
     motor.set(Constants.Arm_POWER);
   }
 
   public void retract() {
+    hasHit = false;
     clockCounter = 0;
     motor.set(-Constants.Arm_POWER);
   }
