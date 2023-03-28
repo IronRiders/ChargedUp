@@ -87,7 +87,7 @@ public final class Constants {
 
   // Angles
   public static final double L2ANGLE = 90;
-  public static final double L3ANGLE = 100;
+  public static final double L3ANGLE = 110;
   public static final double LGROUND = 30;
   public static final double LHUMAN = 90;
 
