@@ -58,8 +58,8 @@ import frc.robot.Constants;
 public class ArmSubsystem extends SubsystemBase {
   PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
   private CANSparkMax motor;
-  private int clockCounter = 0;
-  private boolean hasHit = false;
+  private int ticks = 0;
+  private boolean intialCurrentLimitHit = false;
 
   public ArmSubsystem() {
     motor = new CANSparkMax(Constants.ARM_CLIMBER_PORT, MotorType.kBrushless);
@@ -70,38 +70,31 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(pdh.getCurrent(3)>Constants.STALL_CURRENT){
-      
-      if (hasHit && clockCounter< 5){
-        stop();
-        hasHit = false;
-      } else if (hasHit && clockCounter <= 5){
-        Reverse();
-      } else {
-        hasHit = true;
-      }
+    ticks += 1;
+    if (ticks <= 2) { return; }
+    if (pdh.getCurrent(3) < Constants.STALL_CURRENT) { return; }
+    if (ticks <= 6) {
+      reverse();
+      return;
     }
-    clockCounter += 1;
+    if (ticks > 6) {
+      stop();
+      return;
+    }
   }
 
   public void extend() {
-    hasHit = false;
-    clockCounter = 0;
+    ticks = 0;
     motor.set(Constants.Arm_POWER);
   }
 
   public void retract() {
-    hasHit = false;
-    clockCounter = 0;
+    ticks = 0;
     motor.set(-Constants.Arm_POWER);
   }
 
-  public void Reverse(){
-    if (motor.getInverted()) {
-      motor.setInverted(false);
-    } else {
-      motor.setInverted(true);
-    }
+  public void reverse(){
+    motor.setInverted(motor.getInverted() ? false : true);
   }
 
   public void stop() {
