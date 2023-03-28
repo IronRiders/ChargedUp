@@ -171,7 +171,6 @@ public class AutoOptions {
                         },
                         pivot),
                 new WaitCommand(2),
-                // new Rotate180Command(drive),*/
                 new ForwardCommand(drive, Units.feetToMeters(4.5)),
                 new AutoLevelingCommand(drive));
     }
