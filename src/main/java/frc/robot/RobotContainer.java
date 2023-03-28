@@ -6,7 +6,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -38,59 +37,58 @@ public class RobotContainer {
   private void configureBindings() {
     drive.setDefaultCommand(
         new RunCommand(
-            () ->
-                drive.setChassisSpeeds(
-                    scaledDeadBand(xboxController.getLeftX(), 1),
-                    scaledDeadBand(xboxController.getLeftY(), 1),
-                    -scaledDeadBand(xboxController.getRightX() * 0.3, 1),
-                    false),
+            () -> drive.setChassisSpeeds(
+                scaledDeadBand(xboxController.getLeftX(), 1),
+                scaledDeadBand(xboxController.getLeftY(), 1),
+                -scaledDeadBand(xboxController.getRightX() * 0.3, 1),
+                false),
             drive));
 
     // Game Piece Tracking
     // controller
-    //     .button(34)
-    //     .whileTrue(
-    //         new PathToPose(
-    //             drive, () -> vision.fieldElementTracking(drive.getPose2d(),
+    // .button(34)
+    // .whileTrue(
+    // new PathToPose(
+    // drive, () -> vision.fieldElementTracking(drive.getPose2d(),
     // vision.camera).get()));
 
     // On The Fly Pathing to Every Station
     // controller
-    //     .button(100)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(100)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
     // controller
-    //     .button(101)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(101)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
     // controller
-    //     .button(102)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(102)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
     // controller
-    //     .button(103)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(103)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
     // controller
-    //     .button(104)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(104)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
     // controller
-    //     .button(105)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(105)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
     // controller
-    //     .onTrue(new PathToPose(drive, () ->
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
     // controller
-    //     .button(107)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(107)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
     // controller
-    //     .button(108)
-    //     .onTrue(new PathToPose(drive, () ->
+    // .button(108)
+    // .onTrue(new PathToPose(drive, () ->
     // FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
-    controller
+  /*   controller
         .button(7)
         .onTrue(
             new InstantCommand(
@@ -104,30 +102,20 @@ public class RobotContainer {
                   }
                   lights.setColorGrabObject(grabRequest);
                 },
-                lights));
+                lights));*/
+      controller.button(7).onTrue(autoOptions.L3ConeAutoArmMove());
+      controller.button(12).onTrue(autoOptions.L2ConeAutoArmMove());
 
     controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
         .button(9)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.L2ANGLE));
-                  pivot.enable();
-                },
-                pivot));
+        .onTrue(autoOptions.L2CubeAutoArmMove());
 
     controller
         .button(10)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
-                  pivot.enable();
-                },
-                pivot));
+        .onTrue(autoOptions.L3CubeAutoArmMove());
 
     controller
         .button(8)
@@ -140,13 +128,7 @@ public class RobotContainer {
                 pivot));
     controller
         .button(11)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
-                  pivot.enable();
-                },
-                pivot));
+        .onTrue(autoOptions.L1AutoArmMove());
     // human substation pickup
     controller
         .button(12)

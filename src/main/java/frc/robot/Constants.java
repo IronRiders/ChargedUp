@@ -81,13 +81,13 @@ public final class Constants {
   public static final double Pivot_KD = 0;
   public static final double SHOULDER_VELOCITY_DEG = 70;
   public static final double SHOULDER_ACCELERATION_DEG = 250;
-  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(15);
+  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(20);
   public static final double PIVOT_GEAR_RATIO = 528.57;
   public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
   // Angles
-  public static final double L2ANGLE = 90;
   public static final double L3ANGLE = 110;
+  public static final double L1ANGLE = 65;
   public static final double LGROUND = 30;
   public static final double LHUMAN = 90;
 
