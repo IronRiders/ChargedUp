@@ -64,7 +64,6 @@ public class ArmSubsystem extends SubsystemBase {
     motor = new CANSparkMax(Constants.ARM_CLIMBER_PORT, MotorType.kBrushless);
     motor.setIdleMode(IdleMode.kBrake);
     motor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
-
   }
 
   @Override
@@ -76,9 +75,9 @@ public class ArmSubsystem extends SubsystemBase {
   private void checkStall() {
     if (pdh.getCurrent(3) > Constants.STALL_CURRENT) { // If stall
       if (ticks < 3) { // First 2 ticks, do nothing
-        return; 
+        return;
       }
-      if (ticks < 7) { // 3 to 6 ticks, reverse 
+      if (ticks < 7) { // 3 to 6 ticks, reverse
         reverse();
         return;
       }
@@ -98,7 +97,7 @@ public class ArmSubsystem extends SubsystemBase {
     motor.set(-Constants.Arm_POWER);
   }
 
-  public void reverse(){
+  public void reverse() {
     motor.setInverted(motor.getInverted() ? false : true);
   }
 
