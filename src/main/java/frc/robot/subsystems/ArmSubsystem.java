@@ -59,7 +59,6 @@ public class ArmSubsystem extends SubsystemBase {
   PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
   private CANSparkMax motor;
   private int ticks = 0;
-  private boolean intialCurrentLimitHit = false;
 
   public ArmSubsystem() {
     motor = new CANSparkMax(Constants.ARM_CLIMBER_PORT, MotorType.kBrushless);
@@ -71,14 +70,20 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     ticks += 1;
-    if (ticks <= 2) { return; }
-    if (pdh.getCurrent(3) < Constants.STALL_CURRENT) { return; }
-    if (ticks <= 6) {
-      reverse();
-      return;
-    }
-    if (ticks > 6) {
-      stop();
+    checkStall();
+  }
+
+  private void checkStall() {
+    if (pdh.getCurrent(3) > Constants.STALL_CURRENT) { // If stall
+      if (ticks < 3) { // First 2 ticks, do nothing
+        return; 
+      }
+      if (ticks < 7) { // 3 to 6 ticks, reverse 
+        reverse();
+        return;
+      }
+
+      stop(); // After 6 ticks, stop
       return;
     }
   }
