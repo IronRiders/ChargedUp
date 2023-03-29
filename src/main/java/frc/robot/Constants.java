@@ -86,10 +86,11 @@ public final class Constants {
   public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
   // Angles
-  public static final double L3ANGLE = 110;
+  public static final double L3ANGLE = 118;
+  public static final double L2ANGLE = 103;
   public static final double L1ANGLE = 65;
-  public static final double LGROUND = 30;
-  public static final double LHUMAN = 90;
+  public static final double LGROUND = 45;
+  public static final double LHUMAN = 105;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;

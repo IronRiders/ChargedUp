@@ -40,7 +40,7 @@ public class RobotContainer {
             () -> drive.setChassisSpeeds(
                 scaledDeadBand(xboxController.getLeftX(), 1),
                 scaledDeadBand(xboxController.getLeftY(), 1),
-                -scaledDeadBand(xboxController.getRightX() * 0.3, 1),
+                -scaledDeadBand(xboxController.getRightX(), 1),
                 false),
             drive));
 
@@ -143,10 +143,13 @@ public class RobotContainer {
     controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
-    xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
+    xboxController.button(2).onTrue(autoOptions.loadingStationAutoArmMoveDown());
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
+    xboxController.button(4).onTrue(autoOptions.loadingStationAutoArmMoveUp());
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    xboxController.button(5).onTrue(autoOptions.GroundPickUp());
+    xboxController.button(6).onTrue(autoOptions.GroundDropOff());
   }
 
   public Command getAutonomousCommand() {
