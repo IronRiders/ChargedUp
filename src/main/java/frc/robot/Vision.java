@@ -35,7 +35,7 @@ public class Vision {
       tagLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
       photonPoseEstimator =
           new PhotonPoseEstimator(
-              tagLayout, PoseStrategy.MULTI_TAG_PNP, piCam, Constants.RobotToCam);
+              tagLayout, PoseStrategy.MULTI_TAG_PNP, camera, Constants.RobotToCam);
       photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
     } catch (Exception e) {
       DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
@@ -47,7 +47,7 @@ public class Vision {
     SmartDashboard.putNumber(
         "Ground Distance to target for Limelight", Units.metersToInches(estimateDistance(camera)));
     SmartDashboard.putNumber(
-        "Ground Distance to target for PiCam", Units.metersToInches(estimateDistance(piCam)));
+        "Ground Distance to target for PiCam", Units.metersToInches(estimateDistance(camera)));
   }
 
   public double getYaw(PhotonCamera cam) {

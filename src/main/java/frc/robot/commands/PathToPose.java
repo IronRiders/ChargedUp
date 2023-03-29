@@ -40,10 +40,10 @@ public class PathToPose extends CommandBase {
         new PathPoint(
             robotPose.getTranslation(), new Rotation2d(0), drive.getPose2d().getRotation());
     PathPoint finalPoint =
-        new PathPoint(targetPose.getTranslation(), new Rotation2d(0), new Rotation2d(0));
+        new PathPoint(targetPose.getTranslation(), new Rotation2d(0), new Rotation2d(180));
 
     trajectory =
-        PathPlanner.generatePath(Constants.TooFastAutoConstraints, initialPoint, finalPoint);
+        PathPlanner.generatePath(Constants.SlowAutoConstraints, initialPoint, finalPoint);
 
     mecanumPathFollower = new MecanumPathFollower(drive, trajectory);
     mecanumPathFollower.initialize();

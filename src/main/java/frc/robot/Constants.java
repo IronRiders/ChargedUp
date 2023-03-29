@@ -44,7 +44,7 @@ public final class Constants {
   public static final double AUTO_XCONTROLLER_KP = 0;
   public static final double AUTO_YCONTROLLER_KP = 0;
   public static final double DRIVE_ACCELERATION_AUTO = 1;
-  public static final PathConstraints SlowAutoConstraints = new PathConstraints(0.25, 0.25);
+  public static final PathConstraints SlowAutoConstraints = new PathConstraints(1, 1);
   public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
   public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
   public static final PathConstraints TooFastAutoConstraints = new PathConstraints(5, 5);
@@ -63,8 +63,13 @@ public final class Constants {
   public static final Transform3d RobotToCam =
       new Transform3d(
           new Translation3d(
-              Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
+              Units.inchesToMeters(4), -Units.inchesToMeters(7), Units.inchesToMeters(32.75)),
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
+    public static final Transform3d RobotTopiCam =
+          new Transform3d(
+              new Translation3d(
+                  Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
+              new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 
   // Arm
   public static final int ARM_CURRENT_LIMIT = 10;

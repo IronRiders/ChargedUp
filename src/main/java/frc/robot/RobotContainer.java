@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.util.FieldUtil;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
+import frc.robot.commands.PathToPose;
 import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
@@ -53,10 +55,9 @@ public class RobotContainer {
     // vision.camera).get()));
 
     // On The Fly Pathing to Every Station
-    // controller
-    // .button(100)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
+    xboxController
+     .button(1)
+     .onTrue(new PathToPose(drive, ()-> vision.tagLocalization(Units.inchesToMeters(6), 0, 180, drive.getPose2d(), vision.camera).get()));
     // controller
     // .button(101)
     // .onTrue(new PathToPose(drive, () ->
@@ -144,7 +145,7 @@ public class RobotContainer {
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
     xboxController.button(2).onTrue(autoOptions.loadingStationAutoArmMoveDown());
-    xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
+   // xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
     xboxController.button(4).onTrue(autoOptions.loadingStationAutoArmMoveUp());
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
