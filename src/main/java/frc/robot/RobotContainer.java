@@ -102,9 +102,10 @@ public class RobotContainer {
                     // Switch to Cone
                     grabRequest = GrabObject.CONE;
                   }
-                  lights.setColorGrabObject(grabRequest);
+                  LightsSubsystem.setColorGrabObject(grabRequest);
                 },
-                lights));
+                lights)
+        );
 
     controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));

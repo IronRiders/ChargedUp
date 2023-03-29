@@ -93,7 +93,7 @@ public class LightsSubsystem extends SubsystemBase {
     addressableLed.start();
   }
 
-  public void setColorGrabObject(GrabObject object) {
+  static public void setColorGrabObject(GrabObject object) {
     if (object == GrabObject.CONE) {
       setLightPattern(LightPattern.CONE);
     } else {
@@ -117,7 +117,7 @@ public class LightsSubsystem extends SubsystemBase {
     addressableLed.start();
   }
 
-  public void setLightPattern(LightPattern newLightPattern) {
+  static public void setLightPattern(LightPattern newLightPattern) {
     lightPattern = newLightPattern;
   }
 }
