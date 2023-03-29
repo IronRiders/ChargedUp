@@ -6,6 +6,8 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -30,6 +32,8 @@ public class LightsSubsystem extends SubsystemBase {
 
   public LightsSubsystem() {
     addressableLed.setLength(ledBuffer.getLength());
+
+    
   }
 
   @Override
@@ -59,7 +63,7 @@ public class LightsSubsystem extends SubsystemBase {
 
   private void chargingStation() {
     WPI_Pigeon2 pigeon = new WPI_Pigeon2(15);
-    if (pigeon.getPitch() < 2.5 && pigeon.getPitch() > 2.5) {
+    if (pigeon.getPitch() < 2.5 && pigeon.getPitch() > -2.5) {
       pigeon.close();
       if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
         setColorRGB(255, 0, 0);
