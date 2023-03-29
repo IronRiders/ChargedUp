@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class LightsSubsystem extends SubsystemBase {
 
@@ -22,7 +21,8 @@ public class LightsSubsystem extends SubsystemBase {
     NOISE
   }
 
-  private static LightPattern lightPattern = LightPattern.CHARGING_STATION; // Defaults to team colors
+  private static LightPattern lightPattern =
+      LightPattern.CHARGING_STATION; // Defaults to team colors
 
   AddressableLED addressableLed = new AddressableLED(Constants.LED_STRIP_PORT);
   AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_STRIP_BUFFER_SIZE);
