@@ -130,7 +130,7 @@ public class RobotContainer {
         .button(11)
         .onTrue(autoOptions.L1AutoArmMove());
     // human substation pickup
-    controller
+   /*  controller
         .button(12)
         .onTrue(
             Commands.runOnce(
@@ -138,7 +138,7 @@ public class RobotContainer {
                   pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
                   pivot.enable();
                 },
-                pivot));
+                pivot));*/
 
     controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));

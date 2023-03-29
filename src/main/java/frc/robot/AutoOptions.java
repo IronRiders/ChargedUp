@@ -246,15 +246,15 @@ public class AutoOptions {
                 return new SequentialCommandGroup(
                         new InstantCommand(
                                        () -> {
-                                               pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
+                                               pivot.setGoal(Units.degreesToRadians(105));
                                                pivot.enable();
                                        },
                                        pivot),
                        new WaitCommand(2),
-                       new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.2),
+                       new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.3),
                        new StartEndCommand(manipulator::release, manipulator::stop, manipulator)
                                        .withTimeout(0.2),
-                       new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.2),
+                       new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.3),
                        new InstantCommand(
                                        () -> {
                                               pivot.setGoal(Units
