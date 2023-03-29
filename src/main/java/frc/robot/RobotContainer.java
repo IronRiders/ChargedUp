@@ -104,8 +104,7 @@ public class RobotContainer {
                   }
                   LightsSubsystem.setColorGrabObject(grabRequest);
                 },
-                lights)
-        );
+                lights));
 
     controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));

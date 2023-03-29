@@ -39,10 +39,15 @@ public class AutoLevelingCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
-    new Thread(() -> {
-      try {Thread.sleep(500);} catch (Exception ignored) {}
-      LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.RAINBOW);
-    }).start();
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(500);
+              } catch (Exception ignored) {
+              }
+              LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.RAINBOW);
+            })
+        .start();
   }
 
   @Override
