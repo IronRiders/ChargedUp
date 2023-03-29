@@ -14,8 +14,8 @@ import frc.robot.commands.ArmExtendRetractPIDCommand;
 import frc.robot.commands.ArmRaiseLowerPIDCommand;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
-import frc.robot.commands.ManipulatorPIDCommand;
-import frc.robot.commands.ReleaseManipulatorCommand;
+// import frc.robot.commands.ManipulatorPIDCommand;
+// import frc.robot.commands.ReleaseManipulatorCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.subsystems.*;
 
@@ -94,21 +94,21 @@ public class RobotContainer {
     controller
         .button(2)
         .onTrue(new ArmExtendRetractPIDCommand(arm, Constants.ARM_EXTEND_RETRACT_SETPOINT));
-    controller
-        .button(3)
-        .onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
+    // controller
+    //     .button(3)
+    //     .onTrue(new ManipulatorPIDCommand(manipulator, Constants.MANIPULATOR_SETPOINT));
     controller.button(4).whileTrue(new AutoLevelingCommand(drive));
     controller
-        .button(31)
+        .button(31) //THIS BUTTON NEEEDS TO BE SET 
         .onTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.CONE)); // Button For Grabbing Cones
     controller
-        .button(32)
+        .button(32) //THIS BUTTON NEEEDS TO BE SET 
         .onTrue(
             new GrabManipulatorCommand(manipulator, GrabObject.BOX)); // Button For Grabbing Boxes
-    controller
-        .button(33)
-        .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
+    // controller
+    //     .button(33)
+    //     .onTrue(new ReleaseManipulatorCommand(manipulator)); // Button For Releasing
   }
 
   public Command getAutonomousCommand() {
