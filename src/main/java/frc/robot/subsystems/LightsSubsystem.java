@@ -2,10 +2,13 @@ package frc.robot.subsystems;
 
 import java.util.Random;
 
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class LightsSubsystem extends SubsystemBase {
 
@@ -15,14 +18,15 @@ public class LightsSubsystem extends SubsystemBase {
     GREEN,
     YELLOW,
     RAINBOW,
+    CHARGING_STATION,
     NOISE
   }
 
-  private static LightPattern lightPattern = LightPattern.RAINBOW; // Defaults to team colors
+  private static LightPattern lightPattern = LightPattern.CHARGING_STATION; // Defaults to team colors
 
   AddressableLED addressableLed = new AddressableLED(Constants.LED_STRIP_PORT);
   AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_STRIP_BUFFER_SIZE);
-  int ranbowFirstLedHue = 0;
+  int rainbowFirstLedHue = 0;
 
   public LightsSubsystem() {
     addressableLed.setLength(ledBuffer.getLength());
@@ -32,6 +36,7 @@ public class LightsSubsystem extends SubsystemBase {
   public void periodic() {
     switch (lightPattern) {
       case CONE:
+      case YELLOW:
         setColorRGB(255, 255, 0);
         break;
       case CUBE:
@@ -40,11 +45,11 @@ public class LightsSubsystem extends SubsystemBase {
       case GREEN:
         setColorRGB(0, 200, 0);
         break;
-      case YELLOW:
-        setColorRGB(255, 255, 0);
-        break;
       case RAINBOW:
         rainbow();
+        break;
+      case CHARGING_STATION:
+        chargingStation();
         break;
       case NOISE:
         noise();
@@ -52,18 +57,34 @@ public class LightsSubsystem extends SubsystemBase {
     }
   }
 
-  public void rainbow() {
+  private void chargingStation() {
+    WPI_Pigeon2 pigeon = new WPI_Pigeon2(15);
+    if (pigeon.getPitch() < 2.5 && pigeon.getPitch() > 2.5) {
+      pigeon.close();
+      if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+        setColorRGB(255, 0, 0);
+      } else {
+        setColorRGB(0, 0, 255);
+      }
+      addressableLed.setData(ledBuffer);
+      addressableLed.start();
+    } else {
+      setColorRGB(0, 0, 0);
+    }
+  }
+
+  private void rainbow() {
     for (int i = 0; i < ledBuffer.getLength(); i++) {
-      final int hue = (ranbowFirstLedHue + (i * 180 / ledBuffer.getLength())) % 180;
+      final int hue = (rainbowFirstLedHue + (i * 180 / ledBuffer.getLength())) % 180;
       ledBuffer.setHSV(i, hue, 255, 128);
     }
-    ranbowFirstLedHue += 1;
-    ranbowFirstLedHue %= 180;
+    rainbowFirstLedHue += 1;
+    rainbowFirstLedHue %= 180;
     addressableLed.setData(ledBuffer);
     addressableLed.start();
   }
 
-  public void noise() {
+  private void noise() {
     for (int i = 0; i < ledBuffer.getLength(); i++) {
       ledBuffer.setRGB(
           i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
