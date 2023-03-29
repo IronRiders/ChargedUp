@@ -32,7 +32,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-    lights.setColorGrabObject(grabRequest);
+    //lights.setColorGrabObject(grabRequest);
   }
 
   private void configureBindings() {
