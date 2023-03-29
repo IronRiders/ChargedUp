@@ -18,7 +18,7 @@ public class LightsSubsystem extends SubsystemBase {
     NOISE
   }
 
-  private static LightPattern lightPattern = LightPattern.CUBE; // Defaults to team colors
+  private static LightPattern lightPattern = LightPattern.RAINBOW; // Defaults to team colors
 
   AddressableLED addressableLed = new AddressableLED(Constants.LED_STRIP_PORT);
   AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_STRIP_BUFFER_SIZE);
