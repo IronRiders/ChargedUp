@@ -59,7 +59,7 @@ public class LightsSubsystem extends SubsystemBase {
 
   private void chargingStation() {
     WPI_Pigeon2 pigeon = new WPI_Pigeon2(15);
-    if (pigeon.getPitch() < 2.5 && pigeon.getPitch() > 2.5) {
+    if (pigeon.getPitch() < 2.5 && pigeon.getPitch() > -2.5) {
       pigeon.close();
       if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
         setColorRGB(255, 0, 0);
