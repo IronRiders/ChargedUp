@@ -100,7 +100,7 @@ public class DriveSubsystem extends SubsystemBase {
     poseEstimator.updateWithTime(
         Timer.getFPGATimestamp(), pigeon.getRotation2d(), getWheelPositions());
     SmartDashboard.putNumber("auto yaw", pigeon.getYaw());
-    if (vision.getBestMeasurement() != null && vision.getBestMeasurement().ambiguity < 0.2) {
+    if (vision.getBestMeasurement() != null) {
     vision.getEstimatedGlobalPose(vision.getBestMeasurement().robotPose2d)
         .ifPresent(
             pose -> {
@@ -178,7 +178,7 @@ public class DriveSubsystem extends SubsystemBase {
     if (!needPID)
       chassisSpeeds =
           ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turnSpeed, pigeon.getRotation2d());
-    else chassisSpeeds = new ChassisSpeeds(-xSpeed, -ySpeed, -turnSpeed);
+    else chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turnSpeed);
 
     setChassisSpeeds(chassisSpeeds, needPID);
   }
