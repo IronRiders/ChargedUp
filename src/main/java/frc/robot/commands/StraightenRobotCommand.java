@@ -5,27 +5,27 @@ import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class StraightenRobotCommand extends CommandBase {
-  private final DriveSubsystem driveSubsytem;
+  private final DriveSubsystem driveSubsystem;
 
-  public StraightenRobotCommand(DriveSubsystem driveSubsytem) {
-    this.driveSubsytem = driveSubsytem;
+  public StraightenRobotCommand(DriveSubsystem driveSubsystem) {
+    this.driveSubsystem = driveSubsystem;
 
-    addRequirements(driveSubsytem);
+    addRequirements(driveSubsystem);
   }
 
   @Override
   public void execute() {
-    driveSubsytem.setChassisSpeeds(
+    driveSubsystem.setChassisSpeeds(
         0,
         0,
-        (driveSubsytem.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
+        (driveSubsystem.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
             * Constants.STRAIGHTEN_ROBOT_TURN_SPEED,
         false);
   }
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(driveSubsytem.pigeon.getRotation2d().getDegrees() % 360)
+    return (Math.abs(driveSubsystem.pigeon.getRotation2d().getDegrees() % 360)
         < Constants.STRAIGHTEN_TALORANCE_ANGLE);
   }
 }

@@ -5,30 +5,30 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class ForwardCommand extends CommandBase {
-  private final DriveSubsystem driveSubsytem;
+  private final DriveSubsystem driveSubsystem;
   private double initialX;
   private double distance;
 
-  public ForwardCommand(DriveSubsystem driveSubsytem, double distance) {
-    this.driveSubsytem = driveSubsytem;
+  public ForwardCommand(DriveSubsystem driveSubsystem, double distance) {
+    this.driveSubsystem = driveSubsystem;
     this.distance = distance;
 
-    addRequirements(driveSubsytem);
+    addRequirements(driveSubsystem);
   }
 
   @Override()
   public void initialize() {
-    initialX = driveSubsytem.getPose2d().getX();
-    SmartDashboard.putNumber("Initial X", driveSubsytem.getPose2d().getX());
+    initialX = driveSubsystem.getPose2d().getX();
+    SmartDashboard.putNumber("Initial X", driveSubsystem.getPose2d().getX());
   }
 
   @Override
   public void execute() {
-    driveSubsytem.setChassisSpeeds(0.0, -0.4, 0., false);
+    driveSubsystem.setChassisSpeeds(0.0, -0.4, 0., false);
   }
 
   public boolean isFinished() {
-    double positionDelta = Math.abs(driveSubsytem.getPose2d().getX() - initialX);
+    double positionDelta = Math.abs(driveSubsystem.getPose2d().getX() - initialX);
     return positionDelta >= distance;
   }
 }

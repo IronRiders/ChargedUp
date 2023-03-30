@@ -10,6 +10,7 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto Options": "String Chooser",
+      "/SmartDashboard/Light Patterns": "String Chooser",
       "/SmartDashboard/Reset Gyro": "Command",
       "/SmartDashboard/field": "Field2d"
     },
@@ -20,7 +21,6 @@
         }
       },
       "/SmartDashboard/field": {
-        "image": "C:\\Users\\Anish\\Downloads\\ChargedUp.jpg",
         "window": {
           "visible": true
         }

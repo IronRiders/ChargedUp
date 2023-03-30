@@ -155,10 +155,10 @@ public class AutoOptions {
             pivot),
         new WaitCommand(3),
         new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(3),
-        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.1));
+        new StartEndCommand(manipulator::release, manipulator::expel, manipulator).withTimeout(0.1));
   }
 
-  public SequentialCommandGroup PlaceAndbalance() {
+  public SequentialCommandGroup placeAndBalance() {
     return new SequentialCommandGroup(
         //    place(),
         //  new Rotate180Command(drive),

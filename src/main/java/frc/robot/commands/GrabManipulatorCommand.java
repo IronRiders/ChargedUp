@@ -6,26 +6,21 @@ import frc.robot.subsystems.GrabObject;
 
 public class GrabManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
-  private final GrabObject coneGraber;
+  private final GrabObject grabObject;
 
-  public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject coneGraber) {
+  public GrabManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject grabObject) {
     this.manipulatorSubsystem = manipulatorSubsystem;
-    this.coneGraber = coneGraber;
+    this.grabObject = grabObject;
     addRequirements(manipulatorSubsystem);
   }
 
   @Override
   public void initialize() {
-    manipulatorSubsystem.grab(coneGraber);
+    manipulatorSubsystem.grab(grabObject);
   }
 
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  @Override
-  public void end(boolean interrupted) {
-    manipulatorSubsystem.stop();
   }
 }

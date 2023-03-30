@@ -1,21 +1,24 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.GrabObject;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
-public class ReleaseManipulatorCommand extends CommandBase {
+public class ExpelManipulatorCommand extends CommandBase {
   private final ManipulatorSubsystem manipulatorSubsystem;
-  boolean grabcone;
+  boolean grabCone;
+  GrabObject grabObject;
 
-  public ReleaseManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem) {
+  public ExpelManipulatorCommand(ManipulatorSubsystem manipulatorSubsystem, GrabObject grabObject) {
     this.manipulatorSubsystem = manipulatorSubsystem;
+    this.grabObject = grabObject;
 
     addRequirements(manipulatorSubsystem);
   }
 
   @Override
   public void initialize() {
-    manipulatorSubsystem.release();
+    manipulatorSubsystem.expel(grabObject);
   }
 
   @Override
@@ -25,6 +28,6 @@ public class ReleaseManipulatorCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    manipulatorSubsystem.stop();
+    manipulatorSubsystem.expel(grabObject);
   }
 }

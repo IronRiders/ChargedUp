@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
-import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.ExpelManipulatorCommand;
 import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
 
@@ -107,7 +107,7 @@ public class RobotContainer {
                 lights));
 
     controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
-    controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
+    controller.button(2).whileTrue(new ExpelManipulatorCommand(manipulator));
 
     controller
         .button(9)
@@ -168,7 +168,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autoOptions.PlaceAndbalance();
+    return autoOptions.placeAndBalance();
     // return Commands.runOnce(() -> {}, drive);
   }
 

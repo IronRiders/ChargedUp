@@ -31,8 +31,7 @@ public final class Constants {
   public static final int WHEEL_PORT_REAR_RIGHT = 4;
   public static final int ARM_CLIMBER_PORT = 6;
   public static final int PIVOT_PORT = 5;
-  public static final int MANIPULATOR_PORT1 = 7;
-  public static final int MANIPULATOR_PORT2 = 8;
+  public static final int MANIPULATOR_PORT = 7;
 
   // Straighten Robot
   public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
@@ -98,7 +97,7 @@ public final class Constants {
   public static final double PIVOT_KA = 0;
 
   // Manipulator
-  public static final int MANIPULATOR_CURRENT_LIMIT = 6;
+  public static final int MANIPULATOR_CURRENT_LIMIT = 10;
   public static final double MANIPULATOR_SPEED_CONE = 0.3;
   public static final double MANIPULATOR_SPEED_BOX = 0.2;
   public static final double MANIPULATOR_PID_KP = 0.0;

@@ -219,7 +219,7 @@ public class DriveSubsystem extends SubsystemBase {
     return yController;
   }
 
-  public ChassisSpeeds getChasssisSpeeds() {
+  public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(getWheelSpeeds());
   }
 
