@@ -3,10 +3,9 @@ package frc.robot.util;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 
 public final class FieldUtil {
-  private static final double FIELD_WIDTH_METERS = 8.02;
+ // private static final double FIELD_WIDTH_METERS = 8.02;
 
   // Grid Poses
   public static final double XPosition = 1.86;

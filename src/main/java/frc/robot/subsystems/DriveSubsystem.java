@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Vision;
+import frc.robot.util.Vision;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -99,13 +100,14 @@ public class DriveSubsystem extends SubsystemBase {
     poseEstimator.updateWithTime(
         Timer.getFPGATimestamp(), pigeon.getRotation2d(), getWheelPositions());
     SmartDashboard.putNumber("auto yaw", pigeon.getYaw());
-    vision
-        .getEstimatedGlobalPose(getPose2d())
+    if (vision.getBestMeasurement() != null && vision.getBestMeasurement().ambiguity < 0.2) {
+    vision.getEstimatedGlobalPose(vision.getBestMeasurement().robotPose2d)
         .ifPresent(
             pose -> {
               getPoseEstimator()
-                  .addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
+                  .addVisionMeasurement(vision.getBestMeasurement().robotPose2d, vision.getBestMeasurement().timestampSeconds, VecBuilder.fill(4.2, 4.2, 0.1));
             });
+          }
 
     // Simple Simulation
     field.setRobotPose(getPose2d());
@@ -230,4 +232,5 @@ public class DriveSubsystem extends SubsystemBase {
     rearRightMotor.burnFlash();
     rearLeftMotor.burnFlash();
   }
+
 }

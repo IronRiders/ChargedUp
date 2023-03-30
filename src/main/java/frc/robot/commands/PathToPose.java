@@ -40,7 +40,7 @@ public class PathToPose extends CommandBase {
         new PathPoint(
             robotPose.getTranslation(), new Rotation2d(0), drive.getPose2d().getRotation());
     PathPoint finalPoint =
-        new PathPoint(targetPose.getTranslation(), new Rotation2d(0), new Rotation2d(180));
+        new PathPoint(targetPose.getTranslation(), new Rotation2d(0), new Rotation2d(Math.PI));
 
     trajectory =
         PathPlanner.generatePath(Constants.SlowAutoConstraints, initialPoint, finalPoint);

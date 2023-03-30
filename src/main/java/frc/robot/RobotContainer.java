@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.util.FieldUtil;
+import frc.robot.util.Vision;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,18 +12,16 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.PathToPose;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
+  public final Vision vision = new Vision();
   public final DriveSubsystem drive = new DriveSubsystem();
-  private final Vision vision = new Vision();
   public final PivotSubsystem pivot = new PivotSubsystem();
   public final ArmSubsystem arm = new ArmSubsystem();
   public final LightsSubsystem lights = new LightsSubsystem();
@@ -46,49 +45,8 @@ public class RobotContainer {
                 false),
             drive));
 
-    // Game Piece Tracking
-    // controller
-    // .button(34)
-    // .whileTrue(
-    // new PathToPose(
-    // drive, () -> vision.fieldElementTracking(drive.getPose2d(),
-    // vision.camera).get()));
-
-    // On The Fly Pathing to Every Station
-    xboxController
-     .button(1)
-     .onTrue(new PathToPose(drive, ()-> vision.tagLocalization(Units.inchesToMeters(6), 0, 180, drive.getPose2d(), vision.camera).get()));
-    // controller
-    // .button(101)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
-    // controller
-    // .button(102)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
-    // controller
-    // .button(103)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
-    // controller
-    // .button(104)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
-    // controller
-    // .button(105)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
-    // controller
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
-    // controller
-    // .button(107)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
-    // controller
-    // .button(108)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
+    xboxController.button(1).onTrue(new PathToPose(drive, ()-> vision.tagLocalization(Units.inchesToMeters(6), 0, Math.PI, drive.getPose2d(), vision.limelight).get()));
+     controller.button(101).onTrue(new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
   /*   controller
         .button(7)
         .onTrue(
@@ -155,7 +113,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return autoOptions.PlaceAndbalance();
-    // return Commands.runOnce(() -> {}, drive);
   }
 
   public void traj() {
