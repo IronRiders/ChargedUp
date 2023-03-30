@@ -38,7 +38,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final Vision vision = new Vision();
   private static ProfiledPIDController profiledThetaController =
       new ProfiledPIDController(
-          0.4,
+          0.1,
           0,
           0,
           new TrapezoidProfile.Constraints(
@@ -48,8 +48,9 @@ public class DriveSubsystem extends SubsystemBase {
           profiledThetaController.getP(),
           profiledThetaController.getI(),
           profiledThetaController.getD());
-  private static PIDController xController = new PIDController(0.15, 0, 0);
-  private static PIDController yController = new PIDController(0.15, 0, 0);
+
+  private static PIDController xController = new PIDController(0.1, 0, 0);
+  private static PIDController yController = new PIDController(0.1, 0, 0);
 
   public DriveSubsystem() {
     frontLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_FRONT_LEFT, true);
@@ -106,7 +107,6 @@ public class DriveSubsystem extends SubsystemBase {
               getPoseEstimator()
                   .addVisionMeasurement(pose.estimatedPose.toPose2d(), pose.timestampSeconds);
             });
-
     // Simple Simulation
     field.setRobotPose(getPose2d());
     field
@@ -176,7 +176,7 @@ public class DriveSubsystem extends SubsystemBase {
     if (!needPID)
       chassisSpeeds =
           ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turnSpeed, pigeon.getRotation2d());
-    else chassisSpeeds = new ChassisSpeeds(-xSpeed, -ySpeed, -turnSpeed);
+     chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turnSpeed);
 
     setChassisSpeeds(chassisSpeeds, needPID);
   }

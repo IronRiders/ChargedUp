@@ -39,9 +39,9 @@ public class AutoOptions {
 
                 // Tuning
                 autoOptions.setDefaultOption(
-                                "FirstPickUpLeftSide",
+                                "FirstPickUpRightSide",
                                 new MecanumPathFollower(
-                                                drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true));
+                                                drive, "FirstPickUpRightSide", Constants.MediumAutoConstraints, true));
                 autoOptions.addOption(
                                 "FirstDropOffLeftSide",
                                 new MecanumPathFollower(
@@ -72,7 +72,7 @@ public class AutoOptions {
                                 new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
                 autoOptions.addOption(
                                 "Straight Path",
-                                new MecanumPathFollower(drive, "Straight Path", Constants.FastAutoConstraints, true));
+                                new MecanumPathFollower(drive, "Straight Path", Constants.MediumAutoConstraints, true));
                 autoOptions.addOption(
                                 "Turn 180 Degrees",
                                 new MecanumPathFollower(drive, "Turn 180 Degrees", Constants.SlowAutoConstraints,
@@ -89,11 +89,11 @@ public class AutoOptions {
         }
 
         public CommandBase getAutoCommand() {
-                // var cmd = autoOptions.getSelected();
-                // if (cmd == null) {
-                // cmd = Commands.none();
-                // }
-                return Commands.none();
+                 var cmd = autoOptions.getSelected();
+                 if (cmd == null) {
+                 cmd = Commands.none();
+                 }
+                return cmd;
         }
 
         public void submit() {
@@ -153,10 +153,14 @@ public class AutoOptions {
 
         public SequentialCommandGroup PlaceAndbalance() {
                 return new SequentialCommandGroup(
-                              //  L3ConeAutoArmMove(),
-                             //   new WaitCommand(2),
-                                new ForwardCommand(drive, Units.feetToMeters(4.5)),
-                                new AutoLevelingCommand(drive));
+                             //  L3CubeAutoArmMove(),
+                              //  new WaitCommand(0.1),
+                                 new MecanumPathFollower(drive, "Straight Path", Constants.MediumAutoConstraints, true)
+                             //   GroundPickUp(),
+                              //  new MecanumPathFollower(drive, "returning straight path", Constants.MediumAutoConstraints, false)
+                                );
+                               // new ForwardCommand(drive, Units.feetToMeters(4.5)),
+                             //   new AutoLevelingCommand(drive));
         }
 
         public SequentialCommandGroup L3CubeAutoArmMove() {

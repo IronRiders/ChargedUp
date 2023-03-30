@@ -5,6 +5,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPMecanumControllerCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.DriveSubsystem;
@@ -44,7 +45,7 @@ public class MecanumPathFollower extends CommandBase {
       return;
     } else if (pathName != null) {
       alliancePath = PathPlanner.loadPath(pathName, constraints);
-      // var path = PathPlanner.loadPath(pathName, constraints);
+     //  var path = PathPlanner.loadPath(pathName, constraints);
       // alliancePath = PathPlannerTrajectory.transformTrajectoryForAlliance(path,
       // DriverStation.getAlliance());
     } else {
