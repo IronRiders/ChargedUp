@@ -28,7 +28,7 @@ public class RobotContainer {
   private final CommandJoystick controller = new CommandJoystick(0);
   private final CommandXboxController xboxController = new CommandXboxController(1);
   private final AutoOptions autoOptions = new AutoOptions(drive, pivot, arm, manipulator);
-  private GrabObject grabRequest = GrabObject.CONE;
+  public static GrabObject grabRequest = GrabObject.CONE;
 
   public RobotContainer() {
     configureBindings();
@@ -106,7 +106,7 @@ public class RobotContainer {
                 },
                 lights));
 
-    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller
@@ -164,7 +164,7 @@ public class RobotContainer {
     xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
     // Set up shuffleboard
-    xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    xboxController.button(3).onTrue(Commands.runOnce(drive.pigeon::reset, drive));
   }
 
   public Command getAutonomousCommand() {
@@ -178,7 +178,6 @@ public class RobotContainer {
 
   private double scaledDeadBand(double value, double exp) {
     double value1 = MathUtil.applyDeadband(value, Constants.DEADBAND);
-    double test = Math.signum(value1) * Math.pow(Math.abs(value1), exp);
-    return test;
+      return Math.signum(value1) * Math.pow(Math.abs(value1), exp);
   }
 }
