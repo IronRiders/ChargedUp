@@ -37,7 +37,7 @@ public class AutoOptions {
     this.manipulator = manipulator;
 
     // Tuning
-   /*  autoOptions.setDefaultOption(
+    /*  autoOptions.setDefaultOption(
         "FirstPickUpLeftSide",
         new MecanumPathFollower(
             drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true));
@@ -91,10 +91,10 @@ public class AutoOptions {
   }
 
   public CommandBase getAutoCommand() {
-     var cmd = autoOptions.getSelected();
-     if (cmd == null) {
-     cmd = Commands.none();
-     }
+    var cmd = autoOptions.getSelected();
+    if (cmd == null) {
+      cmd = Commands.none();
+    }
     return cmd;
   }
 
@@ -153,7 +153,7 @@ public class AutoOptions {
 
   public SequentialCommandGroup PlaceAndbalance(String object) {
     return new SequentialCommandGroup(
-      (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove(): L3CubeAutoArmMove()),
+        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3CubeAutoArmMove()),
         new WaitCommand(2),
         new ForwardCommand(drive, Units.feetToMeters(4.5)),
         new AutoLevelingCommand(drive));
@@ -161,10 +161,9 @@ public class AutoOptions {
 
   public SequentialCommandGroup PlaceAndRunBack(String object) {
     return new SequentialCommandGroup(
-      (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove(): L3CubeAutoArmMove()),
-      new WaitCommand(2),
-        new ForwardCommand(drive, Units.feetToMeters(4.5))
-    );
+        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3CubeAutoArmMove()),
+        new WaitCommand(2),
+        new ForwardCommand(drive, Units.feetToMeters(4.5)));
   }
 
   public SequentialCommandGroup L3CubeAutoArmMove() {

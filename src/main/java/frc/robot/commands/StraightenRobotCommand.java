@@ -26,7 +26,8 @@ public class StraightenRobotCommand extends CommandBase {
     driveSubsytem.setChassisSpeeds(
         0,
         0,
-        (angle > 180 ? -Constants.STRAIGHTEN_ROBOT_TURN_SPEED
+        (angle > 180
+            ? -Constants.STRAIGHTEN_ROBOT_TURN_SPEED
             : Constants.STRAIGHTEN_ROBOT_TURN_SPEED),
         true);
   }
