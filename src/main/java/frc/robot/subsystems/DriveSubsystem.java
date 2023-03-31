@@ -23,7 +23,6 @@ import frc.robot.Constants;
 import frc.robot.Vision;
 
 public class DriveSubsystem extends SubsystemBase {
-
   private boolean inverted;
   private ChassisSpeeds ActualChassisSpeeds;
   private ChassisSpeeds targetChassisSpeeds;
