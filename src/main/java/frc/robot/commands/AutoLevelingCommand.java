@@ -32,7 +32,7 @@ public class AutoLevelingCommand extends CommandBase {
     // turningEffort = (angleSetPoint - (drive.pigeon.getAngle() % 360)) * kTurn;
     balanceEffort = (balanceSetPoint - drive.pigeon.getPitch()) * kP;
 
-    drive.setChassisSpeeds(0, -balanceEffort, 0, true);
+    drive.setChassisSpeeds(0, balanceEffort, 0, true);
     LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.CHARGING_STATION);
   }
 
