@@ -65,11 +65,11 @@ public final class Constants {
           new Translation3d(
               Units.inchesToMeters(4), -Units.inchesToMeters(7), Units.inchesToMeters(32.75)),
           new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
-    public static final Transform3d RobotTopiCam =
-          new Transform3d(
-              new Translation3d(
-                  Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
-              new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
+  public static final Transform3d RobotTopiCam =
+      new Transform3d(
+          new Translation3d(
+              Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
+          new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
 
   // Arm
   public static final int ARM_CURRENT_LIMIT = 10;
@@ -96,7 +96,6 @@ public final class Constants {
   public static final double L1ANGLE = 65;
   public static final double LGROUND = 45;
   public static final double LHUMAN = 105;
-
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;

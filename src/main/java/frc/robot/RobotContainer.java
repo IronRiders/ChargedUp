@@ -34,41 +34,38 @@ public class RobotContainer {
   private void configureBindings() {
     drive.setDefaultCommand(
         new RunCommand(
-            () -> drive.setChassisSpeeds(
-                scaledDeadBand(xboxController.getLeftX(), 1),
-                scaledDeadBand(xboxController.getLeftY(), 1),
-                -scaledDeadBand(xboxController.getRightX() * 0.3, 1),
-                false),
+            () ->
+                drive.setChassisSpeeds(
+                    scaledDeadBand(xboxController.getLeftX(), 1),
+                    scaledDeadBand(xboxController.getLeftY(), 1),
+                    -scaledDeadBand(xboxController.getRightX() * 0.3, 1),
+                    false),
             drive));
 
-  /*   controller
-        .button(7)
-        .onTrue(
-            new InstantCommand(
-                () -> {
-                  if (grabRequest == GrabObject.CONE) {
-                    // Switch to Cube
-                    grabRequest = GrabObject.BOX;
-                  } else {
-                    // Switch to Cone
-                    grabRequest = GrabObject.CONE;
-                  }
-                  LightsSubsystem.setColorGrabObject(grabRequest);
-                },
-                lights));*/
-      controller.button(12).onTrue(autoOptions.L3ConeAutoArmMove());
-      controller.button(11).onTrue(autoOptions.L2ConeAutoArmMove());
+    /*   controller
+    .button(7)
+    .onTrue(
+        new InstantCommand(
+            () -> {
+              if (grabRequest == GrabObject.CONE) {
+                // Switch to Cube
+                grabRequest = GrabObject.BOX;
+              } else {
+                // Switch to Cone
+                grabRequest = GrabObject.CONE;
+              }
+              LightsSubsystem.setColorGrabObject(grabRequest);
+            },
+            lights));*/
+    controller.button(12).onTrue(autoOptions.L3ConeAutoArmMove());
+    controller.button(11).onTrue(autoOptions.L2ConeAutoArmMove());
 
     controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
-    controller
-        .button(9)
-        .onTrue(autoOptions.L2CubeAutoArmMove());
+    controller.button(9).onTrue(autoOptions.L2CubeAutoArmMove());
 
-    controller
-        .button(10)
-        .onTrue(autoOptions.L3CubeAutoArmMove());
+    controller.button(10).onTrue(autoOptions.L3CubeAutoArmMove());
 
     controller
         .button(8)
@@ -79,19 +76,17 @@ public class RobotContainer {
                   pivot.enable();
                 },
                 pivot));
-    controller
-        .button(7)
-        .onTrue(autoOptions.L1AutoArmMove());
+    controller.button(7).onTrue(autoOptions.L1AutoArmMove());
     // human substation pickup
-   /*  controller
-        .button(12)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
-                  pivot.enable();
-                },
-                pivot));*/
+    /*  controller
+    .button(12)
+    .onTrue(
+        Commands.runOnce(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
+              pivot.enable();
+            },
+            pivot));*/
 
     controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
@@ -99,7 +94,7 @@ public class RobotContainer {
     controller.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
     controller.button(6).onTrue(autoOptions.loadingStationAutoArmMoveUp());
-      xboxController.button(6).onTrue(autoOptions.GroundPickUp());
+    xboxController.button(6).onTrue(autoOptions.GroundPickUp());
     xboxController.button(4).onTrue(autoOptions.GroundDropOff());
 
     // Set up shuffleboard
