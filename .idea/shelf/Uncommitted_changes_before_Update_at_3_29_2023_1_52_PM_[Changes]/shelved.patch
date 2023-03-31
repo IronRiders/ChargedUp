@@ -1,0 +1,19 @@
+Index: src/main/java/frc/robot/commands/AutoLevelingCommand.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package frc.robot.commands;\r\n\r\nimport edu.wpi.first.wpilibj2.command.CommandBase;\r\nimport frc.robot.subsystems.DriveSubsystem;\r\nimport frc.robot.subsystems.LightsSubsystem;\r\n\r\npublic class AutoLevelingCommand extends CommandBase {\r\n\r\n  public final DriveSubsystem drive;\r\n\r\n  // Robot is balanced at 0 degrees at charge station\r\n  double balanceSetPoint = 0;\r\n\r\n  double kP = 0.0056;\r\n\r\n  double balanceEffort;\r\n\r\n  // Robot aligns to 0 degrees\r\n  double angleSetPoint = 0;\r\n\r\n  double kTurn = 0.009;\r\n\r\n  double turningEffort;\r\n\r\n  public AutoLevelingCommand(DriveSubsystem drive) {\r\n    this.drive = drive;\r\n  }\r\n\r\n  // Called every time the scheduler runs while the command is scheduled.\r\n  @Override\r\n  public void execute() {\r\n    // turningEffort = (angleSetPoint - (drive.pigeon.getAngle() % 360)) * kTurn;\r\n    balanceEffort = (balanceSetPoint - drive.pigeon.getPitch()) * kP;\r\n\r\n    drive.setChassisSpeeds(0, -balanceEffort, 0, true);\r\n    LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.CHARGING_STATION);\r\n  }\r\n\r\n  @Override\r\n  public void end(boolean interrupted) {\r\n    drive.stop();\r\n    new Thread(() -> {\r\n      try {Thread.sleep(500);} catch (Exception ignored) {}\r\n      LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.RAINBOW);\r\n    }).start();\r\n  }\r\n\r\n  @Override\r\n  public boolean isFinished() {\r\n    // return Math.abs(Subsystems.driveSubsystem.getGyroPitch()) < 2;\r\n    return false;\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/frc/robot/commands/AutoLevelingCommand.java b/src/main/java/frc/robot/commands/AutoLevelingCommand.java
+--- a/src/main/java/frc/robot/commands/AutoLevelingCommand.java	(revision 63cf8e2c2b0d6d862e2ab4cb163c8e7e835a64dd)
++++ b/src/main/java/frc/robot/commands/AutoLevelingCommand.java	(date 1680122811228)
+@@ -40,7 +40,7 @@
+   public void end(boolean interrupted) {
+     drive.stop();
+     new Thread(() -> {
+-      try {Thread.sleep(500);} catch (Exception ignored) {}
++      try { Thread.sleep(500); } catch (Exception ignored) {}
+       LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.RAINBOW);
+     }).start();
+   }

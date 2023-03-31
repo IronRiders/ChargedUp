@@ -8,6 +8,7 @@ import com.pathplanner.lib.PathPoint;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants;
@@ -40,10 +41,12 @@ public class PathToPose extends CommandBase {
         new PathPoint(
             robotPose.getTranslation(), new Rotation2d(0), drive.getPose2d().getRotation());
     PathPoint finalPoint =
-        new PathPoint(targetPose.getTranslation(), new Rotation2d(0), new Rotation2d(0));
+        new PathPoint(
+            targetPose.getTranslation(),
+            new Rotation2d(0),
+            new Rotation2d(Units.degreesToRadians(180)));
 
-    trajectory =
-        PathPlanner.generatePath(Constants.TooFastAutoConstraints, initialPoint, finalPoint);
+    trajectory = PathPlanner.generatePath(Constants.SlowAutoConstraints, initialPoint, finalPoint);
 
     mecanumPathFollower = new MecanumPathFollower(drive, trajectory);
     mecanumPathFollower.initialize();

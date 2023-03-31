@@ -57,6 +57,8 @@ public class DriveSubsystem extends SubsystemBase {
     rearLeftMotor = new MecanumWheel(Constants.WHEEL_PORT_REAR_RIGHT, false);
     inverted = false;
 
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
     // meter per second
     kinematics =
         new MecanumDriveKinematics(

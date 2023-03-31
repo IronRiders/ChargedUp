@@ -35,7 +35,7 @@ public final class Constants {
   public static final int MANIPULATOR_PORT2 = 8;
 
   // Straighten Robot
-  public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
+  public static final double STRAIGHTEN_TALORANCE_ANGLE = 1;
   public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
 
   // Auto
@@ -44,7 +44,7 @@ public final class Constants {
   public static final double AUTO_XCONTROLLER_KP = 0;
   public static final double AUTO_YCONTROLLER_KP = 0;
   public static final double DRIVE_ACCELERATION_AUTO = 1;
-  public static final PathConstraints SlowAutoConstraints = new PathConstraints(0.25, 0.25);
+  public static final PathConstraints SlowAutoConstraints = new PathConstraints(1, 1);
   public static final PathConstraints MediumAutoConstraints = new PathConstraints(3, 3);
   public static final PathConstraints FastAutoConstraints = new PathConstraints(4, 4);
   public static final PathConstraints TooFastAutoConstraints = new PathConstraints(5, 5);
@@ -61,6 +61,11 @@ public final class Constants {
 
   // Vision Stuff
   public static final Transform3d RobotToCam =
+      new Transform3d(
+          new Translation3d(
+              Units.inchesToMeters(4), -Units.inchesToMeters(7), Units.inchesToMeters(32.75)),
+          new Rotation3d(0, Math.toRadians(0), Math.toRadians(0)));
+  public static final Transform3d RobotTopiCam =
       new Transform3d(
           new Translation3d(
               Units.inchesToMeters(8.932), -Units.inchesToMeters(14), Units.inchesToMeters(30.5)),
@@ -81,15 +86,16 @@ public final class Constants {
   public static final double Pivot_KD = 0;
   public static final double SHOULDER_VELOCITY_DEG = 70;
   public static final double SHOULDER_ACCELERATION_DEG = 250;
-  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(15);
+  public static final double ARM_OFF_SET_RADS = Units.degreesToRadians(20);
   public static final double PIVOT_GEAR_RATIO = 528.57;
   public static final int PIVOT_MOTOR_CURRENT_LIMIT = 15;
 
   // Angles
-  public static final double L2ANGLE = 90;
-  public static final double L3ANGLE = 100;
-  public static final double LGROUND = 30;
-  public static final double LHUMAN = 90;
+  public static final double L3ANGLE = 118;
+  public static final double L2ANGLE = 103;
+  public static final double L1ANGLE = 65;
+  public static final double LGROUND = 45;
+  public static final double LHUMAN = 105;
 
   // Feedforward for Pivot
   public static final double PIVOT_KS = 0;

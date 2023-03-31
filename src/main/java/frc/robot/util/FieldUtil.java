@@ -3,7 +3,6 @@ package frc.robot.util;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 
 public final class FieldUtil {
   private static final double FIELD_WIDTH_METERS = 8.02;
@@ -34,10 +33,11 @@ public final class FieldUtil {
   }
 
   public static Pose2d getTransformPoseStation(Pose2d station) {
-    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) return station;
+    return station;
+    /*   if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) return station;
     Translation2d transformedTranslation =
         new Translation2d(station.getX(), FIELD_WIDTH_METERS - station.getY());
     Rotation2d transformedHeading = station.getRotation().times(-1);
-    return new Pose2d(transformedTranslation, transformedHeading);
+    return new Pose2d(transformedTranslation, transformedHeading);*/
   }
 }

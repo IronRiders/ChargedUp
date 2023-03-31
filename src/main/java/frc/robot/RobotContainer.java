@@ -2,11 +2,9 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -14,14 +12,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.PreLevelingCommand;
+import frc.robot.commands.StraightenRobotCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final DriveSubsystem drive = new DriveSubsystem();
-  private final Vision vision = new Vision();
   public final PivotSubsystem pivot = new PivotSubsystem();
   public final ArmSubsystem arm = new ArmSubsystem();
   public final LightsSubsystem lights = new LightsSubsystem();
@@ -42,92 +39,34 @@ public class RobotContainer {
                 drive.setChassisSpeeds(
                     scaledDeadBand(xboxController.getLeftX(), 1),
                     scaledDeadBand(xboxController.getLeftY(), 1),
-                    -scaledDeadBand(xboxController.getRightX(), 1),
+                    -scaledDeadBand(xboxController.getRightX() * 0.3, 1),
                     false),
             drive));
 
-    // Game Piece Tracking
-    // controller
-    //     .button(34)
-    //     .whileTrue(
-    //         new PathToPose(
-    //             drive, () -> vision.fieldElementTracking(drive.getPose2d(),
-    // vision.camera).get()));
+    /*   controller
+    .button(7)
+    .onTrue(
+        new InstantCommand(
+            () -> {
+              if (grabRequest == GrabObject.CONE) {
+                // Switch to Cube
+                grabRequest = GrabObject.BOX;
+              } else {
+                // Switch to Cone
+                grabRequest = GrabObject.CONE;
+              }
+              LightsSubsystem.setColorGrabObject(grabRequest);
+            },
+            lights));*/
+    controller.button(12).onTrue(autoOptions.L3ConeAutoArmMove());
+    controller.button(11).onTrue(autoOptions.L2ConeAutoArmMove());
 
-    // On The Fly Pathing to Every Station
-    // controller
-    //     .button(100)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station1)));
-    // controller
-    //     .button(101)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
-    // controller
-    //     .button(102)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
-    // controller
-    //     .button(103)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
-    // controller
-    //     .button(104)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
-    // controller
-    //     .button(105)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
-    // controller
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
-    // controller
-    //     .button(107)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
-    // controller
-    //     .button(108)
-    //     .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
-    controller
-        .button(7)
-        .onTrue(
-            new InstantCommand(
-                () -> {
-                  if (grabRequest == GrabObject.CONE) {
-                    // Switch to Cube
-                    grabRequest = GrabObject.BOX;
-                  } else {
-                    // Switch to Cone
-                    grabRequest = GrabObject.CONE;
-                  }
-                  LightsSubsystem.setColorGrabObject(grabRequest);
-                },
-                lights));
-
-    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    controller.button(1).onTrue(new GrabManipulatorCommand(manipulator, grabRequest));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
-    controller
-        .button(9)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.L2ANGLE));
-                  pivot.enable();
-                },
-                pivot));
+    controller.button(9).onTrue(autoOptions.L2CubeAutoArmMove());
 
-    controller
-        .button(10)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
-                  pivot.enable();
-                },
-                pivot));
+    controller.button(10).onTrue(autoOptions.L3CubeAutoArmMove());
 
     controller
         .button(8)
@@ -138,38 +77,34 @@ public class RobotContainer {
                   pivot.enable();
                 },
                 pivot));
-    controller
-        .button(11)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
-                  pivot.enable();
-                },
-                pivot));
+    controller.button(7).onTrue(autoOptions.L1AutoArmMove());
     // human substation pickup
-    controller
-        .button(12)
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
-                  pivot.enable();
-                },
-                pivot));
+    /*  controller
+    .button(12)
+    .onTrue(
+        Commands.runOnce(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
+              pivot.enable();
+            },
+            pivot));*/
 
     controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
-    xboxController.button(2).whileTrue(new PreLevelingCommand(drive));
+    controller.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
+    controller.button(6).onTrue(autoOptions.loadingStationAutoArmMoveUp());
+    xboxController.button(5).onTrue(autoOptions.GroundPickUp());
+    xboxController.button(6).onTrue(autoOptions.GroundDropOff());
+
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    xboxController.button(4).onTrue(new StraightenRobotCommand(drive));
   }
 
   public Command getAutonomousCommand() {
-    return autoOptions.PlaceAndbalance();
-    // return Commands.runOnce(() -> {}, drive);
+    return autoOptions.getAutoCommand();
   }
 
   public void traj() {

@@ -20,7 +20,6 @@ import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.util.FieldUtil;
 
 public class AutoOptions {
-
   private SendableChooser<CommandBase> autoOptions = new SendableChooser<>();
   private DriveSubsystem drive;
   private PivotSubsystem pivot;
@@ -38,7 +37,7 @@ public class AutoOptions {
     this.manipulator = manipulator;
 
     // Tuning
-    autoOptions.setDefaultOption(
+    /*  autoOptions.setDefaultOption(
         "FirstPickUpLeftSide",
         new MecanumPathFollower(
             drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true));
@@ -80,17 +79,23 @@ public class AutoOptions {
     autoOptions.addOption("Two Piece Left", twoPieceAutoLeft());
     autoOptions.addOption("Two Piece Left + Charge", twoPieceAutoChargeLeft());
     autoOptions.addOption("Two Piece Right", twoPieceAutoRight());
-    autoOptions.addOption("Two Piece Right + Charge", twoPieceAutoChargeRight());
+    autoOptions.addOption("Two Piece Right + Charge", twoPieceAutoChargeRight());*/
+
+    // PATHS TO USE AT AUBURN
+    autoOptions.setDefaultOption("Place Cone and Balance", PlaceAndbalance("cone"));
+    autoOptions.setDefaultOption("Place Cube and Balance", PlaceAndbalance("cube"));
+    autoOptions.addOption("Place Cube And Back UP", PlaceAndRunBack("cube"));
+    autoOptions.addOption("Place Cone And Back UP", PlaceAndRunBack("cone"));
 
     submit();
   }
 
   public CommandBase getAutoCommand() {
-    // var cmd = autoOptions.getSelected();
-    // if (cmd == null) {
-    //   cmd = Commands.none();
-    // }
-    return Commands.none();
+    var cmd = autoOptions.getSelected();
+    if (cmd == null) {
+      cmd = Commands.none();
+    }
+    return cmd;
   }
 
   public void submit() {
@@ -99,8 +104,9 @@ public class AutoOptions {
 
   public SequentialCommandGroup twoPieceAutoLeft() {
     return new SequentialCommandGroup(
-        // new PathToPose(drive, () -> FieldUtil.getTransformPoseStation(FieldUtil.Station1)),
-        //  new WaitCommand(1),
+        // new PathToPose(drive, () ->
+        // FieldUtil.getTransformPoseStation(FieldUtil.Station1)),
+        // new WaitCommand(1),
         new MecanumPathFollower(
             drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true),
         new WaitCommand(1),
@@ -145,7 +151,22 @@ public class AutoOptions {
             drive, "2pieceChargingRight", Constants.MediumAutoConstraints, false));
   }
 
-  public SequentialCommandGroup place() {
+  public SequentialCommandGroup PlaceAndbalance(String object) {
+    return new SequentialCommandGroup(
+        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3CubeAutoArmMove()),
+        new WaitCommand(2),
+        new ForwardCommand(drive, Units.feetToMeters(4.5)),
+        new AutoLevelingCommand(drive));
+  }
+
+  public SequentialCommandGroup PlaceAndRunBack(String object) {
+    return new SequentialCommandGroup(
+        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3CubeAutoArmMove()),
+        new WaitCommand(2),
+        new ForwardCommand(drive, Units.feetToMeters(4.5)));
+  }
+
+  public SequentialCommandGroup L3CubeAutoArmMove() {
     return new SequentialCommandGroup(
         new InstantCommand(
             () -> {
@@ -153,15 +174,137 @@ public class AutoOptions {
               pivot.enable();
             },
             pivot),
-        new WaitCommand(3),
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(3),
-        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.1));
+        new WaitCommand(1.25),
+        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.35),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.35),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(30));
+              pivot.enable();
+            },
+            pivot));
   }
 
-  public SequentialCommandGroup PlaceAndbalance() {
+  public SequentialCommandGroup L2CubeAutoArmMove() {
     return new SequentialCommandGroup(
-        //    place(),
-        //  new Rotate180Command(drive),
-        new ForwardCommand(drive, Units.feetToMeters(2)), new AutoLevelingCommand(drive));
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
+              pivot.enable();
+            },
+            pivot),
+        new WaitCommand(1.15),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.25),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(30));
+              pivot.enable();
+            },
+            pivot));
+  }
+
+  public SequentialCommandGroup L1AutoArmMove() {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.L1ANGLE));
+              pivot.enable();
+            },
+            pivot),
+        new WaitCommand(1),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(30));
+              pivot.enable();
+            },
+            pivot));
+  }
+
+  public SequentialCommandGroup L3ConeAutoArmMove() {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.L3ANGLE));
+              pivot.enable();
+            },
+            pivot),
+        new WaitCommand(2),
+        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.5),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.5),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(30));
+              pivot.enable();
+            },
+            pivot));
+  }
+
+  public SequentialCommandGroup L2ConeAutoArmMove() {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.L2ANGLE));
+              pivot.enable();
+            },
+            pivot),
+        new WaitCommand(2),
+        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.3),
+        new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.3),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(30));
+              pivot.enable();
+            },
+            pivot));
+  }
+
+  public SequentialCommandGroup loadingStationAutoArmMoveUp() {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.LHUMAN));
+              pivot.enable();
+            },
+            pivot),
+        new WaitCommand(2),
+        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.5));
+  }
+
+  public SequentialCommandGroup loadingStationAutoArmMoveDown() {
+    return new SequentialCommandGroup(
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.75),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(30));
+              pivot.enable();
+            },
+            pivot));
+  }
+
+  public SequentialCommandGroup GroundPickUp() {
+    return new SequentialCommandGroup(
+        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.2),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
+              pivot.enable();
+            },
+            pivot));
+  }
+
+  public SequentialCommandGroup GroundDropOff() {
+    return new SequentialCommandGroup(
+        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.2),
+        new InstantCommand(
+            () -> {
+              pivot.setGoal(Units.degreesToRadians(Constants.ARM_OFF_SET_RADS));
+              pivot.enable();
+            },
+            pivot));
   }
 }
