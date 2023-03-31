@@ -13,17 +13,24 @@ import frc.robot.Constants;
 
 public class ManipulatorSubsystem extends SubsystemBase {
   private final CANSparkMax manipulatorMotor;
+  private final CANSparkMax wristMotor;
 
   RelativeEncoder manipulatorMotorEncoder;
+  RelativeEncoder wristMotorEncoder;
   PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
 
   public ManipulatorSubsystem() {
     manipulatorMotor = new CANSparkMax(Constants.MANIPULATOR_PORT1, MotorType.kBrushed);
+    wristMotor = new CANSparkMax(Constants.MANIPULATOR_PORT2, MotorType.kBrushless);
 
     manipulatorMotor.setIdleMode(IdleMode.kBrake);
-    manipulatorMotor.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT);
+    manipulatorMotor.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT1);
+
+    wristMotor.setIdleMode(IdleMode.kBrake);
+    wristMotor.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT2);
 
     manipulatorMotorEncoder = manipulatorMotor.getEncoder();
+    wristMotorEncoder = wristMotor.getEncoder();
   }
 
   public void grab(GrabObject grabObject) {
@@ -50,6 +57,14 @@ public class ManipulatorSubsystem extends SubsystemBase {
         manipulatorMotor.set(Constants.MANIPULATOR_SPEED_BOX);
         break;
     }
+  }
+
+  public void flexUp(double speed) {
+    wristMotor.set(speed);
+  }
+
+  public void flexDown(double speed) {
+    wristMotor.set(-speed);
   }
 
   @Override
