@@ -169,7 +169,7 @@ public class AutoOptions {
                                                 pivot),
                                 new WaitCommand(1.25),
                                 new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.35),
-                                new StartEndCommand(manipulator::release, manipulator::stop, manipulator)
+                                 new StartEndCommand(manipulator::release, manipulator::stop, manipulator)
                                                 .withTimeout(0.2),
                                 new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.35),
                                 new InstantCommand(
