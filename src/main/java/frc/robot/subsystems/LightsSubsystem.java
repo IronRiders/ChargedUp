@@ -1,79 +1,104 @@
 package frc.robot.subsystems;
 
+import java.util.Random;
+
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LightsSubsystem extends SubsystemBase {
 
+  public enum LightPattern {
+    CONE,
+    CUBE,
+    GREEN,
+    YELLOW,
+    RAINBOW,
+    CHARGING_STATION,
+    NOISE
+  }
+
+  private static LightPattern lightPattern =
+      LightPattern.CHARGING_STATION; // Defaults to team colors
+
   AddressableLED addressableLed = new AddressableLED(Constants.LED_STRIP_PORT);
   AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_STRIP_BUFFER_SIZE);
-  int ranbowFirstLedHue = 0;
-  int offset = 0;
+  int rainbowFirstLedHue = 0;
 
   public LightsSubsystem() {
     addressableLed.setLength(ledBuffer.getLength());
+  }
+
+  @Override
+  public void periodic() {
+    switch (lightPattern) {
+      case CONE:
+      case YELLOW:
+        setColorRGB(255, 255, 0);
+        break;
+      case CUBE:
+        setColorRGB(255, 0, 255);
+        break;
+      case GREEN:
+        setColorRGB(0, 200, 0);
+        break;
+      case RAINBOW:
+        rainbow();
+        break;
+      case CHARGING_STATION:
+        chargingStation();
+        break;
+      case NOISE:
+        noise();
+        break;
+    }
+  }
+
+  private void chargingStation() {
+    WPI_Pigeon2 pigeon = new WPI_Pigeon2(15);
+    if (pigeon.getPitch() < 2.5 && pigeon.getPitch() > -2.5) {
+      pigeon.close();
+      if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+        setColorRGB(255, 0, 0);
+      } else {
+        setColorRGB(0, 0, 255);
+      }
+      addressableLed.setData(ledBuffer);
+      addressableLed.start();
+    } else {
+      setColorRGB(0, 0, 0);
+    }
+  }
+
+  private void rainbow() {
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      final int hue = (rainbowFirstLedHue + (i * 180 / ledBuffer.getLength())) % 180;
+      ledBuffer.setHSV(i, hue, 255, 128);
+    }
+    rainbowFirstLedHue += 1;
+    rainbowFirstLedHue %= 180;
     addressableLed.setData(ledBuffer);
     addressableLed.start();
   }
 
-  // public void periodic() {
-  //   checkerboard(0, 64, 1, 219, 172, 0, 30, offset);
-  //   offset += 1;
-  // }
-
-  // public void rainbow() {
-  //   for (int i = 0; i < ledBuffer.getLength(); i++) {
-  //     final int hue = (ranbowFirstLedHue + (i * 180 / ledBuffer.getLength())) % 180;
-  //     ledBuffer.setHSV(i, hue, 255, 128);
-  //   }
-  //   ranbowFirstLedHue += 3;
-  //   ranbowFirstLedHue %= 180;
-  //   addressableLed.setData(ledBuffer);
-  //   addressableLed.start();
-  // }
-
-  // public void checkerboard(int r1, int g1, int b1, int r2, int g2, int b2, int blocks, int
-  // offset) {
-  //   for (int i = 0; i < ledBuffer.getLength(); i++) {
-  //     boolean isColorOne =
-  //         ((i + offset + (ledBuffer.getLength() / 4))
-  //                     / (Double.valueOf(ledBuffer.getLength()) / Double.valueOf(blocks - 1)))
-  //                 % 2
-  //             == 0;
-  //     int r = (isColorOne ? r1 : r2);
-  //     int g = (isColorOne ? g1 : g2);
-  //     int b = (isColorOne ? b1 : b2);
-  //     ledBuffer.setRGB(i, r, g, b);
-  //   }
-  //   addressableLed.setData(ledBuffer);
-  //   addressableLed.start();
-  // }
-
-  // public void noise() {
-  //   for (int i = 0; i < ledBuffer.getLength(); i++) {
-  //     ledBuffer.setRGB(
-  //         i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
-  //   }
-  //   addressableLed.setData(ledBuffer);
-  //   addressableLed.start();
-  // }
-
-  public void setColorGrabObject(GrabObject object) {
-    if (object == GrabObject.CONE) {
-      setColorCone();
-    } else {
-      setColorCube();
+  private void noise() {
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setRGB(
+          i, new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256));
     }
+    addressableLed.setData(ledBuffer);
+    addressableLed.start();
   }
 
-  public void setColorCube() {
-    setColorRGB(255, 0, 255);
-  }
-
-  public void setColorCone() {
-    setColorRGB(255, 255, 0);
+  public static void setColorGrabObject(GrabObject object) {
+    if (object == GrabObject.CONE) {
+      setLightPattern(LightPattern.CONE);
+    } else {
+      setLightPattern(LightPattern.CUBE);
+    }
   }
 
   public void setColorRGB(int r, int g, int b) {
@@ -81,13 +106,18 @@ public class LightsSubsystem extends SubsystemBase {
       ledBuffer.setRGB(i, r, b, g); // BUG ON WPILIB: MIXES BLUE AND GREEN
     }
     addressableLed.setData(ledBuffer);
+    addressableLed.start();
   }
 
   public void setColorHSV(int h, int s, int v) {
-
     for (var i = 0; i < ledBuffer.getLength(); i++) {
       ledBuffer.setHSV(i, h, s, v);
     }
     addressableLed.setData(ledBuffer);
+    addressableLed.start();
+  }
+
+  public static void setLightPattern(LightPattern newLightPattern) {
+    lightPattern = newLightPattern;
   }
 }

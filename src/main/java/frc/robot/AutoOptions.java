@@ -20,7 +20,6 @@ import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.util.FieldUtil;
 
 public class AutoOptions {
-
         private SendableChooser<CommandBase> autoOptions = new SendableChooser<>();
         private DriveSubsystem drive;
         private PivotSubsystem pivot;
@@ -153,8 +152,8 @@ public class AutoOptions {
 
         public SequentialCommandGroup PlaceAndbalance() {
                 return new SequentialCommandGroup(
-                              //  L3ConeAutoArmMove(),
-                             //   new WaitCommand(2),
+                                L3ConeAutoArmMove(),
+                                new WaitCommand(2),
                                 new ForwardCommand(drive, Units.feetToMeters(4.5)),
                                 new AutoLevelingCommand(drive));
         }
@@ -311,8 +310,4 @@ public class AutoOptions {
                                 },
                                 pivot));
         }
-
-
-
-
 }
