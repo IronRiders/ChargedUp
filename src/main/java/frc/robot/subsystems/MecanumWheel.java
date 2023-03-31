@@ -50,7 +50,7 @@ public class MecanumWheel extends SubsystemBase {
     return feedForward.maxAchievableVelocity(12.0, 0);
   }
 
-  public double getWheelPostions() {
+  public double getWheelPositions() {
     return encoder.getPosition();
   }
 

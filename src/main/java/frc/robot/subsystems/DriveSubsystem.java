@@ -81,10 +81,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public MecanumDriveWheelPositions getWheelPositions() {
     return new MecanumDriveWheelPositions(
-        frontLeftMotor.getWheelPostions(),
-        frontRightMotor.getWheelPostions(),
-        rearLeftMotor.getWheelPostions(),
-        rearRightMotor.getWheelPostions());
+        frontLeftMotor.getWheelPositions(),
+        frontRightMotor.getWheelPositions(),
+        rearLeftMotor.getWheelPositions(),
+        rearRightMotor.getWheelPositions());
   }
 
   public MecanumDriveWheelSpeeds getWheelSpeeds() {

@@ -6,6 +6,8 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -26,14 +28,33 @@ public class LightsSubsystem extends SubsystemBase {
 
   AddressableLED addressableLed = new AddressableLED(Constants.LED_STRIP_PORT);
   AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_STRIP_BUFFER_SIZE);
+  SendableChooser<String> lightPatternChooser = new SendableChooser<>();
+  String lastSelectedLightPattern;
   int rainbowFirstLedHue = 0;
 
   public LightsSubsystem() {
     addressableLed.setLength(ledBuffer.getLength());
+
+    lightPatternChooser.setDefaultOption("Rainbow", "RAINBOW");
+
+    lightPatternChooser.addOption("Cone", "CONE");
+    lightPatternChooser.addOption("Cube", "CUBE");
+    lightPatternChooser.addOption("Green", "GREEN");
+    lightPatternChooser.addOption("Yellow", "YELLOW");
+    lightPatternChooser.addOption("Charging Station", "CHARGING_STATION");
+    lightPatternChooser.addOption("Noise", "NOISE");
+
+    SmartDashboard.putData("Light Patterns", lightPatternChooser);
   }
 
   @Override
   public void periodic() {
+    // Runs only when value is changed so that other things can make it change freely
+    if (!lightPatternChooser.getSelected().equals(lastSelectedLightPattern)) {
+      setLightPattern(LightPattern.valueOf(lightPatternChooser.getSelected()));
+      lastSelectedLightPattern = lightPatternChooser.getSelected();
+    }
+
     switch (lightPattern) {
       case CONE:
       case YELLOW:
