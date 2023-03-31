@@ -15,8 +15,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
   private final CANSparkMax manipulatorMotor;
   private final CANSparkMax wristMotor;
 
-  RelativeEncoder manipulatorMotorEncoder;
-  RelativeEncoder wristMotorEncoder;
   PowerDistribution pdh = new PowerDistribution(13, ModuleType.kRev);
 
   public ManipulatorSubsystem() {
@@ -28,9 +26,6 @@ public class ManipulatorSubsystem extends SubsystemBase {
 
     wristMotor.setIdleMode(IdleMode.kBrake);
     wristMotor.setSmartCurrentLimit(Constants.MANIPULATOR_CURRENT_LIMIT2);
-
-    manipulatorMotorEncoder = manipulatorMotor.getEncoder();
-    wristMotorEncoder = wristMotor.getEncoder();
   }
 
   public void grab(GrabObject grabObject) {

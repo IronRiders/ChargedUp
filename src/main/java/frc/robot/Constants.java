@@ -74,6 +74,15 @@ public final class Constants {
   public static final TrapezoidProfile.Constraints kConstraints =
       new TrapezoidProfile.Constraints(75, 120);
 
+// Wrist
+public static final int WRIST_CURRENT_LIMIT = 10;
+public static final double WRIST_KP  = 20;
+public static final double WRIST_VELOCITY_DEG = 70;
+public static final double WRIST_ACCELERATION_DEG = 250;
+public static final double WRIST_GEAR_RATIO = 36;
+public static final double WRIST_OFF_SET_RADS = 20;
+
+
   // Pivot Stuff
   public static final int PIVOT_CURRENT_LIMIT = 12;
   public static final double Pivot_KP = 24;
