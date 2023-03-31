@@ -1,9 +1,7 @@
 package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
-import frc.robot.util.FieldUtil;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -13,16 +11,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
-import frc.robot.commands.PathToPose;
 import frc.robot.commands.ReleaseManipulatorCommand;
-import frc.robot.commands.PreLevelingCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
   public final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
   public final DriveSubsystem drive = new DriveSubsystem();
-  private final Vision vision = new Vision();
   public final PivotSubsystem pivot = new PivotSubsystem();
   public final ArmSubsystem arm = new ArmSubsystem();
   public final LightsSubsystem lights = new LightsSubsystem();
@@ -46,49 +41,6 @@ public class RobotContainer {
                 false),
             drive));
 
-    // Game Piece Tracking
-    // controller
-    // .button(34)
-    // .whileTrue(
-    // new PathToPose(
-    // drive, () -> vision.fieldElementTracking(drive.getPose2d(),
-    // vision.camera).get()));
-
-    // On The Fly Pathing to Every Station
-    xboxController
-     .button(1)
-     .onTrue(new PathToPose(drive, ()-> vision.tagLocalization(Units.inchesToMeters(6), 0, 180, drive.getPose2d(), vision.camera).get()));
-    // controller
-    // .button(101)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station2)));
-    // controller
-    // .button(102)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station3)));
-    // controller
-    // .button(103)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station4)));
-    // controller
-    // .button(104)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station5)));
-    // controller
-    // .button(105)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station6)));
-    // controller
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station7)));
-    // controller
-    // .button(107)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station8)));
-    // controller
-    // .button(108)
-    // .onTrue(new PathToPose(drive, () ->
-    // FieldUtil.getTransformPoseStation(FieldUtil.Station9)));
   /*   controller
         .button(7)
         .onTrue(
@@ -144,18 +96,18 @@ public class RobotContainer {
     controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
-    xboxController.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
-   // xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
-    xboxController.button(6).onTrue(autoOptions.loadingStationAutoArmMoveUp());
+    controller.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
+    xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
+    controller.button(6).onTrue(autoOptions.loadingStationAutoArmMoveUp());
+      xboxController.button(6).onTrue(autoOptions.GroundPickUp());
+    xboxController.button(4).onTrue(autoOptions.GroundDropOff());
+
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
-    xboxController.button(5).onTrue(autoOptions.GroundPickUp());
-    xboxController.button(6).onTrue(autoOptions.GroundDropOff());
   }
 
   public Command getAutonomousCommand() {
     return autoOptions.PlaceAndbalance();
-    // return Commands.runOnce(() -> {}, drive);
   }
 
   public void traj() {
