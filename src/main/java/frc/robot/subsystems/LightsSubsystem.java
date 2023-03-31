@@ -35,11 +35,12 @@ public class LightsSubsystem extends SubsystemBase {
   public LightsSubsystem() {
     addressableLed.setLength(ledBuffer.getLength());
 
+    lightPatternChooser.setDefaultOption("Rainbow", "RAINBOW");
+
     lightPatternChooser.addOption("Cone", "CONE");
     lightPatternChooser.addOption("Cube", "CUBE");
     lightPatternChooser.addOption("Green", "GREEN");
     lightPatternChooser.addOption("Yellow", "YELLOW");
-    lightPatternChooser.addOption("Rainbow", "RAINBOW");
     lightPatternChooser.addOption("Charging Station", "CHARGING_STATION");
     lightPatternChooser.addOption("Noise", "NOISE");
 
