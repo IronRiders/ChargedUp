@@ -16,7 +16,7 @@ public class AutoLevelingCommand extends CommandBase {
   double balanceEffort;
 
   // Robot aligns to 0 degrees
-  double angleSetpoint = 0;
+  double angleSetPoint = 0;
 
   double kTurn = 0.009;
 
@@ -29,9 +29,8 @@ public class AutoLevelingCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    // turningEffort = (angleSetpoint - (drive.pigeon.getAngle() % 360)) * kTurn;
-    balanceEffort = (balanceSetpoint - drive.pigeon.getPitch()) * kP;
+    // turningEffort = (angleSetPoint - (drive.pigeon.getAngle() % 360)) * kTurn;
+    balanceEffort = (balanceSetPoint - drive.pigeon.getPitch()) * kP;
 
     drive.setChassisSpeeds(0, -balanceEffort, 0, true);
     LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.CHARGING_STATION);
@@ -49,12 +48,6 @@ public class AutoLevelingCommand extends CommandBase {
               LightsSubsystem.setLightPattern(LightsSubsystem.LightPattern.RAINBOW);
             })
         .start();
-  }
-
-  @Override
-  public boolean isFinished() {
-    // return Math.abs(Subsystems.driveSubsystem.getGyroPitch()) < 2;
-    return false;
   }
 
   @Override
