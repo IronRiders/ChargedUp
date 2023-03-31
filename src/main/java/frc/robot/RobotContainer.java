@@ -104,8 +104,8 @@ public class RobotContainer {
                   lights.setColorGrabObject(grabRequest);
                 },
                 lights));*/
-      controller.button(7).onTrue(autoOptions.L3ConeAutoArmMove());
-      controller.button(12).onTrue(autoOptions.L2ConeAutoArmMove());
+      controller.button(12).onTrue(autoOptions.L3ConeAutoArmMove());
+      controller.button(11).onTrue(autoOptions.L2ConeAutoArmMove());
 
     controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
@@ -128,7 +128,7 @@ public class RobotContainer {
                 },
                 pivot));
     controller
-        .button(11)
+        .button(7)
         .onTrue(autoOptions.L1AutoArmMove());
     // human substation pickup
    /*  controller
@@ -144,9 +144,9 @@ public class RobotContainer {
     controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
     controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
-    xboxController.button(2).onTrue(autoOptions.loadingStationAutoArmMoveDown());
+    xboxController.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
    // xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
-    xboxController.button(4).onTrue(autoOptions.loadingStationAutoArmMoveUp());
+    xboxController.button(6).onTrue(autoOptions.loadingStationAutoArmMoveUp());
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
     xboxController.button(5).onTrue(autoOptions.GroundPickUp());
