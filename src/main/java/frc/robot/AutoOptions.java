@@ -37,7 +37,7 @@ public class AutoOptions {
     this.manipulator = manipulator;
 
     // Tuning
-    autoOptions.setDefaultOption(
+   /*  autoOptions.setDefaultOption(
         "FirstPickUpLeftSide",
         new MecanumPathFollower(
             drive, "FirstPickUpLeftSide", Constants.MediumAutoConstraints, true));
@@ -79,17 +79,23 @@ public class AutoOptions {
     autoOptions.addOption("Two Piece Left", twoPieceAutoLeft());
     autoOptions.addOption("Two Piece Left + Charge", twoPieceAutoChargeLeft());
     autoOptions.addOption("Two Piece Right", twoPieceAutoRight());
-    autoOptions.addOption("Two Piece Right + Charge", twoPieceAutoChargeRight());
+    autoOptions.addOption("Two Piece Right + Charge", twoPieceAutoChargeRight());*/
+
+    // PATHS TO USE AT AUBURN
+    autoOptions.setDefaultOption("Place Cone and Balance", PlaceAndbalance("cone"));
+    autoOptions.setDefaultOption("Place Cube and Balance", PlaceAndbalance("cube"));
+    autoOptions.addOption("Place Cube And Back UP", PlaceAndRunBack("cube"));
+    autoOptions.addOption("Place Cone And Back UP", PlaceAndRunBack("cone"));
 
     submit();
   }
 
   public CommandBase getAutoCommand() {
-    // var cmd = autoOptions.getSelected();
-    // if (cmd == null) {
-    // cmd = Commands.none();
-    // }
-    return Commands.none();
+     var cmd = autoOptions.getSelected();
+     if (cmd == null) {
+     cmd = Commands.none();
+     }
+    return cmd;
   }
 
   public void submit() {
@@ -145,12 +151,20 @@ public class AutoOptions {
             drive, "2pieceChargingRight", Constants.MediumAutoConstraints, false));
   }
 
-  public SequentialCommandGroup PlaceAndbalance() {
+  public SequentialCommandGroup PlaceAndbalance(String object) {
     return new SequentialCommandGroup(
-        L3ConeAutoArmMove(),
+      (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove(): L3CubeAutoArmMove()),
         new WaitCommand(2),
         new ForwardCommand(drive, Units.feetToMeters(4.5)),
         new AutoLevelingCommand(drive));
+  }
+
+  public SequentialCommandGroup PlaceAndRunBack(String object) {
+    return new SequentialCommandGroup(
+      (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove(): L3CubeAutoArmMove()),
+      new WaitCommand(2),
+        new ForwardCommand(drive, Units.feetToMeters(4.5))
+    );
   }
 
   public SequentialCommandGroup L3CubeAutoArmMove() {
@@ -289,7 +303,7 @@ public class AutoOptions {
         new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.2),
         new InstantCommand(
             () -> {
-              pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
+              pivot.setGoal(Units.degreesToRadians(Constants.ARM_OFF_SET_RADS));
               pivot.enable();
             },
             pivot));

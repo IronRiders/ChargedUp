@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.subsystems.ManipulatorSubsystem;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoLevelingCommand;
 import frc.robot.commands.GrabManipulatorCommand;
 import frc.robot.commands.ReleaseManipulatorCommand;
+import frc.robot.commands.StraightenRobotCommand;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -60,7 +62,7 @@ public class RobotContainer {
     controller.button(12).onTrue(autoOptions.L3ConeAutoArmMove());
     controller.button(11).onTrue(autoOptions.L2ConeAutoArmMove());
 
-    controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    controller.button(1).onTrue(new GrabManipulatorCommand(manipulator, grabRequest));
     controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
 
     controller.button(9).onTrue(autoOptions.L2CubeAutoArmMove());
@@ -94,15 +96,16 @@ public class RobotContainer {
     controller.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
     controller.button(6).onTrue(autoOptions.loadingStationAutoArmMoveUp());
-    xboxController.button(6).onTrue(autoOptions.GroundPickUp());
-    xboxController.button(4).onTrue(autoOptions.GroundDropOff());
+    xboxController.button(5).onTrue(autoOptions.GroundPickUp());
+    xboxController.button(6).onTrue(autoOptions.GroundDropOff());
 
     // Set up shuffleboard
     xboxController.button(3).onTrue(Commands.runOnce(() -> drive.pigeon.reset(), drive));
+    xboxController.button(4).onTrue(new StraightenRobotCommand(drive));
   }
 
   public Command getAutonomousCommand() {
-    return autoOptions.PlaceAndbalance();
+    return autoOptions.getAutoCommand();
   }
 
   public void traj() {

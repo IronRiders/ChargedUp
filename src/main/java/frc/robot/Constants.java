@@ -35,7 +35,7 @@ public final class Constants {
   public static final int MANIPULATOR_PORT2 = 8;
 
   // Straighten Robot
-  public static final double STRAIGHTEN_TALORANCE_ANGLE = 5;
+  public static final double STRAIGHTEN_TALORANCE_ANGLE = 1;
   public static final double STRAIGHTEN_ROBOT_TURN_SPEED = 0.1;
 
   // Auto

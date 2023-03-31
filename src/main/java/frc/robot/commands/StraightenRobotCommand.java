@@ -15,17 +15,24 @@ public class StraightenRobotCommand extends CommandBase {
 
   @Override
   public void execute() {
+    isFinished();
+    double angle = driveSubsytem.pigeon.getAngle();
+    while (angle < 0) {
+      angle += 360;
+    }
+    while (angle > 360) {
+      angle -= 360;
+    }
     driveSubsytem.setChassisSpeeds(
         0,
         0,
-        (driveSubsytem.pigeon.getRotation2d().getDegrees() % 360 > 180 ? -1 : 1)
-            * Constants.STRAIGHTEN_ROBOT_TURN_SPEED,
-        false);
+        (angle > 180 ? -Constants.STRAIGHTEN_ROBOT_TURN_SPEED
+            : Constants.STRAIGHTEN_ROBOT_TURN_SPEED),
+        true);
   }
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(driveSubsytem.pigeon.getRotation2d().getDegrees() % 360)
-        < Constants.STRAIGHTEN_TALORANCE_ANGLE);
+    return (Math.abs(driveSubsytem.pigeon.getAngle() % 360) < Constants.STRAIGHTEN_TALORANCE_ANGLE);
   }
 }
