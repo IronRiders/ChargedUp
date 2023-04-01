@@ -18,7 +18,7 @@ public final class Constants {
   public static final double DRIVE_SPEED_AUTO = 0.1 / DRIVE_SPEED_MULT;
   public static final int DRIVE_CURRENT_LIMIT = 40;
   public static final double MOVEMENT_SPEED = 1; // meters per second
-  public static final double TURN_SPEED = 1; // radians per second
+  public static final double TURN_SPEED = 0.07; // radians per second
   public static final double DIAMETER = 8; // Inches
   public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(DIAMETER * Math.PI);
   public static final double AUTO_WHEELPID_KP = 0;

@@ -61,8 +61,10 @@ public class RobotContainer {
     controller.button(12).onTrue(autoOptions.L3ConeAutoArmMove());
     controller.button(11).onTrue(autoOptions.L2ConeAutoArmMove());
 
-    controller.button(1).onTrue(new GrabManipulatorCommand(manipulator, grabRequest));
-    controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
+    // controller.button(1).whileTrue(new GrabManipulatorCommand(manipulator, GrabObject.BOX));
+    controller.button(1).whileTrue(new StartEndCommand(manipulator::grab, manipulator::stop, manipulator));
+    // controller.button(2).whileTrue(new ReleaseManipulatorCommand(manipulator));
+    controller.button(2).whileTrue(new StartEndCommand(manipulator::release, manipulator::stop, manipulator));
 
     controller.button(9).onTrue(autoOptions.L2CubeAutoArmMove());
 

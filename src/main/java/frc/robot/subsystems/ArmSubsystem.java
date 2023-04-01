@@ -61,11 +61,11 @@ public class ArmSubsystem extends SubsystemBase {
     motor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
   }
 
-  public void retract() {
+  public void extend() {
     motor.set(Constants.Arm_POWER);
   }
 
-  public void extend() {
+  public void retract() {
     motor.set(-Constants.Arm_POWER);
   }
 
