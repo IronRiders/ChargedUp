@@ -153,10 +153,10 @@ public class AutoOptions {
 
   public SequentialCommandGroup PlaceAndbalance(String object) {
     return new SequentialCommandGroup(
-        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3ConeAutoArmMove()));
-       // new WaitCommand(1),
-     //   new ForwardCommand(drive, Units.feetToMeters(5.5)),
-     //   new AutoLevelingCommand(drive));
+        (object.equalsIgnoreCase("cone") ? L1AutoArmMove() : L1AutoArmMove()),
+        new WaitCommand(0.75),
+        new ForwardCommand(drive, Units.feetToMeters(5.5)),
+       new AutoLevelingCommand(drive));
   }
 
   public SequentialCommandGroup PlaceAndRunBack(String object) {
@@ -175,9 +175,9 @@ public class AutoOptions {
             },
             pivot),
         new WaitCommand(1.25),
-        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.35),
+ //       new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.35),
         new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.35),
+  //      new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.35),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(30));
@@ -196,7 +196,7 @@ public class AutoOptions {
             pivot),
         new WaitCommand(1.15),
         new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.25),
+ //       new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.25),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(30));
@@ -232,9 +232,9 @@ public class AutoOptions {
             },
             pivot),
         new WaitCommand(2),
-        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.5),
+      //  new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.5),
         new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.5),
+     //   new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.5),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(30));
@@ -252,9 +252,9 @@ public class AutoOptions {
             },
             pivot),
         new WaitCommand(2),
-        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.3),
+     //   new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.2),
         new StartEndCommand(manipulator::release, manipulator::stop, manipulator).withTimeout(0.2),
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.3),
+   //     new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.3),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(30));
@@ -271,13 +271,13 @@ public class AutoOptions {
               pivot.enable();
             },
             pivot),
-        new WaitCommand(2),
-        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.5));
+        new WaitCommand(2));
+     //   new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(1.5));
   }
 
   public SequentialCommandGroup loadingStationAutoArmMoveDown() {
     return new SequentialCommandGroup(
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.75),
+     //   new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(1.75),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(30));
@@ -288,18 +288,16 @@ public class AutoOptions {
 
   public SequentialCommandGroup GroundPickUp() {
     return new SequentialCommandGroup(
-        new StartEndCommand(arm::retract, arm::stop, arm).alongWith(
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
               pivot.enable();
             },
-            pivot)));
+            pivot));
   }
 
   public SequentialCommandGroup GroundDropOff() {
     return new SequentialCommandGroup(
-        new StartEndCommand(arm::extend, arm::stop, arm),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(Constants.ARM_OFF_SET_RADS));

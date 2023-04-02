@@ -91,8 +91,8 @@ public class RobotContainer {
             },
             pivot));*/
 
-    controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
-    controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
+  //  controller.button(5).whileTrue(new StartEndCommand(arm::extend, arm::stop, arm));
+ //   controller.button(3).whileTrue(new StartEndCommand(arm::retract, arm::stop, arm));
 
     controller.button(4).onTrue(autoOptions.loadingStationAutoArmMoveDown());
     xboxController.button(1).whileTrue(new AutoLevelingCommand(drive));
