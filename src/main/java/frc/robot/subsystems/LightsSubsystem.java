@@ -24,7 +24,7 @@ public class LightsSubsystem extends SubsystemBase {
   }
 
   private static LightPattern lightPattern =
-      LightPattern.CHARGING_STATION; // Defaults to team colors
+      LightPattern.RAINBOW; // Defaults to team colors
 
   AddressableLED addressableLed = new AddressableLED(Constants.LED_STRIP_PORT);
   AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_STRIP_BUFFER_SIZE);

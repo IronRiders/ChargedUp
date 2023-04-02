@@ -153,17 +153,17 @@ public class AutoOptions {
 
   public SequentialCommandGroup PlaceAndbalance(String object) {
     return new SequentialCommandGroup(
-        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3CubeAutoArmMove()),
-        new WaitCommand(2),
-        new ForwardCommand(drive, Units.feetToMeters(4.5)),
-        new AutoLevelingCommand(drive));
+        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3ConeAutoArmMove()));
+       // new WaitCommand(1),
+     //   new ForwardCommand(drive, Units.feetToMeters(5.5)),
+     //   new AutoLevelingCommand(drive));
   }
 
   public SequentialCommandGroup PlaceAndRunBack(String object) {
     return new SequentialCommandGroup(
-        (object.equalsIgnoreCase("cone") ? L3ConeAutoArmMove() : L3CubeAutoArmMove()),
+        (object.equalsIgnoreCase("cone") ? L1AutoArmMove() : L1AutoArmMove()),
         new WaitCommand(2),
-        new ForwardCommand(drive, Units.feetToMeters(4.5)));
+        new ForwardCommand(drive, Units.feetToMeters(5)));
   }
 
   public SequentialCommandGroup L3CubeAutoArmMove() {
@@ -288,18 +288,18 @@ public class AutoOptions {
 
   public SequentialCommandGroup GroundPickUp() {
     return new SequentialCommandGroup(
-        new StartEndCommand(arm::retract, arm::stop, arm).withTimeout(0.2),
+        new StartEndCommand(arm::retract, arm::stop, arm).alongWith(
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(Constants.LGROUND));
               pivot.enable();
             },
-            pivot));
+            pivot)));
   }
 
   public SequentialCommandGroup GroundDropOff() {
     return new SequentialCommandGroup(
-        new StartEndCommand(arm::extend, arm::stop, arm).withTimeout(0.2),
+        new StartEndCommand(arm::extend, arm::stop, arm),
         new InstantCommand(
             () -> {
               pivot.setGoal(Units.degreesToRadians(Constants.ARM_OFF_SET_RADS));
